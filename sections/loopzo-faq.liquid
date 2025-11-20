@@ -1,0 +1,413 @@
+<!-- FAQ Section -->
+<section class="faq_section bg-slate-50 py-12 sm:py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4">Veelgestelde vragen</h2>
+            <p class="text-slate-600 text-base sm:text-lg">Frequently asked questions</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap gap-3 mb-8 sm:mb-12 justify-center" role="tablist" aria-label="FAQ categorieën">
+            <button onclick="filterFAQ('all')" class="faq-tab active px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300" data-category="all" role="tab" aria-selected="true" aria-label="Toon alle veelgestelde vragen">
+                Alles Tonen
+            </button>
+            <button onclick="filterFAQ('algemeen')" class="faq-tab px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300" data-category="algemeen" role="tab" aria-selected="false" aria-label="Filter algemene informatie en proefrit vragen">
+                Algemene informatie & proefrit
+            </button>
+            <button onclick="filterFAQ('prijs')" class="faq-tab px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300" data-category="prijs" role="tab" aria-selected="false" aria-label="Filter prijs en levering vragen">
+                Prijs & levering
+            </button>
+            <button onclick="filterFAQ('garantie')" class="faq-tab px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300" data-category="garantie" role="tab" aria-selected="false" aria-label="Filter garantie, service en onderhoud vragen">
+                Garantie, service & onderhoud
+            </button>
+            <button onclick="filterFAQ('technisch')" class="faq-tab px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300" data-category="technisch" role="tab" aria-selected="false" aria-label="Filter technische vragen">
+                Technische vragen
+            </button>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="space-y-4">
+
+            <!-- FAQ Item 1 -->
+            <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="algemeen">
+                <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-1">
+                    <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">Wanneer kan een driewielfiets voor mij de oplossing zijn?</span>
+                    <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <div id="faq-answer-1" class="faq-answer transition-all duration-300" style="max-height: 500px;" role="region">
+                    <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
+                        <p>Een driewielfiets is ideaal voor mensen die moeite hebben met balanceren op een gewone fiets. Dit kan bijvoorbeeld door ouderdom, een lichamelijke beperking, of revalidatie. De driewielfiets biedt meer stabiliteit en veiligheid, waardoor u weer zorgeloos kunt fietsen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="algemeen">
+                <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-2">
+                    <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">Hoe kies ik de juiste fiets voor mijzelf?</span>
+                    <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <div id="faq-answer-2" class="faq-answer max-h-0 overflow-hidden transition-all duration-300" role="region">
+                    <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
+                        <p>Wij adviseren altijd om een gratis proefrit te plannen. Tijdens deze proefrit kunt u verschillende modellen uitproberen en krijgt u persoonlijk advies van onze experts. Zo vinden we samen de fiets die het beste bij uw wensen en behoeften past.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="algemeen">
+                <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-3">
+                    <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">Kan ik een proefrit maken op een Loopzo fiets?</span>
+                    <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <div id="faq-answer-3" class="faq-answer max-h-0 overflow-hidden transition-all duration-300" role="region">
+                    <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
+                        <p>Ja, zeker! Wij bieden gratis proefritten aan. U kunt contact met ons opnemen om een afspraak te maken voor een proefrit bij u in de buurt. Dit geeft u de mogelijkheid om de fiets uitgebreid te testen voordat u een beslissing neemt.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="prijs">
+                <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-4">
+                    <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">Wat zijn de kosten van een aangepaste fiets?</span>
+                    <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <div id="faq-answer-4" class="faq-answer max-h-0 overflow-hidden transition-all duration-300" role="region">
+                    <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
+                        <p>De prijs varieert afhankelijk van het model en de aanpassingen die u wenst. Onze fietsen starten vanaf €1.599. Neem contact met ons op voor een op maat gemaakt prijsvoorstel en informatie over eventuele vergoedingsmogelijkheden.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="garantie">
+                <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-5">
+                    <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">Welke garantie krijg ik op mijn fiets?</span>
+                    <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <div id="faq-answer-5" class="faq-answer max-h-0 overflow-hidden transition-all duration-300" role="region">
+                    <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
+                        <p>Alle Loopzo fietsen worden geleverd met een uitgebreide 10 jaar garantie op het frame. Voor overige onderdelen geldt de standaard fabrieksgarantie. Wij staan voor de kwaliteit van onze producten.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="technisch">
+                <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-6">
+                    <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">Kan ik elektrische ondersteuning toevoegen?</span>
+                    <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <div id="faq-answer-6" class="faq-answer max-h-0 overflow-hidden transition-all duration-300" role="region">
+                    <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
+                        <p>Ja, vrijwel alle onze fietsen kunnen worden uitgerust met elektrische ondersteuning. Dit maakt fietsen nog makkelijker en vergroot uw actieradius. Tijdens een proefrit kunt u het verschil ervaren tussen een fiets met en zonder elektrische ondersteuning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<style>
+/* Default inactive button styles */
+.faq-tab {
+    background-color: #ffffff !important;
+    color: #334155 !important;
+    border: 2px solid #cbd5e1 !important;
+}
+
+/* Active button - override inline styles on hover */
+.faq-tab.active {
+    background-color: #334155 !important;
+    color: #ffffff !important;
+    border: 2px solid #334155 !important;
+}
+
+.faq-tab.active:hover {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 2px solid #1e293b !important;
+}
+
+/* Inactive button hover styles */
+.faq-tab:not(.active):hover {
+    background-color: #f8fafc !important;
+    border-color: #334155 !important;
+    color: #334155 !important;
+}
+
+/* Open FAQ item styling - override the hover:bg-slate-50 */
+.faq-item.open .faq-question {
+    background-color: #f8fafc !important;
+}
+
+/* Keep the background when hovering over an open FAQ */
+.faq-item.open .faq-question:hover {
+    background-color: #f8fafc !important;
+}
+</style>
+
+<script>
+// FAQ Filter & Toggle Functions - Updated 2025-01-20
+console.log('FAQ script loaded at:', new Date().toISOString());
+
+// Simple, direct filterFAQ function for testing
+function filterFAQ(category) {
+    console.log('=== START filterFAQ ===');
+    console.log('Category parameter:', category);
+    console.log('Category type:', typeof category);
+    console.log('Category length:', category ? category.length : 'null');
+
+    // Check if window object has what we need
+    console.log('Document exists:', !!document);
+    console.log('querySelectorAll exists:', !!document.querySelectorAll);
+
+    // Get all FAQ items
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqTabs = document.querySelectorAll('.faq-tab');
+
+    console.log('=== DOM QUERY RESULTS ===');
+    console.log('Found FAQ items:', faqItems.length);
+    console.log('Found FAQ tabs:', faqTabs.length);
+
+    // Log each FAQ item details
+    console.log('=== FAQ ITEMS ANALYSIS ===');
+    faqItems.forEach((item, index) => {
+        const itemCategory = item.getAttribute('data-category');
+        console.log(`Item ${index + 1}: category="${itemCategory}", display="${item.style.display}", classes="${item.className}"`);
+    });
+
+    // Log each tab details
+    console.log('=== FAQ TABS ANALYSIS ===');
+    faqTabs.forEach((tab, index) => {
+        const tabCategory = tab.getAttribute('data-category');
+        console.log(`Tab ${index + 1}: category="${tabCategory}", onclick="${tab.getAttribute('onclick')}", classes="${tab.className}"`);
+    });
+
+    console.log('=== STARTING FILTER PROCESS ===');
+    let visibleCount = 0;
+
+    // Update tab styling
+    console.log('Updating tab styling...');
+
+    // First, remove active class from ALL tabs
+    faqTabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
+        console.log('Removed active from:', tab.textContent.trim(), '| Classes now:', tab.className);
+    });
+
+    // Then, add active class to the matching tab
+    faqTabs.forEach((tab, index) => {
+        const tabCategory = tab.getAttribute('data-category');
+        console.log(`Processing tab ${index + 1}: category="${tabCategory}" vs "${category}"`);
+
+        if (tabCategory === category) {
+            console.log(`→ Making tab ${index + 1} ACTIVE`);
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+            console.log('Added active to:', tab.textContent.trim(), '| Classes now:', tab.className);
+        }
+    });
+
+    // Filter items
+    console.log('Starting item filtering...');
+    faqItems.forEach((item, index) => {
+        const itemCategory = item.getAttribute('data-category');
+        const shouldShow = category === 'all' || itemCategory === category;
+
+        console.log(`Processing item ${index + 1}: category="${itemCategory}" → shouldShow=${shouldShow}`);
+
+        if (shouldShow) {
+            item.style.display = 'block';
+            visibleCount++;
+            console.log(`✅ SHOWING item ${index + 1}: ${itemCategory}`);
+        } else {
+            item.style.display = 'none';
+            console.log(`❌ HIDING item ${index + 1}: ${itemCategory}`);
+        }
+    });
+
+    console.log('=== FILTERING COMPLETE ===');
+    console.log('Total visible items:', visibleCount);
+    console.log('=== END filterFAQ ===');
+}
+
+// Simple toggleFAQ function for testing
+function toggleFAQ(button) {
+    console.log('Direct toggleFAQ called');
+
+    const faqItem = button.closest('.faq-item');
+    const answer = faqItem.querySelector('.faq-answer');
+    const icon = button.querySelector('.faq-icon');
+
+    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+
+    // Close all other items and remove open class
+    const allItems = document.querySelectorAll('.faq-item');
+    const allAnswers = document.querySelectorAll('.faq-answer');
+    const allIcons = document.querySelectorAll('.faq-icon');
+    const allButtons = document.querySelectorAll('.faq-question');
+
+    allItems.forEach(item => {
+        item.classList.remove('open');
+    });
+
+    allAnswers.forEach(otherAnswer => {
+        otherAnswer.style.maxHeight = '0px';
+        otherAnswer.style.overflow = 'hidden';
+    });
+
+    allIcons.forEach(otherIcon => {
+        otherIcon.style.transform = 'rotate(0deg)';
+    });
+
+    allButtons.forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
+    });
+
+    // Toggle current item
+    if (!isOpen) {
+        faqItem.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 50 + 'px';
+        answer.style.overflow = 'visible';
+        icon.style.transform = 'rotate(45deg)';
+        button.setAttribute('aria-expanded', 'true');
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('FAQ section DOM loaded');
+
+    // Open first FAQ by default
+    const firstItem = document.querySelector('.faq-item');
+    const firstButton = document.querySelector('.faq-item .faq-question');
+    const firstFAQ = document.querySelector('.faq-item .faq-answer');
+    const firstIcon = document.querySelector('.faq-item .faq-icon');
+    if (firstItem && firstButton && firstFAQ && firstIcon) {
+        setTimeout(() => {
+            firstItem.classList.add('open');
+            firstButton.setAttribute('aria-expanded', 'true');
+            firstFAQ.style.maxHeight = firstFAQ.scrollHeight + 50 + 'px';
+            firstFAQ.style.overflow = 'visible';
+            firstIcon.style.transform = 'rotate(45deg)';
+        }, 100);
+    }
+});
+
+// Make functions globally available
+window.filterFAQ = filterFAQ;
+window.toggleFAQ = toggleFAQ;
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "FAQ Section Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section displays frequently asked questions with category filtering. Currently showing static content - can be made dynamic later."
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Veelgestelde vragen"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Frequently asked questions"
+    },
+    {
+      "type": "header",
+      "content": "Filter Tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_all_text",
+      "label": "All Tab Text",
+      "default": "Alles Tonen"
+    },
+    {
+      "type": "text",
+      "id": "tab_general_text",
+      "label": "General Tab Text",
+      "default": "Algemene informatie & proefrit"
+    },
+    {
+      "type": "text",
+      "id": "tab_price_text",
+      "label": "Price Tab Text",
+      "default": "Prijs & levering"
+    },
+    {
+      "type": "text",
+      "id": "tab_warranty_text",
+      "label": "Warranty Tab Text",
+      "default": "Garantie, service & onderhoud"
+    },
+    {
+      "type": "text",
+      "id": "tab_technical_text",
+      "label": "Technical Tab Text",
+      "default": "Technische vragen"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}

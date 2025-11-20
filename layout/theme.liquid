@@ -1,0 +1,340 @@
+<!doctype html>
+<html class="js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <!-- Essential Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#334155">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <!-- Favicon -->
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <!-- 🚀 Enhanced Preconnect for Performance -->
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      <link rel="dns-prefetch" href="https://fonts.shopifycdn.com">
+    {%- endunless -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+
+    <!-- 🎯 Critical Resource Preloading -->
+    <link rel="preload" href="{{ 'theme-optimized.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'accessibility.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'output.css' | asset_url }}" as="style">
+    {%- if settings.favicon != blank -%}
+      <link rel="preload" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" as="image" type="image/png">
+    {%- endif -%}
+
+    <!-- Page Title -->
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    <!-- Meta Description -->
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- 📊 Enhanced Meta Tags (SEO, Social) -->
+    {% render 'meta-tags' %}
+    {% render 'seo-boost' %}
+
+    <!-- 🔍 Additional SEO Meta Tags -->
+    {%- if template == 'product' -%}
+      <meta property="og:type" content="product">
+      <meta property="og:price:amount" content="{{ product.price | money_without_currency }}">
+      <meta property="og:price:currency" content="{{ shop.currency }}">
+      {%- if product.compare_at_price > product.price -%}
+        <meta property="og:price:standard_amount" content="{{ product.compare_at_price | money_without_currency }}">
+      {%- endif -%}
+    {%- elsif template == 'index' -%}
+      <meta property="og:type" content="website">
+    {%- endif -%}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ shop.name | remove: ' ' | downcase }}">
+
+    <!-- Shopify Content for Header (Critical - Required by Shopify) -->
+    {{ content_for_header }}
+
+    <!-- Tailwind CSS + Custom Styles -->
+    {{ 'output.css' | asset_url | stylesheet_tag }}
+
+    <!-- Custom CSS Variables and Animations -->
+    {% style %}
+      :root {
+        /* Primary Brand Colors */
+        --color-primary: #334155;
+        --color-primary-dark: #1e293b;
+        --color-primary-light: #475569;
+
+        /* Accent Colors */
+        --color-accent: #16a34a;
+        --color-sale: #dc2626;
+
+        /* Background Colors */
+        --color-bg-light: #f8fafc;
+        --color-bg-white: #ffffff;
+        --color-bg-dark: #0f172a;
+
+        /* Text Colors */
+        --color-text-primary: #1e293b;
+        --color-text-secondary: #64748b;
+        --color-text-light: #94a3b8;
+        --color-text-white: #ffffff;
+
+        /* Border Colors */
+        --color-border-light: #e2e8f0;
+        --color-border-medium: #cbd5e1;
+
+        /* Overlay */
+        --color-overlay: rgba(0, 0, 0, 0.5);
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes softPulse {
+        0%, 100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.9;
+        }
+      }
+
+      @keyframes gentleBounce {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      /* Apply fade in animation to sections */
+      section {
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Focus states for accessibility */
+      *:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+      }
+    {% endstyle %}
+
+    <!-- 🚀 Performance Scripts (Preloaded above) -->
+    <script src="{{ 'theme-optimized.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'accessibility.js' | asset_url }}" defer="defer"></script>
+
+    <!-- Shopify Scripts -->
+    <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+
+    <!-- Loopzo Custom JavaScript -->
+    <script src="{{ 'main.js' | asset_url }}" defer></script>
+
+    {%- if settings.predictive_search_enabled -%}
+      <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- unless settings.type_body_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    <!-- 📊 Web Vitals Monitoring & Performance -->
+    <script>
+      // Design Mode Detection
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+
+      // Core Web Vitals monitoring
+      function sendToAnalytics(metric) {
+        console.log('Web Vital:', metric.name, metric.value, metric.id);
+
+        // Optional: Send to Google Analytics 4
+        if (typeof gtag !== 'undefined') {
+          gtag('event', metric.name, {
+            'event_category': 'Web Vitals',
+            'event_label': metric.id,
+            'value': Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+            'non_interaction': true,
+          });
+        }
+      }
+
+      // Load Web Vitals library when browser is idle
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          import('https://unpkg.com/web-vitals').then(({getCLS, getFID, getFCP, getLCP, getTTFB}) => {
+            getCLS(sendToAnalytics);
+            getFID(sendToAnalytics);
+            getFCP(sendToAnalytics);
+            getLCP(sendToAnalytics);
+            getTTFB(sendToAnalytics);
+          }).catch(() => {
+            console.log('Web Vitals library loaded locally in development');
+          });
+        });
+      }
+    </script>
+  </head>
+
+  <body class="antialiased">
+    <!-- ♿ Enhanced Accessibility Features -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white z-[9999] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" style="display: none;">
+      <div class="animate-pulse text-slate-700">Loading...</div>
+    </div>
+
+    <!-- Cart Drawer (if enabled) -->
+    {%- if settings.cart_type == 'drawer' -%}
+      {%- render 'cart-drawer' -%}
+    {%- endif -%}
+
+    <!-- Header Section Group -->
+    {% sections 'header-group' %}
+
+    <!-- Main Content Area -->
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Footer Section Group -->
+    {% sections 'footer-group' %}
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/31315257370?text=Hallo%2C%20ik%20wil%20graag%20een%20gratis%20proefrit%20plannen%20met%20een%20Loopzo%20adaptive%20fiets.%20Kunnen%20we%20een%20afspraak%20inplannen%3F"
+       target="_blank"
+       rel="noopener noreferrer"
+       id="whatsapp-button"
+       class="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 flex items-center gap-3 px-6 py-4 group"
+       style="animation: softPulse 2s ease-in-out infinite;"
+       aria-label="Contact via WhatsApp">
+      <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      <span class="font-semibold text-sm hidden md:block">WhatsApp Contact</span>
+    </a>
+
+    <!-- ♿ Enhanced Accessibility Strings (Hidden) -->
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+      <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>
+    </ul>
+
+    <!-- 🔔 Screen Reader Announcements -->
+    <div id="a11y-announcements" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- 📊 Performance & Error Monitoring -->
+    <script>
+      // Error monitoring
+      window.addEventListener('error', function(e) {
+        console.error('Theme Error:', e.error);
+        // Optional: Send to error tracking service
+      });
+
+      // Performance monitoring for page load
+      window.addEventListener('load', function() {
+        if ('performance' in window) {
+          const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+          console.log('Page load time:', loadTime + 'ms');
+
+          // Hide loading overlay if page is fully loaded
+          const loadingOverlay = document.getElementById('loading-overlay');
+          if (loadingOverlay) {
+            loadingOverlay.style.opacity = '0';
+            loadingOverlay.style.display = 'none';
+          }
+        }
+      });
+
+      // Screen reader announcement function
+      function announceToScreenReader(message) {
+        const announcements = document.getElementById('a11y-announcements');
+        if (announcements) {
+          announcements.textContent = message;
+          setTimeout(() => {
+            announcements.textContent = '';
+          }, 1000);
+        }
+      }
+    </script>
+
+    <!-- Shopify Global JavaScript Variables -->
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
+      };
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+        unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+      };
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+      };
+    </script>
+
+    <!-- Cart Drawer Script (if enabled) -->
+    {%- if settings.cart_type == 'drawer' -%}
+      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </body>
+</html>

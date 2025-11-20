@@ -1,0 +1,118 @@
+# ============================================
+# HTML FOLDER (Static site development)
+# ============================================
+html/
+
+# ============================================
+# HTML FOLDER (Static site development)
+# ============================================
+ins/
+
+
+# ============================================
+# SHOPIFY THEME FOLDERS
+# ============================================
+dawn-theme/
+
+# ============================================
+# CLAUDE AI RELATED FILES
+# ============================================
+CLAUDE.md
+.claude/
+*.claude
+.claude_history
+
+# ============================================
+# DEPENDENCIES
+# ============================================
+node_modules/
+package-lock.json
+
+# ============================================
+# BUILD OUTPUT
+# ============================================
+dist/
+build/
+
+# ============================================
+# MACOS
+# ============================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ============================================
+# WINDOWS
+# ============================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# ============================================
+# IDE & EDITORS
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ============================================
+# LOGS
+# ============================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+*.log
+
+# ============================================
+# TEMPORARY & CACHE FILES
+# ============================================
+.cache
+.temp
+tmp/
+temp/
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ============================================
+# SHOPIFY CLI
+# ============================================
+.shopify/
+
+# ============================================
+# BACKUP FILES
+# ============================================
+*.bak
+*.backup
+*.old
+*~.nib

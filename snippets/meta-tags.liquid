@@ -1,0 +1,15 @@
+{%- comment -%}
+  Minimal meta tags snippet for Shopify theme
+{%- endcomment -%}
+
+{%- if template.name == 'index' -%}
+  <title>{{ shop.name }} | {{ page_title }}</title>
+{%- elsif template.name == '404' -%}
+  <title>{{ 'general.404.title' | t }} | {{ shop.name }}</title>
+{%- else -%}
+  <title>{{ page_title }} | {{ shop.name }}</title>
+{%- endif -%}
+
+{%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+{%- endif -%}

@@ -1,0 +1,169 @@
+<!-- Hero Banner Section -->
+<section class="hero relative bg-gray-100" aria-label="Hero section">
+
+  <!-- Background Image -->
+  <div class="h-[60vh] sm:h-[65vh] md:h-[70vh] overflow-hidden bg-gray-200">
+    {%- if section.settings.hero_image != blank -%}
+      <img
+        src="{{ section.settings.hero_image | image_url: width: 1920 }}"
+        srcset="{{ section.settings.hero_image | image_url: width: 768 }} 768w,
+                {{ section.settings.hero_image | image_url: width: 1024 }} 1024w,
+                {{ section.settings.hero_image | image_url: width: 1920 }} 1920w"
+        sizes="100vw"
+        alt="{{ section.settings.hero_image.alt | escape | default: section.settings.heading }}"
+        class="w-full h-full object-cover object-center"
+        loading="eager"
+        width="1920"
+        height="1080">
+    {%- else -%}
+      <div class="w-full h-full bg-slate-200 flex items-center justify-center">
+        <span class="text-slate-400 text-lg">{{ 'sections.hero.no_image' | t | default: 'Upload a hero image' }}</span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <!-- Overlay Card -->
+  <div class="md:absolute md:inset-0 md:flex md:items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+
+      <div class="relative bg-slate-800 text-white rounded-2xl p-6 sm:p-8 md:p-10 max-w-lg mx-auto md:mx-0 md:ml-auto
+      -mt-20 sm:-mt-24 md:mt-0 shadow-2xl">
+
+        <!-- Brand Name / Eyebrow -->
+        {%- if section.settings.eyebrow_text != blank -%}
+          <span class="block text-xs sm:text-sm font-semibold text-gray-300" aria-label="Brand name">
+            {{ section.settings.eyebrow_text }}
+          </span>
+        {%- endif -%}
+
+        <!-- Heading -->
+        {%- if section.settings.heading != blank -%}
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
+            {{ section.settings.heading }}
+          </h1>
+        {%- endif -%}
+
+        <!-- Subheading / Description -->
+        {%- if section.settings.subheading != blank -%}
+          <p class="text-sm sm:text-base text-gray-200 mt-3 sm:mt-4">
+            {{ section.settings.subheading }}
+          </p>
+        {%- endif -%}
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
+
+          <!-- Primary Button -->
+          {%- if section.settings.button_primary_text != blank -%}
+            <a
+              href="{{ section.settings.button_primary_link | default: '#' }}"
+              class="bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
+                flex items-center justify-center gap-2 transition hover:bg-slate-700 text-sm sm:text-base">
+              <span>{{ section.settings.button_primary_text }}</span>
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          {%- endif -%}
+
+          <!-- Secondary Button -->
+          {%- if section.settings.button_secondary_text != blank -%}
+            <a
+              href="{{ section.settings.button_secondary_link | default: '#' }}"
+              class="bg-white text-slate-800 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
+                flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:bg-gray-100 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base">
+              <span>{{ section.settings.button_secondary_text }}</span>
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          {%- endif -%}
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-banner-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "Recommended size: 1920x1080px for best quality"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Text",
+      "default": "loopzo",
+      "info": "Small text above the heading (e.g., brand name)"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Let's all cycle",
+      "info": "Main headline text"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Move, enjoy the outdoors, et discover how every ride brings a smile.",
+      "info": "Description text below the heading"
+    },
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_primary_text",
+      "label": "Primary Button Text",
+      "default": "Bike selector"
+    },
+    {
+      "type": "url",
+      "id": "button_primary_link",
+      "label": "Primary Button Link",
+      "info": "Leave empty to hide the button"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_secondary_text",
+      "label": "Secondary Button Text",
+      "default": "All bikes"
+    },
+    {
+      "type": "url",
+      "id": "button_secondary_link",
+      "label": "Secondary Button Link",
+      "info": "Leave empty to hide the button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "settings": {
+        "eyebrow_text": "loopzo",
+        "heading": "Let's all cycle",
+        "subheading": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Move, enjoy the outdoors, et discover how every ride brings a smile.",
+        "button_primary_text": "Bike selector",
+        "button_secondary_text": "All bikes"
+      }
+    }
+  ]
+}
+{% endschema %}

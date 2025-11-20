@@ -1,0 +1,118 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Loopzo",
+    "theme_author": "Giopio",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://giopio.com",
+    "theme_support_url": "https://giopio.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Global Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#0F172A"
+      },
+      {
+        "type": "color",
+        "id": "color_button_bg",
+        "label": "Primary Button Background",
+        "default": "#334155"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Primary Button Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_outline_button",
+        "label": "Outline Button Border",
+        "default": "#334155"
+      },
+      {
+        "type": "color",
+        "id": "color_shadow",
+        "label": "Shadow",
+        "default": "#1E293B"
+      },
+      {
+        "type": "header",
+        "content": "Accent / Footer Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_bg",
+        "label": "Accent Background",
+        "default": "#334155"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_text",
+        "label": "Accent Text",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Heading font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body font",
+        "default": "sans-serif"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "X (Twitter)"
+      }
+    ]
+  }
+]

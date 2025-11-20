@@ -1,0 +1,659 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-form.css' | asset_url | stylesheet_tag }}
+
+{%- unless product.has_only_default_variant -%}
+  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+{%- endunless -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+<div class="product_info_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm mb-6 sm:mb-8" aria-label="Breadcrumb">
+      <a href="/" class="text-gray-600 hover:text-gray-900 transition">Home</a>
+      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+      <a href="/collections/all" class="text-gray-600 hover:text-gray-900 transition">Producten</a>
+      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+      <span class="text-gray-900 font-medium">{{ product.title | escape }}</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
+
+      <!-- Left: Product Images -->
+      <div class="relative order-1 lg:order-1 w-full">
+
+        <!-- Sale Badge -->
+        {%- if product.compare_at_price > product.price -%}
+          {%- assign discount_percentage = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+          <div class="absolute top-4 left-4 z-20 bg-red-500 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
+            Save {{ discount_percentage }}%
+          </div>
+        {%- endif -%}
+
+        <!-- Main Image Gallery -->
+        <div class="group relative w-full aspect-[4/5] sm:aspect-square overflow-hidden rounded-xl bg-gray-100 mb-4 border-2 border-gray-200">
+          {%- if product.featured_media -%}
+            {%- for media in product.media limit: 1 -%}
+              <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: 1;">
+                {% render 'product-media', media: media, class: 'w-full h-full object-contain' %}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity: 1;">
+              {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-contain placeholder' }}
+            </div>
+          {%- endif -%}
+
+          <!-- Navigation Arrows for multiple images -->
+          {%- if product.media.size > 1 -%}
+            <button onclick="changeSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="Previous">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <button onclick="changeSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="Next">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          {%- endif -%}
+        </div>
+
+        <!-- Thumbnail Images -->
+        {%- if product.media.size > 1 -%}
+          <div class="grid grid-cols-4 gap-2 sm:gap-3">
+            {%- for media in product.media limit: 4 -%}
+              <button onclick="showSlide({{ forloop.index }})" class="h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent hover:border-slate-600{% endif %} transition">
+                {% render 'product-media', media: media, class: 'w-full h-full object-cover' %}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <!-- Trust Badges -->
+        <div class="mt-6 grid grid-cols-3 gap-4">
+          <div class="flex flex-col items-center text-center p-3 bg-slate-50 rounded-lg">
+            <svg class="w-8 h-8 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+            <span class="text-xs font-semibold text-slate-700">10 jaar garantie</span>
+          </div>
+          <div class="flex flex-col items-center text-center p-3 bg-slate-50 rounded-lg">
+            <svg class="w-8 h-8 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-xs font-semibold text-slate-700">Gratis verzending</span>
+          </div>
+          <div class="flex flex-col items-center text-center p-3 bg-slate-50 rounded-lg">
+            <svg class="w-8 h-8 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span class="text-xs font-semibold text-slate-700">30 dagen retour</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Product Info -->
+      <div class="flex flex-col order-2 lg:order-2">
+        {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+        <!-- Product Title -->
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+          {{ product.title | escape }}
+        </h1>
+
+        <!-- Rating & Reviews -->
+        <div class="flex items-center gap-3 mt-3">
+          <div class="flex items-center">
+            <!-- Placeholder star rating - integrate with actual reviews app -->
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+            </svg>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-opacity=".3" d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+            </svg>
+          </div>
+          <span class="text-sm text-gray-600 font-medium">4.8</span>
+          <span class="text-sm text-gray-500">(247 reviews)</span>
+        </div>
+
+        <!-- Price -->
+        <div class="flex items-baseline gap-3 mt-4" id="price-{{ section.id }}" role="status">
+          {%- render 'price',
+            product: product,
+            use_variant: true,
+            show_badges: true,
+            price_class: 'text-3xl sm:text-4xl font-bold text-slate-800'
+          -%}
+        </div>
+
+        <!-- Stock Status -->
+        {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+          <div class="flex items-center gap-2 mt-3">
+            {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span class="text-sm text-green-700 font-medium">
+                {%- if product.selected_or_first_available_variant.inventory_quantity <= 10 -%}
+                  Only {{ product.selected_or_first_available_variant.inventory_quantity }} left - Order soon!
+                {%- else -%}
+                  In Stock - Ready to Ship
+                {%- endif -%}
+              </span>
+            {%- else -%}
+              <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span class="text-sm text-red-700 font-medium">Out of Stock</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        <!-- Description -->
+        {%- if product.description != blank -%}
+          <div class="product__description rte text-sm sm:text-base text-gray-700 mt-5 leading-relaxed">
+            {{ product.description | truncatewords: 50 }}
+          </div>
+        {%- endif -%}
+
+        <!-- Key Features -->
+        {%- if section.settings.show_features -%}
+        <div class="mt-5 space-y-2">
+          {%- if section.settings.feature_1 != blank -%}
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-gray-700">{{ section.settings.feature_1 }}</span>
+          </div>
+          {%- endif -%}
+          {%- if section.settings.feature_2 != blank -%}
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-gray-700">{{ section.settings.feature_2 }}</span>
+          </div>
+          {%- endif -%}
+          {%- if section.settings.feature_3 != blank -%}
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-gray-700">{{ section.settings.feature_3 }}</span>
+          </div>
+          {%- endif -%}
+          {%- if section.settings.feature_4 != blank -%}
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-sm text-gray-700">{{ section.settings.feature_4 }}</span>
+          </div>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+
+        <!-- Variant Selector -->
+        {%- unless product.has_only_default_variant -%}
+          <variant-picker data-url="{{ product.url }}" data-section="{{ section.id }}" data-update-url="false">
+            {%- for option in product.options_with_values -%}
+              <div class="product-form__input product-form__input--dropdown" data-option-name="{{ option.name }}">
+                <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index }}">
+                  {{ option.name }}
+                </label>
+                <div class="select">
+                  <select
+                    id="Option-{{ section.id }}-{{ forloop.index }}"
+                    class="select__select"
+                    name="options[{{ option.name | escape }}]"
+                    form="{{ product_form_id }}"
+                  >
+                    {%- for value in option.values -%}
+                      <option
+                        value="{{ value | escape }}"
+                        {%- if option.selected_value == value -%}
+                          selected="selected"
+                        {%- endif -%}
+                      >
+                        {{ value }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                  <svg class="icon icon-caret" aria-hidden="true" focusable="false">
+                    <path d="M7.698 11.184l-3.882-3.882a.5.5 0 01.354-.848H20.5a.5.5 0 010 1H3.87a.5.5 0 01-.354-.848l3.882-3.882a.5.5 0 11.708.708L2.707 12.5l4.699 4.699a.5.5 0 01-.708.708z" fill="currentColor">
+                  </svg>
+                </div>
+              </div>
+            {%- endfor -%}
+
+            <script type="application/json">
+              {{ product.variants | json }}
+            </script>
+          </variant-picker>
+        {%- endunless -%}
+
+        <!-- Quantity Selector -->
+        <div class="product-form__input product-form__quantity" {{ block.shopify_attributes }}>
+          <label class="form__label" for="Quantity-{{ section.id }}">
+            {{ 'products.product.quantity.label' | t }}
+          </label>
+          <quantity-input class="quantity">
+            <button class="quantity__button no-js-hidden" name="minus" type="button">
+              <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+              </svg>
+            </button>
+            <input
+              class="quantity__input"
+              type="number"
+              name="quantity"
+              id="Quantity-{{ section.id }}"
+              min="1"
+              value="1"
+              form="{{ product_form_id }}"
+            >
+            <button class="quantity__button no-js-hidden" name="plus" type="button">
+              <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+          </quantity-input>
+        </div>
+
+        <!-- Product Form -->
+        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+
+          <!-- Action Buttons -->
+          <div class="product-form__buttons flex flex-col gap-3 mt-8">
+            <button
+              id="ProductSubmitButton-{{ section.id }}"
+              type="submit"
+              name="add"
+              class="product-form__submit button button--full-width {% if block.settings.show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+              {% if product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              {%- if product.selected_or_first_available_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+
+            {%- if block.settings.show_dynamic_checkout -%}
+              {{ form | payment_button }}
+            {%- endif -%}
+          </div>
+        {%- endform -%}
+
+        <!-- Buy Now Button (Shopify Checkout) -->
+        <div class="flex flex-col gap-3 mt-8">
+          <button
+            onclick="window.location.href='/checkout'"
+            class="border-2 border-slate-700 text-slate-700 font-bold py-3.5 px-8 rounded-lg hover:bg-slate-50 transition"
+          >
+            Buy Now
+          </button>
+        </div>
+
+        <!-- SKU -->
+        {%- if product.selected_or_first_available_variant.sku.size > 0 -%}
+          <p class="product__sku text-sm text-gray-600 mt-4">
+            SKU: {{ product.selected_or_first_available_variant.sku }}
+          </p>
+        {%- endif -%}
+
+        <!-- Expert Advisor Section -->
+        {%- if section.settings.show_advisor -%}
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
+            <div class="flex items-start gap-3">
+              <!-- Profile Image -->
+              <div class="relative flex-shrink-0">
+                {%- if section.settings.advisor_image != blank -%}
+                  <img
+                    src="{{ section.settings.advisor_image | img_url: '100x100' }}"
+                    alt="{{ section.settings.advisor_name | escape }}"
+                    class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <img
+                    src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Photos.png"
+                    alt="Advisor"
+                    class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+                <!-- Online Status -->
+                <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+              </div>
+
+              <!-- Advisor Info -->
+              <div class="flex-1">
+                <h3 class="text-base font-bold text-slate-900">{{ section.settings.advisor_name | default: 'Jan Koppers' }}</h3>
+                <p class="text-xs text-slate-600 font-medium mb-1">{{ section.settings.advisor_title | default: 'Senior Mobility Advisor' }}</p>
+
+                <!-- Stats -->
+                <div class="flex items-center gap-3 text-xs text-slate-600 mb-2">
+                  <div class="flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                    </svg>
+                    <span class="font-semibold">{{ section.settings.advisor_rating | default: '4.9/5' }}</span>
+                  </div>
+                  <span class="text-slate-400">|</span>
+                  <span><strong>{{ section.settings.advisor_customers | default: '500+' }}</strong> happy customers</span>
+                </div>
+
+                <p class="text-xs text-slate-700 italic">
+                  "{{ section.settings.advisor_quote | default: "I'm here to help you find the perfect bike for your needs!" }}"
+                </p>
+              </div>
+            </div>
+
+            <!-- CTA Button -->
+            {%- if section.settings.whatsapp_number != blank -%}
+              {%- assign whatsapp_message = section.settings.whatsapp_message | default: "Hi, I'm interested in the " | append: product.title | append: " and would like to discuss it with an expert." -%}
+              <a
+                href="https://wa.me/{{ section.settings.whatsapp_number | replace: '+', '' | replace: ' ', '' }}?text={{ whatsapp_message | url_encode }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
+              >
+                <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+                </svg>
+                <span>{{ section.settings.whatsapp_button_text | default: 'Chat with us on WhatsApp' }}</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.main-product.name",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "text",
+      "name": "t:sections.main-product.blocks.text.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Text block",
+          "label": "t:sections.main-product.blocks.text.settings.text.label"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "t:sections.main-product.blocks.text.settings.text_style.options__1.label"
+            },
+            {
+              "value": "subtitle",
+              "label": "t:sections.main-product.blocks.text.settings.text_style.options__2.label"
+            },
+            {
+              "value": "uppercase",
+              "label": "t:sections.main-product.blocks.text.settings.text_style.options__3.label"
+            }
+          ],
+          "default": "body",
+          "label": "t:sections.main-product.blocks.text.settings.text_style.label"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main-product.blocks.title.name",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "t:sections.main-product.blocks.price.name",
+      "limit": 1
+    },
+    {
+      "type": "quantity_selector",
+      "name": "t:sections.main-product.blocks.quantity_selector.name",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            },
+            {
+              "value": "button",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "t:sections.main-product.blocks.buy_buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.label",
+          "info": "t:sections.main-product.blocks.buy_buttons.settings.show_dynamic_checkout.info"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "share",
+      "name": "t:sections.main-product.blocks.share.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "share_label",
+          "label": "t:sections.main-product.blocks.share.settings.text.label",
+          "default": "t:sections.main-product.blocks.share.settings.text.default"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_info",
+      "default": true,
+      "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "header",
+      "content": "Product Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Show Key Features",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "Custom-made to your specifications"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Premium Dutch craftsmanship"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "Electric and manual options available"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Free test ride included"
+    },
+    {
+      "type": "header",
+      "content": "Expert Advisor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_advisor",
+      "label": "Show Expert Advisor",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "advisor_image",
+      "label": "Advisor Photo"
+    },
+    {
+      "type": "text",
+      "id": "advisor_name",
+      "label": "Advisor Name",
+      "default": "Jan Koppers"
+    },
+    {
+      "type": "text",
+      "id": "advisor_title",
+      "label": "Advisor Title",
+      "default": "Senior Mobility Advisor"
+    },
+    {
+      "type": "text",
+      "id": "advisor_rating",
+      "label": "Advisor Rating",
+      "default": "4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "advisor_customers",
+      "label": "Number of Customers",
+      "default": "500+"
+    },
+    {
+      "type": "textarea",
+      "id": "advisor_quote",
+      "label": "Advisor Quote",
+      "default": "I'm here to help you find the perfect bike for your needs!"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp Number",
+      "info": "Include country code, e.g., 31315257370",
+      "default": "31315257370"
+    },
+    {
+      "type": "textarea",
+      "id": "whatsapp_message",
+      "label": "Default WhatsApp Message",
+      "default": "Hi, I'm interested in this product and would like to discuss it with an expert."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_text",
+      "label": "WhatsApp Button Text",
+      "default": "Chat with us on WhatsApp"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

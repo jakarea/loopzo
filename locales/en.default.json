@@ -1,0 +1,10 @@
+{
+  "accessibility": {
+    "skip_to_text": "Skip to content"
+  },
+  "general": {
+    "404": {
+      "title": "Page not found"
+    }
+  }
+}

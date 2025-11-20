@@ -1,0 +1,139 @@
+<section class="thuja_ebike_section py-12 sm:py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="rounded-2xl overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+
+                <!-- Left: Content -->
+                <div class="bg-slate-700 p-8 sm:p-10 lg:p-12 flex flex-col">
+                    <span class="text-white text-xs sm:text-sm font-semibold tracking-wide mb-4 uppercase">
+                        Nieuw
+                    </span>
+
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+                        Thuja elektrische fiets
+                    </h2>
+
+                    <p class="text-white text-base sm:text-lg leading-relaxed mb-8 font-normal">
+                        Ervaar vrijheid, stabiliteit en comfort bij elke rit.
+                        De Thuja is een innovatieve en stijlvolle e-bike van vanRaam
+                        met twee voorwielen, krachtige elektrische ondersteuning en een
+                        optionele bagageunit. Blijf veilig en rijd met vertrouwen.
+                    </p>
+
+                    <div>
+                        <a href="#" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 font-semibold text-base px-6 py-3 rounded-lg transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group focus:outline-none focus:ring-4 focus:ring-white/50">
+                            <span>Ontdek de Thuja</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Image -->
+                <div class="relative h-72 sm:h-80 lg:h-auto">
+                    <img src="./assets/loopzo_logistic.png"
+                         alt="Thuja e-bike - Innovatieve driewieler met bagageunit van Loopzo"
+                         class="w-full h-full object-cover"
+                         loading="lazy"
+                         width="600"
+                         height="400">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Thuja E-Bike Section",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Thuja Section Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section displays the Thuja e-bike showcase with image and content. Currently showing static content - can be made dynamic later."
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Nieuw"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Thuja elektrische fiets"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "<p>Ervaar vrijheid, stabiliteit en comfort bij elke rit. De Thuja is een innovatieve en stijlvolle e-bike van vanRaam met twee voorwielen, krachtige elektrische ondersteuning en een optionele bagageunit. Blijf veilig en rijd met vertrouwen.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Ontdek de Thuja"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt_text",
+      "label": "Image Alt Text",
+      "default": "Thuja elektrische fiets - innovatieve driewieler e-bike van Loopzo"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Thuja E-Bike Section",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}

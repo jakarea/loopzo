@@ -1,0 +1,232 @@
+<section class="blog_section bg-white py-12 sm:py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">Up-to-date met Loopzo</h2>
+            <p class="text-gray-600 mt-2 text-base sm:text-lg">Nieuws, events & blogs</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+            <div class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                <img src="https://kovapaa.nl/cdn/shop/articles/68eb5b2f470df976912329c9caf6d318_720x.png"
+                    alt="Woman on an adaptive bike"
+                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
+
+                <span
+                    class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                    Klantervaringen
+                </span>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                    <h3 class="text-lg sm:text-xl font-bold">Ik fiets weer ontspannen. Zonder angst.</h3>
+                    <a href="#" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">Read
+                        more &rarr;</a>
+                </div>
+            </div>
+
+            <div class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                <img src="https://kovapaa.nl/cdn/shop/articles/5a78a6e0ed299b3646682863f52aa18b_1080x.jpg"
+                    alt="Couple cycling in nature"
+                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
+
+                <span
+                    class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                    Klantervaringen
+                </span>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                    <h3 class="text-lg sm:text-xl font-bold">Ze komt écht tot ontspanning op de fiets</h3>
+                    <a href="#" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">Read
+                        more &rarr;</a>
+                </div>
+            </div>
+
+            <div class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                <img src="https://kovapaa.nl/cdn/shop/articles/loopfiets_blog_1000x1000_5443403d-9b0e-49d4-8e18-f82bf5c768d3_720x.jpg"
+                    alt="Women with a wheelchair bike"
+                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
+
+                <span
+                    class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                    Klantervaringen
+                </span>
+
+                <div
+                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                    <h3 class="text-lg sm:text-xl font-bold">Diaz als tovermiddel om te ontspannen</h3>
+                    <a href="#" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">Read
+                        more &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-12 sm:mt-16 md:mt-20">
+            <a href="#" class="inline-flex items-center bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-full
+                                space-x-2.5 transition hover:bg-slate-700 text-sm sm:text-base">
+                <span>Meer nieuws</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Section",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Blog Section Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "This section displays news, events & blog posts. Currently showing static content - can be made dynamic later."
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Up-to-date met Loopzo"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Nieuws, events & blogs"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Meer nieuws"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Blog Post 1"
+    },
+    {
+      "type": "text",
+      "id": "post_1_title",
+      "label": "Post 1 Title",
+      "default": "Ik fiets weer ontspannen. Zonder angst."
+    },
+    {
+      "type": "text",
+      "id": "post_1_category",
+      "label": "Post 1 Category",
+      "default": "Klantervaringen"
+    },
+    {
+      "type": "image_picker",
+      "id": "post_1_image",
+      "label": "Post 1 Image"
+    },
+    {
+      "type": "text",
+      "id": "post_1_alt_text",
+      "label": "Post 1 Alt Text",
+      "default": "Woman on an adaptive bike"
+    },
+    {
+      "type": "header",
+      "content": "Blog Post 2"
+    },
+    {
+      "type": "text",
+      "id": "post_2_title",
+      "label": "Post 2 Title",
+      "default": "Ze komt écht tot ontspanning op de fiets"
+    },
+    {
+      "type": "text",
+      "id": "post_2_category",
+      "label": "Post 2 Category",
+      "default": "Klantervaringen"
+    },
+    {
+      "type": "image_picker",
+      "id": "post_2_image",
+      "label": "Post 2 Image"
+    },
+    {
+      "type": "text",
+      "id": "post_2_alt_text",
+      "label": "Post 2 Alt Text",
+      "default": "Couple cycling in nature"
+    },
+    {
+      "type": "header",
+      "content": "Blog Post 3"
+    },
+    {
+      "type": "text",
+      "id": "post_3_title",
+      "label": "Post 3 Title",
+      "default": "Diaz als tovermiddel om te ontspannen"
+    },
+    {
+      "type": "text",
+      "id": "post_3_category",
+      "label": "Post 3 Category",
+      "default": "Klantervaringen"
+    },
+    {
+      "type": "image_picker",
+      "id": "post_3_image",
+      "label": "Post 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "post_3_alt_text",
+      "label": "Post 3 Alt Text",
+      "default": "Women with a wheelchair bike"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Section",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}

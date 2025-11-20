@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "loopzo-header": {
+        "type": "loopzo-header",
+        "settings": {
+          "logo_text": "Loopzo"
+        }
+      },
+      "loopzo-hero": {
+        "type": "loopzo-hero",
+        "settings": {
+          "brand_name": "loopzo",
+          "heading": "Let's all cycle",
+          "subtext": "<p>Experience the freedom of adaptive cycling with our premium custom-made bicycles.</p>",
+          "button_1_text": "Bike selector",
+          "button_2_text": "All bikes"
+        }
+      },
+      "loopzo-footer": {
+        "type": "loopzo-footer",
+        "settings": {}
+      }
+    },
+    "order": [
+      "loopzo-header",
+      "loopzo-hero",
+      "loopzo-footer"
+    ]
+  }
+}

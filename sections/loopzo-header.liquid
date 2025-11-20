@@ -1,0 +1,246 @@
+<header>
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'announcement_bar' -%}
+                <div class="announcement_bar bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 hidden md:block" {{ block.shopify_attributes }}>
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex justify-between items-center py-3">
+
+                            <!-- Benefits List -->
+                            <div class="flex items-center gap-6 lg:gap-8">
+                                <!-- Free Test Ride -->
+                                <div class="flex items-center gap-2 group">
+                                    <div class="bg-slate-700 rounded-lg p-1.5 group-hover:bg-slate-600 transition-colors">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-700 font-medium text-sm">{{ block.settings.benefit_1_text }}</span>
+                                </div>
+
+                                <!-- Fast Delivery -->
+                                <div class="flex items-center gap-2 group">
+                                    <div class="bg-slate-700 rounded-lg p-1.5 group-hover:bg-slate-600 transition-colors">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-700 font-medium text-sm">{{ block.settings.benefit_2_text }}</span>
+                                </div>
+
+                                <!-- 10 Year Warranty -->
+                                <div class="flex items-center gap-2 group">
+                                    <div class="bg-slate-700 rounded-lg p-1.5 group-hover:bg-slate-600 transition-colors">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-700 font-medium text-sm">{{ block.settings.benefit_3_text }}</span>
+                                </div>
+
+                                <!-- Custom Build -->
+                                <div class="flex items-center gap-2 group">
+                                    <div class="bg-slate-700 rounded-lg p-1.5 group-hover:bg-slate-600 transition-colors">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                        </svg>
+                                    </div>
+                                    <span class="text-slate-700 font-medium text-sm">{{ block.settings.benefit_4_text }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Contact Button -->
+                            <a href="{{ block.settings.contact_link }}" class="group bg-slate-700 hover:bg-slate-800 text-white font-semibold py-2 px-6 rounded-lg flex items-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-sm">{{ block.settings.contact_text }}</span>
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {%- when 'main_navigation' -%}
+                <nav class="main_navigation bg-slate-800" aria-label="Main Navigation" {{ block.shopify_attributes }}>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-20">
+
+                        <div class="flex-shrink-0">
+                            <a href="/" class="flex items-center">
+                                <img class="h-10 w-auto" src="{{ 'loopzo_light_logo.png' | asset_url }}" alt="Loopzo Logo">
+                            </a>
+                        </div>
+
+                        <div class="hidden md:flex md:items-center md:space-x-8">
+                            <a href="/" class="text-white font-bold text-sm hover:text-slate-200 transition">Home</a>
+
+                            <!-- Our bikes Dropdown -->
+                            <div class="relative group">
+                                <button class="text-white font-bold text-sm hover:text-slate-200 transition flex items-center gap-1.5 py-2">
+                                    <span>Our bikes</span>
+                                    <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown Menu -->
+                                <div class="absolute top-full left-0 w-48 bg-slate-900 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
+                                    <div class="py-2">
+                                        <a href="/collections/tricycles" class="block px-4 py-3 text-sm text-gray-300 hover:bg-slate-800 hover:text-white transition">
+                                            <div class="flex items-center gap-3">
+                                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V7a2 2 0 012-2m6 6h-1M4 7h16" />
+                                                </svg>
+                                                <span>Tricycles</span>
+                                            </div>
+                                        </a>
+                                        <a href="/collections/tandems" class="block px-4 py-3 text-sm text-gray-300 hover:bg-slate-800 hover:text-white transition">
+                                            <div class="flex items-center gap-3">
+                                                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M12 7v10M5 5h14a2 2 0 012 2v10a2 2 0 002-2H5a2 2 0 01-2-2V7a2 2 0 012-2z" />
+                                                </svg>
+                                                <span>Side by side tandem</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="#features" class="text-white font-bold text-sm hover:text-slate-200 transition">Customer experiences</a>
+                            <a href="/blogs/news" class="text-white font-bold text-sm hover:text-slate-200 transition">News</a>
+                        </div>
+
+                        <div class="md:hidden flex items-center">
+                            <button id="mobile-menu-button" onclick="toggleMenu()" type="button"
+                                class="text-white hover:text-slate-300 focus:outline-none" aria-controls="mobile-menu"
+                                aria-expanded="false">
+                                <span class="sr-only">Open main menu</span>
+                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="mobile-menu" class="md:hidden hidden bg-slate-800">
+                    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                        <a href="/" class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+
+                        <!-- Mobile Accordion for Our bikes -->
+                        <div class="border-b border-slate-600">
+                            <button onclick="toggleMobileMenu('bikes-menu')" class="w-full text-left text-white flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 transition">
+                                <span>Our bikes</span>
+                                <svg class="w-4 h-4 text-slate-300 transform transition-transform duration-300" id="bikes-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+                            <div id="bikes-menu" class="hidden bg-slate-900 mt-2 rounded-lg overflow-hidden">
+                                <a href="/collections/tricycles" class="block px-6 py-3 text-gray-300 hover:bg-slate-800 hover:text-white transition">Tricycles</a>
+                                <a href="/collections/tandems" class="block px-6 py-3 text-gray-300 hover:bg-slate-800 hover:text-white transition">Side by side tandem</a>
+                            </div>
+                        </div>
+
+                        <a href="#features" class="text-white block px-3 py-2 rounded-md text-base font-medium">Customer experiences</a>
+                        <a href="/blogs/news" class="text-white block px-3 py-2 rounded-md text-base font-medium">News</a>
+                    </div>
+                </div>
+                </nav>
+        {%- endcase -%}
+    {%- endfor -%}
+</header>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+    menu.classList.toggle('hidden');
+    button.setAttribute('aria-expanded', !isExpanded);
+}
+
+function toggleMobileMenu(menuId) {
+    const menu = document.getElementById(menuId);
+    const icon = document.getElementById(menuId + '-icon');
+
+    menu.classList.toggle('hidden');
+    icon.classList.toggle('rotate-180');
+}
+</script>
+
+{% schema %}
+{
+  "name": "Loopzo Header",
+  "tag": "header",
+  "class": "header",
+  "limit": 1,
+  "blocks": [
+    {
+      "type": "announcement_bar",
+      "name": "Announcement Bar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "benefit_1_text",
+          "label": "Benefit 1 Text",
+          "default": "Gratis proefrit"
+        },
+        {
+          "type": "text",
+          "id": "benefit_2_text",
+          "label": "Benefit 2 Text",
+          "default": "Korte levertijd"
+        },
+        {
+          "type": "text",
+          "id": "benefit_3_text",
+          "label": "Benefit 3 Text",
+          "default": "10 jaar garantie"
+        },
+        {
+          "type": "text",
+          "id": "benefit_4_text",
+          "label": "Benefit 4 Text",
+          "default": "Fiets samenstellen"
+        },
+        {
+          "type": "text",
+          "id": "contact_text",
+          "label": "Contact Button Text",
+          "default": "Contact"
+        },
+        {
+          "type": "url",
+          "id": "contact_link",
+          "label": "Contact Button Link"
+        }
+      ]
+    },
+    {
+      "type": "main_navigation",
+      "name": "Main Navigation",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loopzo Header",
+      "category": "Loopzo",
+      "blocks": [
+        {
+          "type": "announcement_bar"
+        },
+        {
+          "type": "main_navigation"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

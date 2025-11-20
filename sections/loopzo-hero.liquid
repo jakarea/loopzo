@@ -1,0 +1,145 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <section class="hero relative bg-gray-100" aria-label="Hero section">
+
+    <div class="h-[60vh] sm:h-[65vh] md:h-[70vh] overflow-hidden bg-gray-200">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1920, height: 1080 }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          class="w-full h-full object-cover object-center"
+          loading="eager"
+          width="1920"
+          height="1080">
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover object-center' }}
+      {%- endif -%}
+    </div>
+
+    <div class="md:absolute md:inset-0 md:flex md:items-center">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+
+        <div class="relative bg-slate-800 text-white rounded-2xl p-6 sm:p-8 md:p-10 max-w-lg mx-auto md:mx-0 md:ml-auto
+        -mt-20 sm:-mt-24 md:mt-0 shadow-2xl">
+
+          <span class="block text-xs sm:text-sm font-semibold text-gray-300"
+                aria-label="Brand name">{{ section.settings.brand_name | default: 'loopzo' }}</span>
+
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">{{ section.settings.heading | default: "Let's all cycle" }}</h1>
+
+          <div class="text-sm sm:text-base text-gray-200 mt-3 sm:mt-4">
+            {{ section.settings.subtext }}
+          </div>
+
+          <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
+
+            <a href="{{ section.settings.button_1_url | default: '#' }}"
+               class="bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
+                      flex items-center justify-center gap-2 transition hover:bg-slate-700 text-sm sm:text-base">
+              <span>{{ section.settings.button_1_text | default: 'Bike selector' }}</span>
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                   stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+
+            <a href="{{ section.settings.button_2_url | default: '#' }}"
+               class="bg-white text-slate-800 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
+                      flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:bg-gray-100 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base">
+              <span>{{ section.settings.button_2_text | default: 'All bikes' }}</span>
+              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                   stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Loopzo Hero",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "loopzo"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Let's all cycle"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "<p>Experience the freedom of adaptive cycling with our premium custom-made bicycles.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Button 1 - Bike Selector"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button Text",
+      "default": "Bike selector"
+    },
+    {
+      "type": "url",
+      "id": "button_1_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Button 2 - All Bikes"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button Text",
+      "default": "All bikes"
+    },
+    {
+      "type": "url",
+      "id": "button_2_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loopzo Hero",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}
