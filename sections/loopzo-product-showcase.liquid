@@ -3,55 +3,78 @@
         <div class="lg:grid lg:grid-cols-5 lg:gap-16">
 
             <div class="lg:col-span-2 flex flex-col justify-center mb-8 lg:mb-0">
+                {%- if section.settings.main_heading != blank -%}
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                    Oer-Nederlands
-                    fietsbedrijf.
+                    {{ section.settings.main_heading }}
                 </h1>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mt-2">
-                    Al 50 jaar.
-                </h2>
+                {%- endif -%}
 
-                <p class="mt-4 sm:mt-6 text-sm sm:text-base text-gray-700">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vanuit Oldenzaal ontwikkelen en
-                    produceren we al 50 jaar fietsen die het verschil maken in de wereld van de berijders.
-                </p>
-                <p class="mt-3 sm:mt-4 text-sm sm:text-base text-gray-700">
-                    Pellentesque habitant morbi tristique senectus et netus. Wij luisteren goed naar jouw wensen
-                    en behoeften en zorgen ervoor dat elke fiets op maat gemaakt wordt. Dankzij onze hoge
-                    kwaliteitseisen en aandacht voor detail, zijn onze fietsen een goede keuze als je op zoek
-                    bent naar ongelimiteerde mobiliteit.
-                </p>
+                {%- if section.settings.sub_heading != blank -%}
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 {% if section.settings.main_heading != blank %}mt-2{% endif %}">
+                    {{ section.settings.sub_heading }}
+                </h2>
+                {%- endif -%}
+
+                {%- if section.settings.description_paragraph_1 != blank -%}
+                <div class="mt-4 sm:mt-6 text-sm sm:text-base text-gray-700">
+                    {{ section.settings.description_paragraph_1 }}
+                </div>
+                {%- endif -%}
+
+                {%- if section.settings.description_paragraph_2 != blank -%}
+                <div class="mt-3 sm:mt-4 text-sm sm:text-base text-gray-700">
+                    {{ section.settings.description_paragraph_2 }}
+                </div>
+                {%- endif -%}
             </div>
 
             <div class="lg:col-span-3 mt-8 sm:mt-12 lg:mt-0">
                 <div class="grid grid-cols-2 sm:grid-cols-3 grid-rows-2 gap-3 sm:gap-4 auto-rows-fr">
 
+                    {%- if section.settings.main_image != blank -%}
                     <div class="col-span-2 row-span-2 rounded-lg overflow-hidden shadow-lg relative aspect-[3/4] sm:aspect-[4/3]">
-                        <img src="https://www.vanraam.com/assets/img/92379/1695392340-bought-a-van-raam-bike-tip-learn-to-cycle.jpg"
-                            alt="Familie geniet van fietsen op adaptieve driewieler - Loopzo mobiliteitsfietsen"
+                        <img src="{{ section.settings.main_image | image_url: width: 800 }}"
+                            srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w,
+                                    {{ section.settings.main_image | image_url: width: 800 }} 800w,
+                                    {{ section.settings.main_image | image_url: width: 1200 }} 1200w"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 40vw"
+                            alt="{{ section.settings.main_image.alt | escape }}"
                             class="w-full h-full object-cover object-center"
                             loading="lazy"
                             width="800"
                             height="600">
                     </div>
+                    {%- endif -%}
 
+                    {%- if section.settings.small_image_1 != blank -%}
                     <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-lg relative aspect-square">
-                        <img src="https://www.vanraam.com/assets/img/92379/1731322401-5-reasons-why-cycling-protects-against-corona-van-raam.jpg"
-                            alt="Vrouw geniet van buitenlucht op Loopzo adaptive fiets"
+                        <img src="{{ section.settings.small_image_1 | image_url: width: 400 }}"
+                            srcset="{{ section.settings.small_image_1 | image_url: width: 200 }} 200w,
+                                    {{ section.settings.small_image_1 | image_url: width: 400 }} 400w,
+                                    {{ section.settings.small_image_1 | image_url: width: 600 }} 600w"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                            alt="{{ section.settings.small_image_1.alt | escape }}"
                             class="w-full h-full object-cover object-center"
                             loading="lazy"
                             width="400"
                             height="400">
                     </div>
+                    {%- endif -%}
 
+                    {%- if section.settings.small_image_2 != blank -%}
                     <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-lg relative aspect-square">
-                        <img src="https://www.vanraam.com/assets/img/92379/1680144628-a-van-raam-bike-that-won-t-let-you-fall-over.jpg"
-                            alt="Expert onderhoud en service voor adaptive fietsen - Loopzo"
+                        <img src="{{ section.settings.small_image_2 | image_url: width: 400 }}"
+                            srcset="{{ section.settings.small_image_2 | image_url: width: 200 }} 200w,
+                                    {{ section.settings.small_image_2 | image_url: width: 400 }} 400w,
+                                    {{ section.settings.small_image_2 | image_url: width: 600 }} 600w"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                            alt="{{ section.settings.small_image_2.alt | escape }}"
                             class="w-full h-full object-cover object-center"
                             loading="lazy"
                             width="400"
                             height="400">
                     </div>
+                    {%- endif -%}
 
                 </div>
             </div>
@@ -69,54 +92,53 @@
   "settings": [
     {
       "type": "header",
-      "content": "Product Showcase Settings"
+      "content": "Content"
     },
     {
-      "type": "paragraph",
-      "content": "This section displays your product showcase with company story and images. Currently showing static content - can be made dynamic later."
-    },
-    {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "main_heading",
-      "label": "Main Heading",
-      "default": "Oer-Nederlands fietsbedrijf."
+      "label": "Main Heading"
     },
     {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "sub_heading",
-      "label": "Sub Heading",
-      "default": "Al 50 jaar."
+      "label": "Sub Heading"
     },
     {
       "type": "richtext",
       "id": "description_paragraph_1",
-      "label": "First Paragraph",
-      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vanuit Oldenzaal ontwikkelen en produceren we al 50 jaar fietsen die het verschil maken in de wereld van de berijders.</p>"
+      "label": "First Paragraph"
     },
     {
       "type": "richtext",
       "id": "description_paragraph_2",
-      "label": "Second Paragraph",
-      "default": "<p>Pellentesque habitant morbi tristique senectus et netus. Wij luisteren goed naar jouw wensen en behoeften en zorgen ervoor dat elke fiets op maat gemaakt wordt. Dankzij onze hoge kwaliteitseisen en aandacht voor detail, zijn onze fietsen een goede keuze als je op zoek bent naar ongelimiteerde mobiliteit.</p>"
+      "label": "Second Paragraph"
     },
     {
       "type": "header",
-      "content": "Image Settings"
+      "content": "Images"
     },
     {
       "type": "image_picker",
       "id": "main_image",
-      "label": "Main Large Image"
+      "label": "Main Large Image",
+      "info": "Recommended size: 800x600px"
     },
     {
       "type": "image_picker",
       "id": "small_image_1",
-      "label": "Small Image 1"
+      "label": "Small Image 1",
+      "info": "Recommended size: 400x400px"
     },
     {
       "type": "image_picker",
       "id": "small_image_2",
-      "label": "Small Image 2"
+      "label": "Small Image 2",
+      "info": "Recommended size: 400x400px"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
     },
     {
       "type": "range",

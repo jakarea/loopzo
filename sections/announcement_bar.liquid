@@ -1,0 +1,139 @@
+<div class="announcement_bar bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 hidden md:block">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-3">
+
+            <!-- Benefits List -->
+            <div class="flex items-center gap-6 lg:gap-8">
+                {%- for block in section.blocks -%}
+                    {%- if block.type == 'benefit' and block.settings.benefit_text != blank -%}
+                        <div class="flex items-center gap-2 group" {{ block.shopify_attributes }}>
+                            {%- if block.settings.icon_svg != blank -%}
+                            <div class="bg-slate-700 rounded-lg p-1.5 group-hover:bg-slate-600 transition-colors">
+                                {{ block.settings.icon_svg }}
+                            </div>
+                            {%- endif -%}
+                            <span class="text-slate-700 font-medium text-sm">{{ block.settings.benefit_text }}</span>
+                        </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+
+            <!-- Contact Button -->
+            {%- if section.settings.show_contact_button and section.settings.contact_text != blank and section.settings.contact_link != blank -%}
+            <a href="{{ section.settings.contact_link }}"
+               {%- if section.settings.open_in_new_tab -%} target="_blank" rel="noopener noreferrer"{%- endif -%}
+               class="group bg-slate-700 hover:bg-slate-800 text-white font-semibold py-2 px-6 rounded-lg flex items-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                {%- if section.settings.button_left_icon != blank -%}
+                    {{ section.settings.button_left_icon }}
+                {%- endif -%}
+                <span class="text-sm">{{ section.settings.contact_text }}</span>
+                {%- if section.settings.button_right_icon != blank -%}
+                    {{ section.settings.button_right_icon }}
+                {%- endif -%}
+            </a>
+            {%- endif -%}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "class": "announcement-bar-section",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG",
+          "info": "Paste SVG code with class='w-4 h-4 text-white'."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "benefit_text",
+          "label": "Benefit Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contact Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_button",
+      "label": "Show Contact Button",
+      "default": false
+    },
+    {
+      "type": "inline_richtext",
+      "id": "contact_text",
+      "label": "Contact Button Text"
+    },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "Contact Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "html",
+      "id": "button_left_icon",
+      "label": "Button Left Icon SVG",
+      "info": "Paste SVG code with class='w-4 h-4'."
+    },
+    {
+      "type": "html",
+      "id": "button_right_icon",
+      "label": "Button Right Icon SVG",
+      "info": "Paste SVG code with class='w-4 h-4 group-hover:translate-x-1 transition-transform'."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' /></svg>",
+            "benefit_text": "Gratis proefrit"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z' /></svg>",
+            "benefit_text": "Korte levertijd"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' /></svg>",
+            "benefit_text": "10 jaar garantie"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' /></svg>",
+            "benefit_text": "Fiets samenstellen"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

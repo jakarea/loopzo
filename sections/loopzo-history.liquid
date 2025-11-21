@@ -1,27 +1,97 @@
-<section class="history_section bg-white pt-0 pb-12 sm:pb-16 md:pb-20">
+<section class="history_section bg-slate-50" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="max-w-4xl">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800">
-                loopzo: More Than a Manufacturer
-            </h2>
-            <p class="text-base sm:text-lg text-gray-700 mt-4 sm:mt-6 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Everyone deserves the freedom and
-                independence to get around, regardless of age, disability, or personal circumstances. Sometimes
-                you need extra safety, more comfort, or greater stability.
-            </p>
-            <p class="mt-3 sm:mt-4 text-sm sm:text-base text-gray-700">
-                There is no standard solution for all these individual needs and challenges. What you need is a
-                bike that adapts to your life—not the other way around. A bike that restores your confidence,
-                broadens your world, and allows you to enjoy every journey, every day.
-            </p>
-            <p class="mt-3 sm:mt-4 text-sm sm:text-base text-gray-700">
-                That's why Loopzo doesn't build bikes on an assembly line, but creates unique, tailor-made
-                solutions. These range from tricycles, scooter bikes, wheelchair bikes, tandem bikes, double
-                rider bikes to low step through bikes. Each model is also available as an electric bike
-                (Pedelec).
-            </p>
+        <!-- H1: Main Heading -->
+        {% if section.settings.main_heading != blank %}
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 sm:mb-8">
+            {% assign title_parts = section.settings.main_heading | split: 'Loopzo' %}
+            {{ title_parts[0] }}<span class="text-slate-700">Loopzo</span>{% if title_parts[1] %}{{ title_parts[1] }}{% endif %}
+        </h1>
+        {% endif %}
+
+        <!-- P1: Introduction Paragraph -->
+        {% if section.settings.intro_paragraph != blank %}
+        <div class="max-w-5xl mb-12 sm:mb-16">
+            <div class="text-[15px] sm:text-base lg:text-[17px] text-slate-700 leading-relaxed [&_strong]:font-semibold [&_strong]:text-slate-900">
+                {{ section.settings.intro_paragraph }}
+            </div>
         </div>
+        {% endif %}
+
+        <!-- Two Column Layout: Image + History Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <!-- Left: Image -->
+            <div class="order-2 lg:order-1">
+                {% if section.settings.history_image != blank %}
+                <figure>
+                    <div class="rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="{{ section.settings.history_image | img_url: '600x450' }}"
+                            alt="{{ section.settings.history_image.alt | default: 'Loopzo manufacturing facility - Handcrafted adaptive bicycles production' }}"
+                            class="w-full h-auto object-cover aspect-[4/3]"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+                    </div>
+                </figure>
+                {% endif %}
+            </div>
+
+            <!-- Right: History Content -->
+            <article class="order-1 lg:order-2">
+                <div class="lg:pl-4">
+                    <!-- H2: History Heading -->
+                    {% if section.settings.history_heading != blank %}
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-5 leading-tight">
+                        {{ section.settings.history_heading }}
+                    </h2>
+                    {% endif %}
+
+                    <!-- P2: History Paragraph 1 -->
+                    {% if section.settings.history_paragraph_1 != blank %}
+                    <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed mb-5 [&_strong]:font-semibold [&_strong]:text-slate-900">
+                        {{ section.settings.history_paragraph_1 }}
+                    </div>
+                    {% endif %}
+
+                    <!-- P3: History Paragraph 2 -->
+                    {% if section.settings.history_paragraph_2 != blank %}
+                    <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed mb-6 [&_strong]:font-semibold [&_strong]:text-slate-900">
+                        {{ section.settings.history_paragraph_2 }}
+                    </div>
+                    {% endif %}
+
+                    {% if section.settings.history_link_text != blank and section.settings.history_link_url != blank %}
+                    <a href="{{ section.settings.history_link_url }}" class="inline-flex items-center text-slate-900 font-semibold text-base hover:text-slate-700 transition-colors group">
+                        {{ section.settings.history_link_text }}
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+            </article>
+        </div>
+
+        <!-- CTA -->
+        {% if section.settings.show_cta %}
+        <div class="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-slate-200">
+            {% if section.settings.cta_text != blank %}
+            <p class="text-base sm:text-lg text-slate-800 font-medium mb-5 leading-relaxed max-w-3xl">
+                {{ section.settings.cta_text }}
+            </p>
+            {% endif %}
+
+            {% if section.settings.cta_button_text != blank and section.settings.cta_button_link != blank %}
+            <a href="{{ section.settings.cta_button_link }}"
+               class="inline-flex items-center bg-slate-800 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-slate-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group">
+                {{ section.settings.cta_button_text }}
+                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 </section>
 
@@ -34,35 +104,107 @@
   "settings": [
     {
       "type": "header",
-      "content": "History Section Settings"
+      "content": "Main Heading (H1)"
     },
     {
       "type": "paragraph",
-      "content": "This section displays your company history and story. Currently showing static content - can be made dynamic later."
+      "content": "Primary heading for SEO - should contain main keywords"
     },
     {
       "type": "text",
-      "id": "section_title",
-      "label": "Section Title",
-      "default": "loopzo: More Than a Manufacturer"
+      "id": "main_heading",
+      "label": "Main Heading (H1)",
+      "default": "Maak kennis met Loopzo",
+      "info": "This will be rendered as an H1 tag for SEO"
+    },
+    {
+      "type": "header",
+      "content": "Introduction Paragraph"
     },
     {
       "type": "richtext",
-      "id": "paragraph_1",
-      "label": "First Paragraph",
-      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Everyone deserves the freedom and independence to get around, regardless of age, disability, or personal circumstances. Sometimes you need extra safety, more comfort, or greater stability.</p>"
+      "id": "intro_paragraph",
+      "label": "Introduction Paragraph",
+      "default": "<p>Bij <strong>Loopzo</strong> draait alles om beweging, comfort en vertrouwen. Vanuit onze vestiging in Moordrecht ontwikkelen we loopfietsen voor volwassenen die ontworpen zijn om <strong>dagelijks, veilig en met plezier te gebruiken</strong>. Elke Loopzo wordt met zorg in Nederland ontwikkeld en getest. Met degelijke materialen en 10 jaar framegarantie ben je verzekerd van kwaliteit die lang meegaat.</p>",
+      "info": "Main introduction paragraph that appears after H1"
+    },
+    {
+      "type": "header",
+      "content": "History Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "history_image",
+      "label": "History Image",
+      "info": "Recommended size: 600x450px (4:3 aspect ratio). Use descriptive alt text for SEO."
+    },
+    {
+      "type": "header",
+      "content": "History Content (H2)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Secondary heading and content that appears beside the image"
+    },
+    {
+      "type": "text",
+      "id": "history_heading",
+      "label": "History Heading (H2)",
+      "default": "Een familiebedrijf met meer dan 50 jaar ervaring",
+      "info": "This will be rendered as an H2 tag for SEO hierarchy"
     },
     {
       "type": "richtext",
-      "id": "paragraph_2",
-      "label": "Second Paragraph",
-      "default": "<p>There is no standard solution for all these individual needs and challenges. What you need is a bike that adapts to your life—not the other way around. A bike that restores your confidence, broadens your world, and allows you to enjoy every journey, every day.</p>"
+      "id": "history_paragraph_1",
+      "label": "History Paragraph 1",
+      "default": "<p>Loopzo produceert al meer dan 50 jaar fietsen, en al meer dan 30 jaar ligt de focus op speciale fietsen voor mensen met mobiliteitsbehoefte. Ons team van 25 ervaren medewerkers heeft als doel om duurzame en hedendaagse mobiliteit te bieden aan zoveel mogelijk mensen.</p>",
+      "info": "First paragraph under H2 heading"
     },
     {
       "type": "richtext",
-      "id": "paragraph_3",
-      "label": "Third Paragraph",
-      "default": "<p>That's why Loopzo doesn't build bikes on an assembly line, but creates unique, tailor-made solutions. These range from tricycles, scooter bikes, wheelchair bikes, tandem bikes, double rider bikes to low step through bikes. Each model is also available as an electric bike (Pedelec).</p>"
+      "id": "history_paragraph_2",
+      "label": "History Paragraph 2",
+      "default": "<p>We doen dit met Nederlandse kwaliteitsfietsen die geschikt zijn voor zowel volwassenen als kinderen met speciale behoeften. Elke fiets wordt met precisie en vakmanschap gemaakt in onze vestiging in Moordrecht.</p>",
+      "info": "Second paragraph - appears below first paragraph (and image on mobile)"
+    },
+    {
+      "type": "text",
+      "id": "history_link_text",
+      "label": "History Link Text",
+      "default": "Lees meer over onze geschiedenis"
+    },
+    {
+      "type": "url",
+      "id": "history_link_url",
+      "label": "History Link URL",
+      "info": "Link to full history page"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Ontdek onze loopfietsen en accessoires en vind de Loopzo die bij jou past."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Button Text",
+      "default": "Bekijk het assortiment"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Button Link"
     },
     {
       "type": "header",
@@ -72,21 +214,21 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 0
+      "default": 64
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 48
+      "default": 80
     }
   ],
   "presets": [

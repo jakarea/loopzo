@@ -2,27 +2,24 @@
 <section class="hero relative bg-gray-100" aria-label="Hero section">
 
   <!-- Background Image -->
-  <div class="h-[60vh] sm:h-[65vh] md:h-[70vh] overflow-hidden bg-gray-200">
-    {%- if section.settings.hero_image != blank -%}
+  {%- if section.settings.hero_image != blank -%}
+    <div class="h-[60vh] sm:h-[65vh] md:h-[70vh] overflow-hidden bg-gray-200">
       <img
         src="{{ section.settings.hero_image | image_url: width: 1920 }}"
         srcset="{{ section.settings.hero_image | image_url: width: 768 }} 768w,
                 {{ section.settings.hero_image | image_url: width: 1024 }} 1024w,
                 {{ section.settings.hero_image | image_url: width: 1920 }} 1920w"
         sizes="100vw"
-        alt="{{ section.settings.hero_image.alt | escape | default: section.settings.heading }}"
+        alt="{{ section.settings.image_alt }}"
         class="w-full h-full object-cover object-center"
         loading="eager"
         width="1920"
         height="1080">
-    {%- else -%}
-      <div class="w-full h-full bg-slate-200 flex items-center justify-center">
-        <span class="text-slate-400 text-lg">{{ 'sections.hero.no_image' | t | default: 'Upload a hero image' }}</span>
-      </div>
-    {%- endif -%}
-  </div>
+    </div>
+  {%- endif -%}
 
   <!-- Overlay Card -->
+  {%- if section.settings.brand_name != blank or section.settings.heading != blank or section.settings.description != blank or section.settings.button_1_text != blank or section.settings.button_2_text != blank -%}
   <div class="md:absolute md:inset-0 md:flex md:items-center">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 
@@ -30,61 +27,82 @@
       -mt-20 sm:-mt-24 md:mt-0 shadow-2xl">
 
         <!-- Brand Name / Eyebrow -->
-        {%- if section.settings.eyebrow_text != blank -%}
-          <span class="block text-xs sm:text-sm font-semibold text-gray-300" aria-label="Brand name">
-            {{ section.settings.eyebrow_text }}
+        {%- if section.settings.brand_name != blank -%}
+          <span class="block text-xs sm:text-sm font-semibold text-gray-300 uppercase tracking-wider" aria-label="Brand name">
+            {{ section.settings.brand_name }}
           </span>
         {%- endif -%}
 
         <!-- Heading -->
         {%- if section.settings.heading != blank -%}
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold mt-2">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold {% if section.settings.brand_name != blank %}mt-2{% endif %}">
             {{ section.settings.heading }}
           </h1>
         {%- endif -%}
 
-        <!-- Subheading / Description -->
-        {%- if section.settings.subheading != blank -%}
-          <p class="text-sm sm:text-base text-gray-200 mt-3 sm:mt-4">
-            {{ section.settings.subheading }}
-          </p>
+        <!-- Description -->
+        {%- if section.settings.description != blank -%}
+          <div class="text-sm sm:text-base text-gray-200 mt-3 sm:mt-4">
+            {{ section.settings.description }}
+          </div>
         {%- endif -%}
 
         <!-- CTA Buttons -->
+        {%- if section.settings.button_1_text != blank or section.settings.button_2_text != blank -%}
         <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8">
 
-          <!-- Primary Button -->
-          {%- if section.settings.button_primary_text != blank -%}
+          <!-- Button 1 (Primary) -->
+          {%- if section.settings.button_1_text != blank and section.settings.button_1_link != blank -%}
             <a
-              href="{{ section.settings.button_primary_link | default: '#' }}"
+              href="{{ section.settings.button_1_link }}"
+              {%- if section.settings.button_1_open_new_tab -%} target="_blank" rel="noopener noreferrer"{%- endif -%}
               class="bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
                 flex items-center justify-center gap-2 transition hover:bg-slate-700 text-sm sm:text-base">
-              <span>{{ section.settings.button_primary_text }}</span>
-              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
+
+              {%- if section.settings.button_1_icon != blank -%}
+                <span class="w-4 h-4 sm:w-5 sm:h-5">{{ section.settings.button_1_icon }}</span>
+              {%- endif -%}
+
+              <span>{{ section.settings.button_1_text }}</span>
+
+              {%- unless section.settings.button_1_icon != blank -%}
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              {%- endunless -%}
             </a>
           {%- endif -%}
 
-          <!-- Secondary Button -->
-          {%- if section.settings.button_secondary_text != blank -%}
+          <!-- Button 2 (Secondary) -->
+          {%- if section.settings.button_2_text != blank and section.settings.button_2_link != blank -%}
             <a
-              href="{{ section.settings.button_secondary_link | default: '#' }}"
+              href="{{ section.settings.button_2_link }}"
+              {%- if section.settings.button_2_open_new_tab -%} target="_blank" rel="noopener noreferrer"{%- endif -%}
               class="bg-white text-slate-800 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
                 flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:bg-gray-100 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base">
-              <span>{{ section.settings.button_secondary_text }}</span>
-              <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
+
+              {%- if section.settings.button_2_icon != blank -%}
+                <span class="w-4 h-4 sm:w-5 sm:h-5">{{ section.settings.button_2_icon }}</span>
+              {%- endif -%}
+
+              <span>{{ section.settings.button_2_text }}</span>
+
+              {%- unless section.settings.button_2_icon != blank -%}
+                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              {%- endunless -%}
             </a>
           {%- endif -%}
 
         </div>
+        {%- endif -%}
 
       </div>
 
     </div>
   </div>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -94,75 +112,95 @@
   "class": "hero-banner-section",
   "settings": [
     {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
       "type": "image_picker",
       "id": "hero_image",
       "label": "Hero Background Image",
-      "info": "Recommended size: 1920x1080px for best quality"
+      "info": "Recommended size: 1920x1080px"
     },
     {
       "type": "text",
-      "id": "eyebrow_text",
-      "label": "Eyebrow Text",
-      "default": "loopzo",
-      "info": "Small text above the heading (e.g., brand name)"
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "info": "Describe the image for accessibility"
     },
     {
-      "type": "text",
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "brand_name",
+      "label": "Brand Name / Eyebrow Text",
+      "info": "Small text above the heading"
+    },
+    {
+      "type": "inline_richtext",
       "id": "heading",
-      "label": "Heading",
-      "default": "Let's all cycle",
-      "info": "Main headline text"
+      "label": "Heading"
     },
     {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Move, enjoy the outdoors, et discover how every ride brings a smile.",
-      "info": "Description text below the heading"
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
     },
     {
       "type": "header",
-      "content": "Primary Button"
+      "content": "Button 1 (Primary)"
     },
     {
-      "type": "text",
-      "id": "button_primary_text",
-      "label": "Primary Button Text",
-      "default": "Bike selector"
+      "type": "inline_richtext",
+      "id": "button_1_text",
+      "label": "Button Text"
     },
     {
       "type": "url",
-      "id": "button_primary_link",
-      "label": "Primary Button Link",
-      "info": "Leave empty to hide the button"
+      "id": "button_1_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_1_open_new_tab",
+      "label": "Open link in new tab"
+    },
+    {
+      "type": "html",
+      "id": "button_1_icon",
+      "label": "Button Icon SVG (Optional)",
+      "info": "Paste SVG code with class='w-4 h-4 sm:w-5 sm:h-5'. Leave blank for default arrow."
     },
     {
       "type": "header",
-      "content": "Secondary Button"
+      "content": "Button 2 (Secondary)"
     },
     {
-      "type": "text",
-      "id": "button_secondary_text",
-      "label": "Secondary Button Text",
-      "default": "All bikes"
+      "type": "inline_richtext",
+      "id": "button_2_text",
+      "label": "Button Text"
     },
     {
       "type": "url",
-      "id": "button_secondary_link",
-      "label": "Secondary Button Link",
-      "info": "Leave empty to hide the button"
+      "id": "button_2_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_2_open_new_tab",
+      "label": "Open link in new tab"
+    },
+    {
+      "type": "html",
+      "id": "button_2_icon",
+      "label": "Button Icon SVG (Optional)",
+      "info": "Paste SVG code with class='w-4 h-4 sm:w-5 sm:h-5'. Leave blank for default arrow."
     }
   ],
   "presets": [
     {
-      "name": "Hero Banner",
-      "settings": {
-        "eyebrow_text": "loopzo",
-        "heading": "Let's all cycle",
-        "subheading": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Move, enjoy the outdoors, et discover how every ride brings a smile.",
-        "button_primary_text": "Bike selector",
-        "button_secondary_text": "All bikes"
-      }
+      "name": "Hero Banner"
     }
   ]
 }

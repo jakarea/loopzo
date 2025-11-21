@@ -1,79 +1,159 @@
-<section class="blog_section bg-white py-12 sm:py-16 md:py-20">
+<section class="blog_section bg-white" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+        <!-- Section Header -->
         <div class="text-center mb-8 sm:mb-12 md:mb-16">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">Up-to-date met Loopzo</h2>
-            <p class="text-gray-600 mt-2 text-base sm:text-lg">Nieuws, events & blogs</p>
+            {% if section.settings.section_title != blank %}
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+                {{ section.settings.section_title }}
+            </h2>
+            {% endif %}
+            {% if section.settings.section_subtitle != blank %}
+            <p class="text-gray-600 mt-2 text-base sm:text-lg">
+                {{ section.settings.section_subtitle }}
+            </p>
+            {% endif %}
         </div>
 
+        <!-- Blog Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
-            <div class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
-                <img src="https://kovapaa.nl/cdn/shop/articles/68eb5b2f470df976912329c9caf6d318_720x.png"
-                    alt="Woman on an adaptive bike"
-                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
+            {% if section.settings.use_blog_posts %}
+                {%- assign blog = blogs[section.settings.blog_handle] -%}
+                {%- if blog != blank -%}
+                    {% for article in blog.articles limit: section.settings.posts_to_show %}
+                    <article class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                        {% if article.image != blank %}
+                        <img src="{{ article.image | img_url: '600x800' }}"
+                            alt="{{ article.image.alt | default: article.title }}"
+                            class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy">
+                        {% else %}
+                        <div class="w-full h-full bg-slate-200 flex items-center justify-center">
+                            <span class="text-slate-400">No image</span>
+                        </div>
+                        {% endif %}
 
-                <span
-                    class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
-                    Klantervaringen
-                </span>
+                        {% if article.tags.size > 0 %}
+                        <span class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                            {{ article.tags | first }}
+                        </span>
+                        {% endif %}
 
-                <div
-                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
-                    <h3 class="text-lg sm:text-xl font-bold">Ik fiets weer ontspannen. Zonder angst.</h3>
-                    <a href="#" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">Read
-                        more &rarr;</a>
-                </div>
-            </div>
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                            <h3 class="text-lg sm:text-xl font-bold">{{ article.title }}</h3>
+                            <a href="{{ article.url }}" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">
+                                {{ section.settings.read_more_text | default: 'Read more' }} &rarr;
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                {%- else -%}
+                    <p class="col-span-3 text-center text-slate-600">No blog found. Please select a blog in the section settings.</p>
+                {%- endif -%}
+            {% else %}
+                <!-- Manual Blog Posts -->
+                {% if section.settings.post_1_title != blank %}
+                <article class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                    {% if section.settings.post_1_image != blank %}
+                    <img src="{{ section.settings.post_1_image | img_url: '600x800' }}"
+                        alt="{{ section.settings.post_1_alt_text | default: section.settings.post_1_title }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy">
+                    {% else %}
+                    <img src="https://kovapaa.nl/cdn/shop/articles/68eb5b2f470df976912329c9caf6d318_720x.png"
+                        alt="{{ section.settings.post_1_alt_text }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy">
+                    {% endif %}
 
-            <div class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
-                <img src="https://kovapaa.nl/cdn/shop/articles/5a78a6e0ed299b3646682863f52aa18b_1080x.jpg"
-                    alt="Couple cycling in nature"
-                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
+                    {% if section.settings.post_1_category != blank %}
+                    <span class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                        {{ section.settings.post_1_category }}
+                    </span>
+                    {% endif %}
 
-                <span
-                    class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
-                    Klantervaringen
-                </span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                        <h3 class="text-lg sm:text-xl font-bold">{{ section.settings.post_1_title }}</h3>
+                        <a href="{{ section.settings.post_1_url | default: '#' }}" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">
+                            {{ section.settings.read_more_text | default: 'Read more' }} &rarr;
+                        </a>
+                    </div>
+                </article>
+                {% endif %}
 
-                <div
-                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
-                    <h3 class="text-lg sm:text-xl font-bold">Ze komt écht tot ontspanning op de fiets</h3>
-                    <a href="#" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">Read
-                        more &rarr;</a>
-                </div>
-            </div>
+                {% if section.settings.post_2_title != blank %}
+                <article class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                    {% if section.settings.post_2_image != blank %}
+                    <img src="{{ section.settings.post_2_image | img_url: '600x800' }}"
+                        alt="{{ section.settings.post_2_alt_text | default: section.settings.post_2_title }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy">
+                    {% else %}
+                    <img src="https://kovapaa.nl/cdn/shop/articles/5a78a6e0ed299b3646682863f52aa18b_1080x.jpg"
+                        alt="{{ section.settings.post_2_alt_text }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy">
+                    {% endif %}
 
-            <div class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
-                <img src="https://kovapaa.nl/cdn/shop/articles/loopfiets_blog_1000x1000_5443403d-9b0e-49d4-8e18-f82bf5c768d3_720x.jpg"
-                    alt="Women with a wheelchair bike"
-                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105">
+                    {% if section.settings.post_2_category != blank %}
+                    <span class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                        {{ section.settings.post_2_category }}
+                    </span>
+                    {% endif %}
 
-                <span
-                    class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
-                    Klantervaringen
-                </span>
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                        <h3 class="text-lg sm:text-xl font-bold">{{ section.settings.post_2_title }}</h3>
+                        <a href="{{ section.settings.post_2_url | default: '#' }}" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">
+                            {{ section.settings.read_more_text | default: 'Read more' }} &rarr;
+                        </a>
+                    </div>
+                </article>
+                {% endif %}
 
-                <div
-                    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
-                    <h3 class="text-lg sm:text-xl font-bold">Diaz als tovermiddel om te ontspannen</h3>
-                    <a href="#" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">Read
-                        more &rarr;</a>
-                </div>
-            </div>
+                {% if section.settings.post_3_title != blank %}
+                <article class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
+                    {% if section.settings.post_3_image != blank %}
+                    <img src="{{ section.settings.post_3_image | img_url: '600x800' }}"
+                        alt="{{ section.settings.post_3_alt_text | default: section.settings.post_3_title }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy">
+                    {% else %}
+                    <img src="https://kovapaa.nl/cdn/shop/articles/loopfiets_blog_1000x1000_5443403d-9b0e-49d4-8e18-f82bf5c768d3_720x.jpg"
+                        alt="{{ section.settings.post_3_alt_text }}"
+                        class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy">
+                    {% endif %}
+
+                    {% if section.settings.post_3_category != blank %}
+                    <span class="absolute top-3 sm:top-4 left-3 sm:left-4 bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                        {{ section.settings.post_3_category }}
+                    </span>
+                    {% endif %}
+
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
+                        <h3 class="text-lg sm:text-xl font-bold">{{ section.settings.post_3_title }}</h3>
+                        <a href="{{ section.settings.post_3_url | default: '#' }}" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">
+                            {{ section.settings.read_more_text | default: 'Read more' }} &rarr;
+                        </a>
+                    </div>
+                </article>
+                {% endif %}
+            {% endif %}
 
         </div>
 
+        <!-- View All Button -->
+        {% if section.settings.button_text != blank %}
         <div class="text-center mt-12 sm:mt-16 md:mt-20">
-            <a href="#" class="inline-flex items-center bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-full
-                                space-x-2.5 transition hover:bg-slate-700 text-sm sm:text-base">
-                <span>Meer nieuws</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <a href="{{ section.settings.button_url | default: '#' }}" class="inline-flex items-center bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-full space-x-2.5 transition hover:bg-slate-700 text-sm sm:text-base">
+                <span>{{ section.settings.button_text }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
             </a>
         </div>
+        {% endif %}
 
     </div>
 </section>
@@ -87,11 +167,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Blog Section Settings"
-    },
-    {
-      "type": "paragraph",
-      "content": "This section displays news, events & blog posts. Currently showing static content - can be made dynamic later."
+      "content": "Section Settings"
     },
     {
       "type": "text",
@@ -107,18 +183,48 @@
     },
     {
       "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Meer nieuws"
-    },
-    {
-      "type": "url",
-      "id": "button_url",
-      "label": "Button URL"
+      "id": "read_more_text",
+      "label": "Read More Text",
+      "default": "Read more"
     },
     {
       "type": "header",
-      "content": "Blog Post 1"
+      "content": "Blog Source"
+    },
+    {
+      "type": "paragraph",
+      "content": "Choose to pull posts automatically from a Shopify blog, or manually configure 3 posts below."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_blog_posts",
+      "label": "Use Shopify Blog Posts",
+      "default": false,
+      "info": "Enable to automatically pull posts from a Shopify blog"
+    },
+    {
+      "type": "blog",
+      "id": "blog_handle",
+      "label": "Blog",
+      "info": "Select which blog to display posts from"
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "label": "Number of posts to show",
+      "default": 3,
+      "info": "Only applies when using Shopify blog posts"
+    },
+    {
+      "type": "header",
+      "content": "Manual Blog Post 1"
+    },
+    {
+      "type": "paragraph",
+      "content": "Configure manually if not using Shopify blog posts"
     },
     {
       "type": "text",
@@ -135,7 +241,8 @@
     {
       "type": "image_picker",
       "id": "post_1_image",
-      "label": "Post 1 Image"
+      "label": "Post 1 Image",
+      "info": "Recommended size: 600x800px"
     },
     {
       "type": "text",
@@ -144,8 +251,14 @@
       "default": "Woman on an adaptive bike"
     },
     {
+      "type": "url",
+      "id": "post_1_url",
+      "label": "Post 1 URL",
+      "info": "Link to the full article"
+    },
+    {
       "type": "header",
-      "content": "Blog Post 2"
+      "content": "Manual Blog Post 2"
     },
     {
       "type": "text",
@@ -162,7 +275,8 @@
     {
       "type": "image_picker",
       "id": "post_2_image",
-      "label": "Post 2 Image"
+      "label": "Post 2 Image",
+      "info": "Recommended size: 600x800px"
     },
     {
       "type": "text",
@@ -171,8 +285,14 @@
       "default": "Couple cycling in nature"
     },
     {
+      "type": "url",
+      "id": "post_2_url",
+      "label": "Post 2 URL",
+      "info": "Link to the full article"
+    },
+    {
       "type": "header",
-      "content": "Blog Post 3"
+      "content": "Manual Blog Post 3"
     },
     {
       "type": "text",
@@ -189,13 +309,36 @@
     {
       "type": "image_picker",
       "id": "post_3_image",
-      "label": "Post 3 Image"
+      "label": "Post 3 Image",
+      "info": "Recommended size: 600x800px"
     },
     {
       "type": "text",
       "id": "post_3_alt_text",
       "label": "Post 3 Alt Text",
       "default": "Women with a wheelchair bike"
+    },
+    {
+      "type": "url",
+      "id": "post_3_url",
+      "label": "Post 3 URL",
+      "info": "Link to the full article"
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Meer nieuws"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL",
+      "info": "Link to blog or news page"
     },
     {
       "type": "header",

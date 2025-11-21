@@ -1,0 +1,134 @@
+<nav class="main_navigation bg-slate-800" aria-label="Main Navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="/" class="flex items-center">
+                    {%- if section.settings.logo != blank -%}
+                        <img class="h-10 w-auto" src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" loading="lazy">
+                    {%- else -%}
+                        <span class="text-white font-bold text-xl">{{ shop.name }}</span>
+                    {%- endif -%}
+                </a>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex md:items-center md:space-x-8">
+                {%- if section.settings.menu != blank -%}
+                    {%- for link in linklists[section.settings.menu].links -%}
+                        {%- if link.links != blank -%}
+                            <!-- Dropdown Menu Item -->
+                            <div class="relative group">
+                                <button class="text-white font-bold text-sm hover:text-slate-200 transition flex items-center gap-1.5 py-2">
+                                    <span>{{ link.title }}</span>
+                                    <svg class="w-3 h-3 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown -->
+                                <div class="absolute top-full left-0 w-48 bg-slate-900 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
+                                    <div class="py-2">
+                                        {%- for child_link in link.links -%}
+                                            <a href="{{ child_link.url }}" class="block px-4 py-3 text-sm text-gray-300 hover:bg-slate-800 hover:text-white transition">
+                                                <div class="flex items-center gap-3">
+                                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    <span>{{ child_link.title }}</span>
+                                                </div>
+                                            </a>
+                                        {%- endfor -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- else -%}
+                            <!-- Regular Menu Item -->
+                            <a href="{{ link.url }}" class="text-white font-bold text-sm hover:text-slate-200 transition">{{ link.title }}</a>
+                        {%- endif -%}
+                    {%- endfor -%}
+                {%- endif -%}
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" onclick="toggleMenu()" type="button"
+                    class="text-white hover:text-slate-300 focus:outline-none" aria-controls="mobile-menu"
+                    aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden bg-slate-800 w-full relative z-50">
+    <div class="max-w-7xl mx-auto px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        {%- if section.settings.menu != blank -%}
+            {%- for link in linklists[section.settings.menu].links -%}
+                {%- if link.links != blank -%}
+                    <!-- Mobile Accordion -->
+                    <div class="border-b border-slate-600">
+                        <button onclick="toggleMobileMenu('mobile-submenu-{{ forloop.index }}')" class="w-full text-left text-white flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-slate-700 transition">
+                            <span>{{ link.title }}</span>
+                            <svg class="w-4 h-4 text-slate-300 transform transition-transform duration-300" id="mobile-submenu-{{ forloop.index }}-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="mobile-submenu-{{ forloop.index }}" class="hidden bg-slate-900 mt-2 rounded-lg overflow-hidden">
+                            {%- for child_link in link.links -%}
+                                <a href="{{ child_link.url }}" class="block px-6 py-3 text-gray-300 hover:bg-slate-800 hover:text-white transition">{{ child_link.title }}</a>
+                            {%- endfor -%}
+                        </div>
+                    </div>
+                {%- else -%}
+                    <!-- Regular Mobile Menu Item -->
+                    <a href="{{ link.url }}" class="text-white block px-3 py-2 rounded-md text-base font-medium">{{ link.title }}</a>
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    </div>
+</div>
+
+<script src="{{ 'header-navigation.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Main Navigation",
+  "class": "main-navigation-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image",
+      "info": "Recommended size: 200x80px. Leave blank to show store name as text."
+    },
+    {
+      "type": "header",
+      "content": "Navigation Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Select the menu to display. Create menus in Navigation settings."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Navigation"
+    }
+  ]
+}
+{% endschema %}

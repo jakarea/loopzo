@@ -1,43 +1,57 @@
-<section class="thuja_ebike_section py-12 sm:py-16 md:py-20">
+<section class="thuja_ebike_section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="rounded-2xl overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-2">
 
                 <!-- Left: Content -->
                 <div class="bg-slate-700 p-8 sm:p-10 lg:p-12 flex flex-col">
+                    {% if section.settings.badge_text != blank %}
                     <span class="text-white text-xs sm:text-sm font-semibold tracking-wide mb-4 uppercase">
-                        Nieuw
+                        {{ section.settings.badge_text }}
                     </span>
+                    {% endif %}
 
+                    {% if section.settings.section_title != blank %}
                     <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
-                        Thuja elektrische fiets
+                        {{ section.settings.section_title }}
                     </h2>
+                    {% endif %}
 
-                    <p class="text-white text-base sm:text-lg leading-relaxed mb-8 font-normal">
-                        Ervaar vrijheid, stabiliteit en comfort bij elke rit.
-                        De Thuja is een innovatieve en stijlvolle e-bike van vanRaam
-                        met twee voorwielen, krachtige elektrische ondersteuning en een
-                        optionele bagageunit. Blijf veilig en rijd met vertrouwen.
-                    </p>
+                    {% if section.settings.section_description != blank %}
+                    <div class="text-white text-base sm:text-lg leading-relaxed mb-8 font-normal">
+                        {{ section.settings.section_description }}
+                    </div>
+                    {% endif %}
 
+                    {% if section.settings.button_text != blank %}
                     <div>
-                        <a href="#" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 font-semibold text-base px-6 py-3 rounded-lg transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group focus:outline-none focus:ring-4 focus:ring-white/50">
-                            <span>Ontdek de Thuja</span>
+                        <a href="{{ section.settings.button_url | default: '#' }}" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-900 font-semibold text-base px-6 py-3 rounded-lg transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group focus:outline-none focus:ring-4 focus:ring-white/50">
+                            <span>{{ section.settings.button_text }}</span>
                             <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
                         </a>
                     </div>
+                    {% endif %}
                 </div>
 
                 <!-- Right: Image -->
                 <div class="relative h-72 sm:h-80 lg:h-auto">
-                    <img src="./assets/loopzo_logistic.png"
-                         alt="Thuja e-bike - Innovatieve driewieler met bagageunit van Loopzo"
+                    {% if section.settings.product_image != blank %}
+                    <img src="{{ section.settings.product_image | img_url: '800x600' }}"
+                         alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
                          class="w-full h-full object-cover"
                          loading="lazy"
-                         width="600"
-                         height="400">
+                         width="800"
+                         height="600">
+                    {% else %}
+                    <img src="{{ 'loopzo_logistic.png' | asset_url }}"
+                         alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
+                         class="w-full h-full object-cover"
+                         loading="lazy"
+                         width="800"
+                         height="600">
+                    {% endif %}
                 </div>
 
             </div>
@@ -54,11 +68,11 @@
   "settings": [
     {
       "type": "header",
-      "content": "Thuja Section Settings"
+      "content": "Product Showcase Settings"
     },
     {
       "type": "paragraph",
-      "content": "This section displays the Thuja e-bike showcase with image and content. Currently showing static content - can be made dynamic later."
+      "content": "Feature a product with a dark background panel (left) and large image (right). Perfect for highlighting new products or special offers."
     },
     {
       "type": "text",
