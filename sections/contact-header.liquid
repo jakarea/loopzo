@@ -1,0 +1,269 @@
+<!-- Contact Header Section -->
+<section class="contact-header-section py-12 sm:py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+
+            <!-- Left: Text Content -->
+            <div>
+                {% if section.settings.main_heading != blank %}
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+                    {{ section.settings.main_heading }}
+                </h1>
+                {% endif %}
+
+                {% if section.settings.intro_text_1 != blank %}
+                <p class="text-base text-slate-700 leading-relaxed mb-4">
+                    {{ section.settings.intro_text_1 }}
+                </p>
+                {% endif %}
+
+                {% if section.settings.intro_text_2 != blank %}
+                <p class="text-base text-slate-700 leading-relaxed mb-4">
+                    {{ section.settings.intro_text_2 }}
+                </p>
+                {% endif %}
+
+                {% if section.settings.intro_text_3 != blank %}
+                <p class="text-base text-slate-700 leading-relaxed mb-8">
+                    {{ section.settings.intro_text_3 }}
+                </p>
+                {% endif %}
+
+                {% if section.settings.appointment_heading != blank %}
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                    {{ section.settings.appointment_heading }}
+                </h2>
+                {% endif %}
+
+                {% if section.settings.appointment_text != blank %}
+                <p class="text-base text-slate-700 leading-relaxed mb-8">
+                    {{ section.settings.appointment_text }}
+                </p>
+                {% endif %}
+
+                <!-- Contact Cards - 3 columns -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                    <!-- Phone Card -->
+                    {% if section.settings.show_phone_card %}
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-3">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-sm font-semibold text-slate-900 mb-2">{{ section.settings.phone_card_title }}</h3>
+                        <a href="tel:{{ section.settings.phone_number | remove: ' ' }}" class="inline-block bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors">
+                            {{ section.settings.phone_card_button_text }}
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <!-- Email Card -->
+                    {% if section.settings.show_email_card %}
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-3">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-sm font-semibold text-slate-900 mb-2">{{ section.settings.email_card_title }}</h3>
+                        <a href="mailto:{{ section.settings.email_address }}" class="inline-block bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors">
+                            {{ section.settings.email_card_button_text }}
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <!-- Location Card -->
+                    {% if section.settings.show_location_card %}
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-700 rounded-full mb-3">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-sm font-semibold text-slate-900 mb-2">{{ section.settings.location_card_title }}</h3>
+                        <a href="{{ section.settings.location_card_link }}" class="inline-block bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors">
+                            {{ section.settings.location_card_button_text }}
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <!-- Right: Logo -->
+            <div class="flex items-center justify-center lg:justify-end">
+                {% if section.settings.logo_image != blank %}
+                <img src="{{ section.settings.logo_image | img_url: 'master' }}"
+                     alt="{{ section.settings.logo_alt_text }}"
+                     class="w-full max-w-md h-auto"
+                     loading="lazy">
+                {% else %}
+                <div class="w-full max-w-md h-64 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <span class="text-slate-400">Logo Placeholder</span>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Header",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main Content"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Neem contact op met Loopzo"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_1",
+      "label": "Intro Text 1",
+      "default": "Heb je een vraag over je bestelling, garantie of levering?"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_2",
+      "label": "Intro Text 2",
+      "default": "We staan voor je klaar en helpen je graag verder."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_3",
+      "label": "Intro Text 3",
+      "default": "Je kunt ons bellen, mailen of het contactformulier gebruiken. We reageren meestal binnen één werkdag."
+    },
+    {
+      "type": "header",
+      "content": "Appointment Section"
+    },
+    {
+      "type": "text",
+      "id": "appointment_heading",
+      "label": "Appointment Heading",
+      "default": "Bezoek op afspraak"
+    },
+    {
+      "type": "textarea",
+      "id": "appointment_text",
+      "label": "Appointment Text",
+      "default": "Bij voorkeur ontvangen wij klanten op afspraak, zodat we alle tijd hebben om alles rustig uit te leggen. Wil je liever buiten de openingstijden langskomen? Neem dan even contact met ons op, dan kijken we wat mogelijk is."
+    },
+    {
+      "type": "header",
+      "content": "Phone Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone_card",
+      "label": "Show Phone Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "phone_card_title",
+      "label": "Phone Card Title",
+      "default": "Bel Direct"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "0182 239 021"
+    },
+    {
+      "type": "text",
+      "id": "phone_card_button_text",
+      "label": "Phone Button Text",
+      "default": "Bel ons op: 0182 239 021"
+    },
+    {
+      "type": "header",
+      "content": "Email Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email_card",
+      "label": "Show Email Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email_card_title",
+      "label": "Email Card Title",
+      "default": "Binnen 24 uur reactie"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email Address",
+      "default": "klantenservice@loopzo.nl"
+    },
+    {
+      "type": "text",
+      "id": "email_card_button_text",
+      "label": "Email Button Text",
+      "default": "Mail ons op: klantenservice@loopzo.nl"
+    },
+    {
+      "type": "header",
+      "content": "Location Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_location_card",
+      "label": "Show Location Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "location_card_title",
+      "label": "Location Card Title",
+      "default": "Gevestigd in Moordrecht"
+    },
+    {
+      "type": "url",
+      "id": "location_card_link",
+      "label": "Location Card Link"
+    },
+    {
+      "type": "text",
+      "id": "location_card_button_text",
+      "label": "Location Button Text",
+      "default": "Gratis proefrit aanvragen"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_alt_text",
+      "label": "Logo Alt Text",
+      "default": "Loopzo Logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Header",
+      "category": "Contact"
+    }
+  ]
+}
+{% endschema %}

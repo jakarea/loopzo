@@ -1,12 +1,6 @@
-{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-{{ 'component-price.css' | asset_url | stylesheet_tag }}
-{{ 'component-product-form.css' | asset_url | stylesheet_tag }}
-
-{%- unless product.has_only_default_variant -%}
-  {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
-  {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
-  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
-{%- endunless -%}
+{%- comment -%}
+  Using Tailwind CSS instead of component stylesheets
+{%- endcomment -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -24,21 +18,27 @@
 
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
-<div class="product_info_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
+<!-- Breadcrumb -->
+<div class="bg-slate-50 border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <nav class="flex items-center gap-2 text-sm" aria-label="{{ 'products.product.breadcrumb' | t }}">
+      <a href="{{ routes.root_url }}" class="text-slate-600 hover:text-slate-900 transition">{{ 'general.breadcrumbs.home' | t }}</a>
+      <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+      <a href="{{ routes.all_products_collection_url }}" class="text-slate-600 hover:text-slate-900 transition">{{ 'products.product.products' | t }}</a>
+      <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+      <span class="text-slate-900 font-medium">{{ product.title | escape }}</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Product Info Section -->
+<section class="product_info_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-sm mb-6 sm:mb-8" aria-label="Breadcrumb">
-      <a href="/" class="text-gray-600 hover:text-gray-900 transition">Home</a>
-      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-      </svg>
-      <a href="/collections/all" class="text-gray-600 hover:text-gray-900 transition">Producten</a>
-      <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-      </svg>
-      <span class="text-gray-900 font-medium">{{ product.title | escape }}</span>
-    </nav>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
 
@@ -49,15 +49,15 @@
         {%- if product.compare_at_price > product.price -%}
           {%- assign discount_percentage = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
           <div class="absolute top-4 left-4 z-20 bg-red-500 text-white px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
-            Save {{ discount_percentage }}%
+            {{ 'products.product.sale_badge' | t: percentage: discount_percentage }}
           </div>
         {%- endif -%}
 
         <!-- Main Image Gallery -->
         <div class="group relative w-full aspect-[4/5] sm:aspect-square overflow-hidden rounded-xl bg-gray-100 mb-4 border-2 border-gray-200">
           {%- if product.featured_media -%}
-            {%- for media in product.media limit: 1 -%}
-              <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: 1;">
+            {%- for media in product.media -%}
+              <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: {% if forloop.first %}1{% else %}0{% endif %};">
                 {% render 'product-media', media: media, class: 'w-full h-full object-contain' %}
               </div>
             {%- endfor -%}
@@ -69,12 +69,12 @@
 
           <!-- Navigation Arrows for multiple images -->
           {%- if product.media.size > 1 -%}
-            <button onclick="changeSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="Previous">
+            <button onclick="changeSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="{{ 'products.product.previous_image' | t }}">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
               </svg>
             </button>
-            <button onclick="changeSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="Next">
+            <button onclick="changeSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="{{ 'products.product.next_image' | t }}">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
               </svg>
@@ -84,9 +84,9 @@
 
         <!-- Thumbnail Images -->
         {%- if product.media.size > 1 -%}
-          <div class="grid grid-cols-4 gap-2 sm:gap-3">
-            {%- for media in product.media limit: 4 -%}
-              <button onclick="showSlide({{ forloop.index }})" class="h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent hover:border-slate-600{% endif %} transition">
+          <div class="flex gap-2 sm:gap-3">
+            {%- for media in product.media -%}
+              <button onclick="showSlide({{ forloop.index }})" class="{% if product.media.size <= 4 %}w-1/4{% else %}flex-1 min-w-0{% endif %} h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent hover:border-slate-600{% endif %} transition" data-thumbnail="{{ forloop.index }}">
                 {% render 'product-media', media: media, class: 'w-full h-full object-cover' %}
               </button>
             {%- endfor -%}
@@ -99,19 +99,19 @@
             <svg class="w-8 h-8 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
             </svg>
-            <span class="text-xs font-semibold text-slate-700">10 jaar garantie</span>
+            <span class="text-xs font-semibold text-slate-700">{{ 'products.product.trust_badges.warranty' | t }}</span>
           </div>
           <div class="flex flex-col items-center text-center p-3 bg-slate-50 rounded-lg">
             <svg class="w-8 h-8 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
-            <span class="text-xs font-semibold text-slate-700">Gratis verzending</span>
+            <span class="text-xs font-semibold text-slate-700">{{ 'products.product.trust_badges.free_shipping' | t }}</span>
           </div>
           <div class="flex flex-col items-center text-center p-3 bg-slate-50 rounded-lg">
             <svg class="w-8 h-8 text-slate-700 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
-            <span class="text-xs font-semibold text-slate-700">30 dagen retour</span>
+            <span class="text-xs font-semibold text-slate-700">{{ 'products.product.trust_badges.returns' | t }}</span>
           </div>
         </div>
       </div>
@@ -126,56 +126,89 @@
         </h1>
 
         <!-- Rating & Reviews -->
-        <div class="flex items-center gap-3 mt-3">
-          <div class="flex items-center">
-            <!-- Placeholder star rating - integrate with actual reviews app -->
-            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
-            </svg>
-            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
-            </svg>
-            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
-            </svg>
-            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
-            </svg>
-            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-opacity=".3" d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
-            </svg>
+        {%- assign reviews_list = product.metafields.custom.product_reviews.value -%}
+
+        {%- comment -%} Calculate review count and average rating from metaobject list {%- endcomment -%}
+        {%- assign review_count = 0 -%}
+        {%- assign total_rating = 0 -%}
+
+        {%- if reviews_list != blank -%}
+          {%- assign review_count = reviews_list.count -%}
+          {%- for review in reviews_list -%}
+            {%- assign current_rating = review.rating | plus: 0 -%}
+            {%- assign total_rating = total_rating | plus: current_rating -%}
+          {%- endfor -%}
+
+          {%- if review_count > 0 -%}
+            {%- assign average_rating = total_rating | times: 1.0 | divided_by: review_count | round: 1 -%}
+          {%- else -%}
+            {%- assign average_rating = 0 -%}
+          {%- endif -%}
+        {%- else -%}
+          {%- assign average_rating = 0 -%}
+        {%- endif -%}
+
+        {%- if review_count > 0 -%}
+          <div class="flex items-center gap-3 mt-3">
+            <div class="flex items-center">
+              {%- assign full_stars = average_rating | floor -%}
+              {%- assign has_half_star = average_rating | minus: full_stars | at_least: 0.5 -%}
+              {%- assign next_star = full_stars | plus: 1 -%}
+
+              {%- for i in (1..5) -%}
+                {%- if i <= full_stars -%}
+                  <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                  </svg>
+                {%- elsif i == next_star and has_half_star > 0 -%}
+                  <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-opacity=".3" d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                  </svg>
+                {%- else -%}
+                  <svg class="w-5 h-5 text-slate-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                  </svg>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <span class="text-sm text-gray-600 font-medium">{{ average_rating }}</span>
+            <a href="#reviews-tab" onclick="event.preventDefault(); const reviewBtn = document.querySelector('button[onclick*=reviews-tab]'); if(reviewBtn) { reviewBtn.click(); document.getElementById('reviews-tab').scrollIntoView({behavior: 'smooth', block: 'start'}); }" class="text-sm text-blue-600 hover:text-blue-800 underline cursor-pointer transition">{{ 'products.product.reviews_count' | t: count: review_count }}</a>
           </div>
-          <span class="text-sm text-gray-600 font-medium">4.8</span>
-          <span class="text-sm text-gray-500">(247 reviews)</span>
-        </div>
+        {%- endif -%}
 
         <!-- Price -->
         <div class="flex items-baseline gap-3 mt-4" id="price-{{ section.id }}" role="status">
-          {%- render 'price',
-            product: product,
-            use_variant: true,
-            show_badges: true,
-            price_class: 'text-3xl sm:text-4xl font-bold text-slate-800'
-          -%}
+          {%- assign compare_at_price = product.selected_or_first_available_variant.compare_at_price -%}
+          {%- assign price = product.selected_or_first_available_variant.price -%}
+
+          <span class="text-3xl sm:text-4xl font-bold text-slate-800">{{ price | money }}</span>
+
+          {%- if compare_at_price > price -%}
+            <span class="text-xl sm:text-2xl text-gray-400 line-through">{{ compare_at_price | money }}</span>
+            {%- assign discount_percentage = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round -%}
+            <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-semibold">{{ discount_percentage }}% OFF</span>
+          {%- endif -%}
         </div>
 
         <!-- Stock Status -->
-        {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
-          <div class="flex items-center gap-2 mt-3">
-            {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
-              <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span class="text-sm text-green-700 font-medium">
-                {%- if product.selected_or_first_available_variant.inventory_quantity <= 10 -%}
-                  Only {{ product.selected_or_first_available_variant.inventory_quantity }} left - Order soon!
-                {%- else -%}
-                  In Stock - Ready to Ship
-                {%- endif -%}
-              </span>
-            {%- else -%}
-              <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-              <span class="text-sm text-red-700 font-medium">Out of Stock</span>
-            {%- endif -%}
-          </div>
+        {%- if section.settings.show_stock_status -%}
+          {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
+            <div class="flex items-center gap-2 mt-3">
+              {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span class="text-sm text-green-700 font-medium">
+                  {%- if section.settings.show_inventory_quantity and product.selected_or_first_available_variant.inventory_quantity <= section.settings.low_stock_threshold -%}
+                    {{ 'products.product.stock.low_stock' | t: quantity: product.selected_or_first_available_variant.inventory_quantity }}
+                  {%- else -%}
+                    {{ section.settings.in_stock_text | default: 'products.product.stock.in_stock' | t }}
+                  {%- endif -%}
+                </span>
+              {%- else -%}
+                <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                <span class="text-sm text-red-700 font-medium">{{ section.settings.out_of_stock_text | default: 'products.product.stock.out_of_stock' | t }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         {%- endif -%}
 
         <!-- Description -->
@@ -223,194 +256,245 @@
         </div>
         {%- endif -%}
 
-        <!-- Variant Selector -->
-        {%- unless product.has_only_default_variant -%}
-          <variant-picker data-url="{{ product.url }}" data-section="{{ section.id }}" data-update-url="false">
-            {%- for option in product.options_with_values -%}
-              <div class="product-form__input product-form__input--dropdown" data-option-name="{{ option.name }}">
-                <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index }}">
-                  {{ option.name }}
-                </label>
-                <div class="select">
-                  <select
-                    id="Option-{{ section.id }}-{{ forloop.index }}"
-                    class="select__select"
-                    name="options[{{ option.name | escape }}]"
-                    form="{{ product_form_id }}"
-                  >
-                    {%- for value in option.values -%}
-                      <option
-                        value="{{ value | escape }}"
-                        {%- if option.selected_value == value -%}
-                          selected="selected"
-                        {%- endif -%}
-                      >
-                        {{ value }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                  <svg class="icon icon-caret" aria-hidden="true" focusable="false">
-                    <path d="M7.698 11.184l-3.882-3.882a.5.5 0 01.354-.848H20.5a.5.5 0 010 1H3.87a.5.5 0 01-.354-.848l3.882-3.882a.5.5 0 11.708.708L2.707 12.5l4.699 4.699a.5.5 0 01-.708.708z" fill="currentColor">
-                  </svg>
-                </div>
-              </div>
-            {%- endfor -%}
-
-            <script type="application/json">
-              {{ product.variants | json }}
-            </script>
-          </variant-picker>
-        {%- endunless -%}
-
-        <!-- Quantity Selector -->
-        <div class="product-form__input product-form__quantity" {{ block.shopify_attributes }}>
-          <label class="form__label" for="Quantity-{{ section.id }}">
-            {{ 'products.product.quantity.label' | t }}
-          </label>
-          <quantity-input class="quantity">
-            <button class="quantity__button no-js-hidden" name="minus" type="button">
-              <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-              </svg>
-            </button>
-            <input
-              class="quantity__input"
-              type="number"
-              name="quantity"
-              id="Quantity-{{ section.id }}"
-              min="1"
-              value="1"
-              form="{{ product_form_id }}"
-            >
-            <button class="quantity__button no-js-hidden" name="plus" type="button">
-              <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-            </button>
-          </quantity-input>
-        </div>
-
-        <!-- Product Form -->
-        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
-
-          <!-- Action Buttons -->
-          <div class="product-form__buttons flex flex-col gap-3 mt-8">
+        <!-- Action Buttons -->
+        <div class="flex flex-col gap-3 mt-8">
+          <form method="post" action="/cart/add" id="product-form-{{ section.id }}">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
             <button
-              id="ProductSubmitButton-{{ section.id }}"
               type="submit"
               name="add"
-              class="product-form__submit button button--full-width {% if block.settings.show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
-              {% if product.selected_or_first_available_variant.available == false %}
-                disabled
-              {% endif %}
+              class="w-full border-2 border-slate-700 text-slate-700 font-bold py-3.5 px-8 rounded-lg hover:bg-slate-50 transition"
             >
-              {%- if product.selected_or_first_available_variant.available -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- else -%}
-                {{ 'products.product.sold_out' | t }}
-              {%- endif -%}
+              <span class="submit-button-text">{{ 'products.product.buy_now' | t }}</span>
             </button>
-
-            {%- if block.settings.show_dynamic_checkout -%}
-              {{ form | payment_button }}
-            {%- endif -%}
-          </div>
-        {%- endform -%}
-
-        <!-- Buy Now Button (Shopify Checkout) -->
-        <div class="flex flex-col gap-3 mt-8">
-          <button
-            onclick="window.location.href='/checkout'"
-            class="border-2 border-slate-700 text-slate-700 font-bold py-3.5 px-8 rounded-lg hover:bg-slate-50 transition"
-          >
-            Buy Now
-          </button>
+          </form>
         </div>
 
-        <!-- SKU -->
-        {%- if product.selected_or_first_available_variant.sku.size > 0 -%}
-          <p class="product__sku text-sm text-gray-600 mt-4">
-            SKU: {{ product.selected_or_first_available_variant.sku }}
-          </p>
-        {%- endif -%}
-
-        <!-- Expert Advisor Section -->
-        {%- if section.settings.show_advisor -%}
-        <div class="mt-6 pt-6 border-t border-gray-200">
-          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
-            <div class="flex items-start gap-3">
-              <!-- Profile Image -->
-              <div class="relative flex-shrink-0">
-                {%- if section.settings.advisor_image != blank -%}
-                  <img
-                    src="{{ section.settings.advisor_image | img_url: '100x100' }}"
-                    alt="{{ section.settings.advisor_name | escape }}"
-                    class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
-                    loading="lazy"
-                  >
-                {%- else -%}
-                  <img
-                    src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Photos.png"
-                    alt="Advisor"
-                    class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
-                    loading="lazy"
-                  >
-                {%- endif -%}
-                <!-- Online Status -->
-                <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
-              </div>
-
-              <!-- Advisor Info -->
-              <div class="flex-1">
-                <h3 class="text-base font-bold text-slate-900">{{ section.settings.advisor_name | default: 'Jan Koppers' }}</h3>
-                <p class="text-xs text-slate-600 font-medium mb-1">{{ section.settings.advisor_title | default: 'Senior Mobility Advisor' }}</p>
-
-                <!-- Stats -->
-                <div class="flex items-center gap-3 text-xs text-slate-600 mb-2">
-                  <div class="flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                    </svg>
-                    <span class="font-semibold">{{ section.settings.advisor_rating | default: '4.9/5' }}</span>
-                  </div>
-                  <span class="text-slate-400">|</span>
-                  <span><strong>{{ section.settings.advisor_customers | default: '500+' }}</strong> happy customers</span>
-                </div>
-
-                <p class="text-xs text-slate-700 italic">
-                  "{{ section.settings.advisor_quote | default: "I'm here to help you find the perfect bike for your needs!" }}"
-                </p>
-              </div>
-            </div>
-
-            <!-- CTA Button -->
-            {%- if section.settings.whatsapp_number != blank -%}
-              {%- assign whatsapp_message = section.settings.whatsapp_message | default: "Hi, I'm interested in the " | append: product.title | append: " and would like to discuss it with an expert." -%}
-              <a
-                href="https://wa.me/{{ section.settings.whatsapp_number | replace: '+', '' | replace: ' ', '' }}?text={{ whatsapp_message | url_encode }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
-              >
-                <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
-                </svg>
-                <span>{{ section.settings.whatsapp_button_text | default: 'Chat with us on WhatsApp' }}</span>
-              </a>
-            {%- endif -%}
-          </div>
-        </div>
-        {%- endif -%}
+        <!-- Dynamic Expert Advisor Section -->
+      {% render 'advisor-card' %}
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- Product Tabs -->
+<section class="product_tabs bg-slate-50 py-12 sm:py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="border-b border-slate-300 mb-8">
+      <div class="flex flex-wrap gap-2 sm:gap-8" role="tablist">
+        <button onclick="openTab(event, 'description-tab')" class="tab-btn px-4 py-3 text-sm sm:text-base font-semibold border-b-2 border-slate-900 text-slate-900 transition">
+          {{ 'products.product.tabs.description' | t }}
+        </button>
+        <button onclick="openTab(event, 'specifications-tab')" class="tab-btn px-4 py-3 text-sm sm:text-base font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          {{ 'products.product.tabs.specifications' | t }}
+        </button>
+        {%- assign has_delivery_items = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'delivery_item' -%}
+            {%- assign has_delivery_items = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if has_delivery_items -%}
+        <button onclick="openTab(event, 'delivery-tab')" class="tab-btn px-4 py-3 text-sm sm:text-base font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          {{ section.settings.delivery_heading }}
+        </button>
+        {%- endif -%}
+        <button onclick="openTab(event, 'reviews-tab')" class="tab-btn px-4 py-3 text-sm sm:text-base font-semibold border-b-2 border-transparent text-slate-600 hover:text-slate-900 transition">
+          {{ 'products.product.tabs.reviews' | t: count: review_count }}
+        </button>
+      </div>
+    </div>
+
+    <div class="tab-content">
+
+      <div id="description-tab" class="tab-panel block">
+        <div class="prose prose-slate max-w-none text-slate-700">
+          {%- if product.description != blank -%}
+            {{ product.description }}
+          {%- else -%}
+            <p>{{ 'products.product.tabs.no_description' | t }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div id="specifications-tab" class="tab-panel hidden">
+        <div class="bg-white p-6 rounded-xl border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900 mb-4">{{ 'products.product.tabs.specifications_heading' | t }}</h3>
+          <div class="prose prose-slate max-w-none text-slate-700">
+            {%- if product.metafields.custom.specifications != blank -%}
+              {{ product.metafields.custom.specifications | metafield_tag }}
+            {%- else -%}
+              <p class="text-slate-400 italic">{{ 'products.product.tabs.no_specifications' | t }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Tab -->
+      {%- assign has_delivery_items = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'delivery_item' -%}
+          {%- assign has_delivery_items = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_delivery_items -%}
+      <div id="delivery-tab" class="tab-panel hidden">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl font-bold text-slate-900 mb-6">{{ section.settings.delivery_heading }}</h2>
+
+          <div class="space-y-6">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'delivery_item' -%}
+                <div class="bg-white p-6 rounded-xl border border-slate-200" {{ block.shopify_attributes }}>
+                  <div class="flex items-start gap-4">
+                    <div class="bg-slate-100 p-3 rounded-lg">
+                      {%- case block.settings.icon_type -%}
+                        {%- when 'truck' -%}
+                          <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"></path>
+                          </svg>
+                        {%- when 'tools' -%}
+                          <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                          </svg>
+                        {%- when 'shield' -%}
+                          <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                          </svg>
+                      {%- endcase -%}
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold text-slate-900 mb-2">{{ block.settings.title }}</h3>
+                      <div class="text-slate-700 mb-3">{{ block.settings.description }}</div>
+                      {%- if block.settings.link_text != blank and block.settings.link_url != blank -%}
+                        <a href="{{ block.settings.link_url }}" class="text-slate-700 underline hover:text-slate-900 font-semibold">
+                          {{ block.settings.link_text }}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+      {%- endif -%}
+
+      <div id="reviews-tab" class="tab-panel hidden">
+        {%- render 'review-list', product: product -%}
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <script type="application/ld+json">
   {{ product | structured_data }}
+</script>
+
+<script>
+let currentSlide = 1;
+const totalSlides = {{ product.media.size }};
+
+function showSlide(n) {
+  if (n > totalSlides) { currentSlide = 1; }
+  if (n < 1) { currentSlide = totalSlides; }
+  else { currentSlide = n; }
+
+  const slides = document.querySelectorAll('.slider-image');
+  const thumbnails = document.querySelectorAll('[data-thumbnail]');
+
+  slides.forEach((slide, index) => {
+    slide.style.opacity = (index + 1) === currentSlide ? '1' : '0';
+  });
+
+  thumbnails.forEach((thumb, index) => {
+    if ((index + 1) === currentSlide) {
+      thumb.classList.remove('border-transparent');
+      thumb.classList.add('border-slate-600');
+    } else {
+      thumb.classList.remove('border-slate-600');
+      thumb.classList.add('border-transparent');
+    }
+  });
+}
+
+function changeSlide(n) {
+  showSlide(currentSlide + n);
+}
+
+// Tab switcher function
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tab-panel");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].classList.add("hidden");
+    tabcontent[i].classList.remove("block");
+  }
+  tablinks = document.getElementsByClassName("tab-btn");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].classList.remove("border-slate-900", "text-slate-900");
+    tablinks[i].classList.add("border-transparent", "text-slate-600");
+  }
+  document.getElementById(tabName).classList.remove("hidden");
+  document.getElementById(tabName).classList.add("block");
+  evt.currentTarget.classList.remove("border-transparent", "text-slate-600");
+  evt.currentTarget.classList.add("border-slate-900", "text-slate-900");
+}
+
+// Buy Now functionality - Add to cart and redirect to checkout
+document.addEventListener('DOMContentLoaded', function() {
+  const productForm = document.getElementById('product-form-{{ section.id }}');
+  const addingText = {{ 'products.product.adding_to_cart' | t | json }};
+  const errorText = {{ 'products.product.add_to_cart_error' | t | json }};
+
+  if (productForm) {
+    productForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(productForm);
+      const submitButton = productForm.querySelector('button[type="submit"]');
+      const buttonText = submitButton.querySelector('.submit-button-text');
+      const originalText = buttonText.textContent;
+
+      // Disable button and show loading state
+      submitButton.disabled = true;
+      buttonText.textContent = addingText;
+
+      // Add product to cart
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: formData.get('id'),
+          quantity: parseInt(formData.get('quantity'))
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Redirect to checkout
+        window.location.href = '/checkout';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Re-enable button and restore text
+        submitButton.disabled = false;
+        buttonText.textContent = originalText;
+        alert(errorText);
+      });
+    });
+  }
+});
+
 </script>
 
 {% schema %}
@@ -519,8 +603,57 @@
         {
           "type": "text",
           "id": "share_label",
-          "label": "t:sections.main-product.blocks.share.settings.text.label",
-          "default": "t:sections.main-product.blocks.share.settings.text.default"
+          "label": "t:sections.main-product.blocks.share.settings.share_label.label",
+          "default": "Share"
+        }
+      ]
+    },
+    {
+      "type": "delivery_item",
+      "name": "t:sections.main-product.blocks.delivery_item.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "t:sections.main-product.blocks.delivery_item.settings.icon_type.label",
+          "options": [
+            {
+              "value": "truck",
+              "label": "t:sections.main-product.blocks.delivery_item.settings.icon_type.options__1.label"
+            },
+            {
+              "value": "tools",
+              "label": "t:sections.main-product.blocks.delivery_item.settings.icon_type.options__2.label"
+            },
+            {
+              "value": "shield",
+              "label": "t:sections.main-product.blocks.delivery_item.settings.icon_type.options__3.label"
+            }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main-product.blocks.delivery_item.settings.title.label",
+          "default": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "t:sections.main-product.blocks.delivery_item.settings.description.label",
+          "default": "Add description here"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:sections.main-product.blocks.delivery_item.settings.link_text.label",
+          "info": "t:sections.main-product.blocks.delivery_item.settings.link_text.info"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "t:sections.main-product.blocks.delivery_item.settings.link_url.label"
         }
       ]
     }
@@ -534,105 +667,91 @@
     },
     {
       "type": "header",
-      "content": "Product Features"
+      "content": "t:sections.main-product.settings.header__stock_status"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock_status",
+      "label": "t:sections.main-product.settings.show_stock_status.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_inventory_quantity",
+      "label": "t:sections.main-product.settings.show_inventory_quantity.label",
+      "default": true,
+      "info": "t:sections.main-product.settings.show_inventory_quantity.info"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "label": "t:sections.main-product.settings.low_stock_threshold.label",
+      "default": 10,
+      "info": "t:sections.main-product.settings.low_stock_threshold.info"
+    },
+    {
+      "type": "text",
+      "id": "in_stock_text",
+      "label": "t:sections.main-product.settings.in_stock_text.label",
+      "default": "In Stock - Ready to Ship"
+    },
+    {
+      "type": "text",
+      "id": "out_of_stock_text",
+      "label": "t:sections.main-product.settings.out_of_stock_text.label",
+      "default": "Out of Stock"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-product.settings.header__product_features"
     },
     {
       "type": "checkbox",
       "id": "show_features",
-      "label": "Show Key Features",
+      "label": "t:sections.main-product.settings.show_features.label",
       "default": true
     },
     {
       "type": "text",
       "id": "feature_1",
-      "label": "Feature 1",
+      "label": "t:sections.main-product.settings.feature_1.label",
       "default": "Custom-made to your specifications"
     },
     {
       "type": "text",
       "id": "feature_2",
-      "label": "Feature 2",
+      "label": "t:sections.main-product.settings.feature_2.label",
       "default": "Premium Dutch craftsmanship"
     },
     {
       "type": "text",
       "id": "feature_3",
-      "label": "Feature 3",
+      "label": "t:sections.main-product.settings.feature_3.label",
       "default": "Electric and manual options available"
     },
     {
       "type": "text",
       "id": "feature_4",
-      "label": "Feature 4",
+      "label": "t:sections.main-product.settings.feature_4.label",
       "default": "Free test ride included"
     },
     {
       "type": "header",
-      "content": "Expert Advisor"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_advisor",
-      "label": "Show Expert Advisor",
-      "default": true
-    },
-    {
-      "type": "image_picker",
-      "id": "advisor_image",
-      "label": "Advisor Photo"
+      "content": "t:sections.main-product.settings.header__delivery_tab"
     },
     {
       "type": "text",
-      "id": "advisor_name",
-      "label": "Advisor Name",
-      "default": "Jan Koppers"
-    },
-    {
-      "type": "text",
-      "id": "advisor_title",
-      "label": "Advisor Title",
-      "default": "Senior Mobility Advisor"
-    },
-    {
-      "type": "text",
-      "id": "advisor_rating",
-      "label": "Advisor Rating",
-      "default": "4.9/5"
-    },
-    {
-      "type": "text",
-      "id": "advisor_customers",
-      "label": "Number of Customers",
-      "default": "500+"
-    },
-    {
-      "type": "textarea",
-      "id": "advisor_quote",
-      "label": "Advisor Quote",
-      "default": "I'm here to help you find the perfect bike for your needs!"
-    },
-    {
-      "type": "text",
-      "id": "whatsapp_number",
-      "label": "WhatsApp Number",
-      "info": "Include country code, e.g., 31315257370",
-      "default": "31315257370"
-    },
-    {
-      "type": "textarea",
-      "id": "whatsapp_message",
-      "label": "Default WhatsApp Message",
-      "default": "Hi, I'm interested in this product and would like to discuss it with an expert."
-    },
-    {
-      "type": "text",
-      "id": "whatsapp_button_text",
-      "label": "WhatsApp Button Text",
-      "default": "Chat with us on WhatsApp"
+      "id": "delivery_heading",
+      "label": "t:sections.main-product.settings.delivery_heading.label",
+      "default": "Levering & Montage",
+      "info": "t:sections.main-product.settings.delivery_heading.info"
     },
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "t:sections.main-product.settings.header__padding"
     },
     {
       "type": "range",
@@ -641,7 +760,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "t:sections.main-product.settings.padding_top.label",
       "default": 36
     },
     {
@@ -651,7 +770,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "t:sections.main-product.settings.padding_bottom.label",
       "default": 36
     }
   ]

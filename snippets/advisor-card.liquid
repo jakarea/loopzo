@@ -1,0 +1,107 @@
+  {%- comment -%}
+  Dynamic Advisor Card Snippet
+  Source: Metaobject (custom.related_advisor)
+  Usage: {% render 'advisor-card' %}
+{%- endcomment -%}
+
+{%- assign advisor = product.metafields.custom.related_advisor.value -%}
+
+{%- if advisor != blank -%}
+  <div class="mt-6 pt-6 border-t border-gray-200">
+    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
+      <div class="flex items-start gap-3">
+        <!-- Profile Image -->
+        <div class="relative flex-shrink-0">
+          {%- if advisor.photo != blank -%}
+            <img
+              src="{{ advisor.photo | image_url: width: 100, height: 100, crop: 'center' }}"
+              alt="{{ advisor.name | escape }}"
+              class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
+              loading="lazy"
+              width="64"
+              height="64"
+            >
+          {%- else -%}
+            <img
+              src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-user-avatar.png"
+              alt="Advisor"
+              class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
+              loading="lazy"
+              width="64"
+              height="64"
+            >
+          {%- endif -%}
+
+          <!-- Online Status -->
+          {%- if advisor.online_status == true -%}
+            <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full animate-pulse"></div>
+          {%- else -%}
+            <div class="absolute bottom-0 right-0 w-4 h-4 bg-gray-400 border-2 border-white rounded-full"></div>
+          {%- endif -%}
+        </div>
+
+        <!-- Advisor Info -->
+        <div class="flex-1">
+          <h3 class="text-base font-bold text-slate-900">{{ advisor.name }}</h3>
+          {%- if advisor.job_title != blank -%}
+            <p class="text-xs text-slate-600 font-medium mb-1">{{ advisor.job_title }}</p>
+          {%- endif -%}
+
+          <!-- Stats -->
+          {%- if advisor.rating != blank or advisor.customers_served != blank -%}
+            <div class="flex items-center gap-3 text-xs text-slate-600 mb-2">
+              {%- if advisor.rating != blank -%}
+                <div class="flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20" style="width: 14px; height: 14px; color: #f59e0b; display: inline-block; vertical-align: middle;">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                  </svg>
+                  <span class="font-semibold">{{ advisor.rating.value }}/{{ advisor.rating.scale_max | default: '5' }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if advisor.rating != blank and advisor.customers_served != blank -%}
+                <span class="text-slate-400">|</span>
+              {%- endif -%}
+
+              {%- if advisor.customers_served != blank -%}
+                <span><strong>{{ advisor.customers_served }}</strong> happy customers</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- if advisor.quote != blank -%}
+            <p class="text-xs text-slate-700 italic">
+              "{{ advisor.quote }}"
+            </p>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      {%- if advisor.whatsapp_number != blank -%}
+        {%- assign whatsapp_message = advisor.whatsapp_message | default: "Hi, I'm interested in the " | append: product.title | append: " and would like to discuss it with an expert." -%}
+        <a
+          href="https://wa.me/{{ advisor.whatsapp_number | replace: '+', '' | replace: ' ', '' | replace: '-', '' }}?text={{ whatsapp_message | url_encode }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
+        >
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+          </svg>
+          <span>{{ advisor.whatsapp_button_text | default: 'Chat with us on WhatsApp' }}</span>
+        </a>
+      {%- endif -%}
+
+      <!-- Trust Signals -->
+      {%- if advisor.response_time != blank -%}
+        <div class="mt-3 flex items-center justify-center gap-2 text-xs text-slate-600">
+          <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          <span>Average response time: <strong>{{ advisor.response_time }}</strong></span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

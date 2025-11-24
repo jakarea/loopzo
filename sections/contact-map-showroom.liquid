@@ -1,0 +1,180 @@
+<!-- Map & Showroom Section -->
+<section class="contact-map-section py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+
+            <!-- Left: Google Map (6 columns) -->
+            <div class="lg:col-span-6">
+                <div class="w-full h-full min-h-[400px] lg:min-h-[500px] rounded-2xl overflow-hidden shadow-lg">
+                    {% if section.settings.google_maps_url != blank %}
+                    <!-- Google Maps Embed -->
+                    <iframe
+                        src="{{ section.settings.google_maps_url }}"
+                        width="100%"
+                        height="100%"
+                        style="border:0; min-height: 500px;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="{{ section.settings.map_title }}">
+                    </iframe>
+                    {% else %}
+                    <div class="w-full h-full bg-slate-100 flex items-center justify-center">
+                        <p class="text-slate-500">Google Maps Placeholder - Add Map URL in settings</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Right: Showroom Info & Image (6 columns) -->
+            <div class="lg:col-span-6">
+                <div class="h-full flex flex-col justify-center">
+
+                    <!-- Image -->
+                    {% if section.settings.showroom_image != blank %}
+                    <div class="mb-6 rounded-2xl overflow-hidden shadow-lg">
+                        <img src="{{ section.settings.showroom_image | img_url: 'master' }}"
+                             alt="{{ section.settings.showroom_image_alt }}"
+                             class="w-full h-auto object-cover"
+                             loading="lazy">
+                    </div>
+                    {% else %}
+                    <div class="mb-6 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-slate-100 to-slate-200">
+                        <div class="w-full aspect-[4/3] flex items-center justify-center">
+                            <div class="text-center p-8">
+                                <svg class="w-24 h-24 mx-auto text-slate-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                                </svg>
+                                <p class="text-slate-500 font-medium">Happy Customer Image</p>
+                                <p class="text-slate-400 text-sm mt-1">Add image in section settings</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Text Content -->
+                    <div class="space-y-4">
+                        {% if section.settings.showroom_heading != blank %}
+                        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900">
+                            {{ section.settings.showroom_heading }}
+                        </h3>
+                        {% endif %}
+
+                        {% if section.settings.showroom_text_1 != blank %}
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            {{ section.settings.showroom_text_1 }}
+                        </p>
+                        {% endif %}
+
+                        {% if section.settings.showroom_text_2 != blank %}
+                        <p class="text-slate-700 text-base leading-relaxed">
+                            {{ section.settings.showroom_text_2 }}
+                        </p>
+                        {% endif %}
+
+                        {% if section.settings.show_cta_button %}
+                        <div class="pt-4">
+                            <a href="tel:{{ section.settings.cta_phone_number | remove: ' ' }}" class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <span>{{ section.settings.cta_button_text }}</span>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Map & Showroom",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Google Map Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "google_maps_url",
+      "label": "Google Maps Embed URL",
+      "info": "Paste the full iframe src URL from Google Maps embed code"
+    },
+    {
+      "type": "text",
+      "id": "map_title",
+      "label": "Map Title (for accessibility)",
+      "default": "Loopzo Showroom Location"
+    },
+    {
+      "type": "header",
+      "content": "Showroom Info"
+    },
+    {
+      "type": "text",
+      "id": "showroom_heading",
+      "label": "Showroom Heading",
+      "default": "Kom langs in onze showroom"
+    },
+    {
+      "type": "textarea",
+      "id": "showroom_text_1",
+      "label": "Showroom Text 1",
+      "default": "Ontdek onze uitgebreide collectie adaptive fietsen in onze showroom in Moordrecht. Onze ervaren adviseurs staan klaar om je persoonlijk te begeleiden en samen de perfecte fiets te vinden die past bij jouw wensen en behoeften."
+    },
+    {
+      "type": "textarea",
+      "id": "showroom_text_2",
+      "label": "Showroom Text 2",
+      "default": "Plan een gratis proefrit in en ervaar zelf het comfort en de stabiliteit van onze fietsen. We nemen alle tijd om je wegwijs te maken in de mogelijkheden."
+    },
+    {
+      "type": "image_picker",
+      "id": "showroom_image",
+      "label": "Showroom Image",
+      "info": "Image of happy customer or showroom"
+    },
+    {
+      "type": "text",
+      "id": "showroom_image_alt",
+      "label": "Showroom Image Alt Text",
+      "default": "Happy Loopzo Customer"
+    },
+    {
+      "type": "header",
+      "content": "Call-to-Action Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta_button",
+      "label": "Show CTA Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "Bel voor een afspraak"
+    },
+    {
+      "type": "text",
+      "id": "cta_phone_number",
+      "label": "CTA Phone Number",
+      "default": "0182239021"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Map & Showroom",
+      "category": "Contact"
+    }
+  ]
+}
+{% endschema %}

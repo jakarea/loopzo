@@ -1,0 +1,212 @@
+<section class="vanraam_history_section bg-white" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Main Heading -->
+        {% if section.settings.main_heading != blank %}
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 sm:mb-12 text-center">
+            {{ section.settings.main_heading }}
+        </h1>
+        {% endif %}
+
+        <!-- Two Column Layout: Content + Image -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 sm:mb-16">
+
+            <!-- Left: About vanRaam Content -->
+            <article>
+                {% if section.settings.about_heading != blank %}
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-5">
+                    {{ section.settings.about_heading }}
+                </h2>
+                {% endif %}
+
+                {% if section.settings.about_paragraph_1 != blank %}
+                <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed mb-5 [&_strong]:font-semibold [&_strong]:text-slate-900">
+                    {{ section.settings.about_paragraph_1 }}
+                </div>
+                {% endif %}
+
+                {% if section.settings.about_paragraph_2 != blank %}
+                <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed [&_strong]:font-semibold [&_strong]:text-slate-900">
+                    {{ section.settings.about_paragraph_2 }}
+                </div>
+                {% endif %}
+            </article>
+
+            <!-- Right: Factory Image -->
+            <div>
+                {% if section.settings.factory_image != blank %}
+                <figure class="rounded-2xl overflow-hidden shadow-xl">
+                    <img src="{{ section.settings.factory_image | img_url: '700x500' }}"
+                        alt="{{ section.settings.factory_image_alt | default: 'vanRaam factory - Sustainable adapted bicycle manufacturing' }}"
+                        class="w-full h-auto object-cover"
+                        loading="lazy"
+                        width="700"
+                        height="500">
+                </figure>
+                {% else %}
+                <div class="bg-slate-100 rounded-2xl flex items-center justify-center aspect-[7/5]">
+                    <span class="text-slate-400 text-lg">Factory Image</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- TV Programme Info -->
+        {% if section.settings.show_tv_programme %}
+        <div class="bg-slate-50 rounded-2xl p-6 sm:p-8 lg:p-10 border border-slate-200">
+            {% if section.settings.tv_programme_text != blank %}
+            <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed [&_strong]:font-semibold [&_strong]:text-slate-900">
+                {{ section.settings.tv_programme_text }}
+            </div>
+            {% endif %}
+
+            {% if section.settings.show_candidates_list and section.blocks.size > 0 %}
+            <div class="mt-4 text-[15px] sm:text-base text-slate-700">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'candidate' %}
+                        {% if forloop.first %}
+                        <span>{{ block.settings.candidate_name }}</span>
+                        {% elsif forloop.last %}
+                        <span> and {{ block.settings.candidate_name }}</span>
+                        {% else %}
+                        <span>, {{ block.settings.candidate_name }}</span>
+                        {% endif %}
+                    {% endcase %}
+                {% endfor %}
+                <span>).</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "vanRaam History",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main Heading"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading (H1)",
+      "default": "vanRaam manufacturer of adapted bikes throughout the years",
+      "info": "Main page heading for SEO"
+    },
+    {
+      "type": "header",
+      "content": "About vanRaam Section"
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "About Heading (H2)",
+      "default": "About vanRaam adapted bicycles"
+    },
+    {
+      "type": "richtext",
+      "id": "about_paragraph_1",
+      "label": "About Paragraph 1",
+      "default": "<p>vanRaam is a manufacturer of customized adapted bicycles. As a manufacturer of adapted bikes the goal is to offer as many people as possible <strong>sustainable and contemporary mobility</strong>. vanRaam has been producing <strong>bikes for almost 100 years</strong> with a focus on quality and innovation. A unique feature of vanRaam is that every bicycle is produced to order. With about 270 employees vanRaam produces Dutch <strong>quality</strong> bicycles, both for adults and children with a disability or for people who want more safety and stability when cycling. The specialties of vanRaam are:</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "about_paragraph_2",
+      "label": "About Paragraph 2",
+      "info": "Additional information or specialties list"
+    },
+    {
+      "type": "header",
+      "content": "Factory Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "factory_image",
+      "label": "Factory Image",
+      "info": "Recommended size: 700x500px"
+    },
+    {
+      "type": "text",
+      "id": "factory_image_alt",
+      "label": "Factory Image Alt Text",
+      "default": "vanRaam factory - Sustainable adapted bicycle manufacturing with solar panels"
+    },
+    {
+      "type": "header",
+      "content": "TV Programme Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tv_programme",
+      "label": "Show TV Programme Info",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "tv_programme_text",
+      "label": "TV Programme Text",
+      "default": "<p>A series of Fun2Go duo bikes by vanRaam is specially adapted for use in a reality TV programme in <strong>South Africa</strong>.</p><p>In the television programme 'Expedition Unlimited' ten candidates travelled to Cape Town in 2008, five models (Celina, Fleur, Joey, Ronald and Tanneq) and five young people with <strong>a physical disability</strong> (Crites, Kjetil, Lisanne, Samir and Shaushila).</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_candidates_list",
+      "label": "Show Candidates List",
+      "default": false,
+      "info": "If enabled, candidates added as blocks will be listed inline"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "candidate",
+      "name": "Candidate Name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "candidate_name",
+          "label": "Candidate Name",
+          "default": "Candidate Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "vanRaam History",
+      "category": "Loopzo",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

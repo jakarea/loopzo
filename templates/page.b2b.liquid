@@ -1,0 +1,237 @@
+<!-- Main Container -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+
+    <!-- Main Heading -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 sm:mb-12">
+        Word distributeur van <span class="text-slate-700">Loopzo</span>
+    </h1>
+
+    <!-- Two Column Layout: Content + Image -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 sm:mb-16">
+
+        <!-- Left: Content -->
+        <div>
+            <p class="text-base text-slate-700 leading-relaxed mb-5">
+                Loopzo staat voor kwaliteit, comfort en aandacht voor detail. Onze loopfietsen voor volwassenen zijn ontworpen in Nederland en winnen snel aan bekendheid in binnen- en buitenland. Daarom breiden we ons netwerk uit met distributeurs die onze waarden delen en het merk lokaal willen vertegenwoordigen.
+            </p>
+            <b class="text-base text-slate-700 leading-relaxed mb-5">
+                Wat we zoeken in een distributeur
+            </b>
+            <p class="text-base text-slate-700 leading-relaxed mb-5">
+                We werken graag samen met partners die ervaring hebben in de mobiliteits- of revalidatiebranche en die oog hebben voor persoonlijke service.
+                Belangrijk voor ons is dat je:<br>
+                • een betrouwbaar netwerk hebt in jouw regio<br>
+                • klantgericht werkt en gelooft in duurzame mobiliteit<br>
+                • waarde hecht aan kwaliteit en langdurige samenwerking
+            </p>
+        </div>
+
+        <!-- Right: Image -->
+        <div>
+            <img src="{{ 'loopzo_logistic.png' | asset_url }}"
+                 alt="Loopzo distributie - verpakte fietsen klaar voor verzending"
+                 class="w-full h-auto object-cover rounded-lg shadow-lg">
+        </div>
+
+    </div>
+
+    <!-- Additional Information Section -->
+    <p class="text-base text-slate-700 leading-relaxed mb-5">
+        <b>Wat wij bieden</b><br>
+        Als distributeur van Loopzo kun je rekenen op:
+    </p>
+    <ul class="text-base text-slate-700 leading-relaxed mb-5 ml-6">
+        <li>• exclusieve regioafspraken</li>
+        <li>• ondersteuning met marketingmateriaal en merkcommunicatie</li>
+        <li>• producttraining en technische informatie</li>
+        <li>• snelle en zorgvuldige levering</li>
+        <li>• een betrokken team dat met je meedenkt</li>
+    </ul>
+
+    <p class="text-base text-slate-700 leading-relaxed mb-12">
+        <b>Samen bouwen aan Loopzo</b><br>
+        We geloven in samenwerking op basis van vertrouwen, open communicatie en wederzijds succes. Als distributeur vertegenwoordig je een merk dat staat voor zorgvuldigheid, comfort en beweging met vertrouwen.
+    </p>
+
+    <!-- Contact Form Section -->
+    <section class="mb-12">
+        <div class="max-w-3xl mx-auto">
+
+            <div class="bg-slate-50 rounded-2xl p-8 sm:p-10 lg:p-12 shadow-xl">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
+                        Geïnteresseerd? We nemen graag contact met je op
+                    </h2>
+                    <p class="text-slate-600">
+                        Vul onderstaand formulier in en we nemen zo snel mogelijk contact met je op.
+                    </p>
+                </div>
+
+                {% form 'contact' %}
+                    {% if form.posted_successfully? %}
+                        <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6">
+                            Bedankt voor je interesse! We nemen zo snel mogelijk contact met je op.
+                        </div>
+                    {% endif %}
+
+                    {% if form.errors %}
+                        <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6">
+                            <p class="font-semibold">Er zijn enkele problemen met je inzending:</p>
+                            <ul class="list-disc list-inside mt-2">
+                                {% for field in form.errors %}
+                                    <li>{{ field }} - {{ form.errors.messages[field] }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <div class="space-y-6">
+
+                        <!-- Bedrijfsnaam -->
+                        <div>
+                            <label for="ContactForm-company" class="block text-sm font-semibold text-slate-900 mb-2">
+                                Bedrijfsnaam <span class="text-red-600">*</span>
+                            </label>
+                            <input type="text"
+                                   name="contact[company]"
+                                   id="ContactForm-company"
+                                   required
+                                   class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-700 focus:border-slate-700 transition-colors bg-white">
+                        </div>
+
+                        <!-- Naam contactpersoon -->
+                        <div>
+                            <label for="ContactForm-name" class="block text-sm font-semibold text-slate-900 mb-2">
+                                Naam contactpersoon <span class="text-red-600">*</span>
+                            </label>
+                            <input type="text"
+                                   name="contact[name]"
+                                   id="ContactForm-name"
+                                   required
+                                   class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-700 focus:border-slate-700 transition-colors bg-white">
+                        </div>
+
+                        <!-- Email & Telefoon - Two columns on desktop -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- E-mailadres -->
+                            <div>
+                                <label for="ContactForm-email" class="block text-sm font-semibold text-slate-900 mb-2">
+                                    E-mailadres <span class="text-red-600">*</span>
+                                </label>
+                                <input type="email"
+                                       name="contact[email]"
+                                       id="ContactForm-email"
+                                       required
+                                       autocomplete="email"
+                                       class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-700 focus:border-slate-700 transition-colors bg-white">
+                            </div>
+
+                            <!-- Telefoonnummer -->
+                            <div>
+                                <label for="ContactForm-phone" class="block text-sm font-semibold text-slate-900 mb-2">
+                                    Telefoonnummer <span class="text-red-600">*</span>
+                                </label>
+                                <input type="tel"
+                                       name="contact[phone]"
+                                       id="ContactForm-phone"
+                                       required
+                                       class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-700 focus:border-slate-700 transition-colors bg-white">
+                            </div>
+                        </div>
+
+                        <!-- Land -->
+                        <div>
+                            <label for="ContactForm-country" class="block text-sm font-semibold text-slate-900 mb-2">
+                                Land <span class="text-red-600">*</span>
+                            </label>
+                            <select name="contact[country]"
+                                    id="ContactForm-country"
+                                    required
+                                    class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-700 focus:border-slate-700 transition-colors bg-white">
+                                <option value="">Selecteer land</option>
+                                <option value="nl">Nederland</option>
+                                <option value="be">België</option>
+                                <option value="de">Duitsland</option>
+                                <option value="fr">Frankrijk</option>
+                                <option value="uk">Verenigd Koninkrijk</option>
+                                <option value="other">Anders</option>
+                            </select>
+                        </div>
+
+                        <!-- Branche -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-900 mb-3">
+                                Branche <span class="text-red-600">*</span>
+                            </label>
+                            <div class="flex flex-wrap gap-6">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="radio"
+                                           name="contact[industry]"
+                                           value="zorg"
+                                           required
+                                           class="w-4 h-4 text-slate-700 border-slate-300 focus:ring-2 focus:ring-slate-700">
+                                    <span class="ml-3 text-base text-slate-700">Zorg</span>
+                                </label>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="radio"
+                                           name="contact[industry]"
+                                           value="revalidatie"
+                                           required
+                                           class="w-4 h-4 text-slate-700 border-slate-300 focus:ring-2 focus:ring-slate-700">
+                                    <span class="ml-3 text-base text-slate-700">Revalidatie</span>
+                                </label>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="radio"
+                                           name="contact[industry]"
+                                           value="fietsen"
+                                           required
+                                           class="w-4 h-4 text-slate-700 border-slate-300 focus:ring-2 focus:ring-slate-700">
+                                    <span class="ml-3 text-base text-slate-700">Fietsen</span>
+                                </label>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="radio"
+                                           name="contact[industry]"
+                                           value="anders"
+                                           required
+                                           class="w-4 h-4 text-slate-700 border-slate-300 focus:ring-2 focus:ring-slate-700">
+                                    <span class="ml-3 text-base text-slate-700">Anders</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Opmerkingen/vragen -->
+                        <div>
+                            <label for="ContactForm-body" class="block text-sm font-semibold text-slate-900 mb-2">
+                                Opmerkingen/vragen
+                            </label>
+                            <textarea name="contact[body]"
+                                      id="ContactForm-body"
+                                      rows="5"
+                                      placeholder="Vertel ons meer over je interesse in een distributeurschap..."
+                                      class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-slate-700 focus:border-slate-700 transition-colors bg-white resize-none"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-4">
+                            <button type="submit"
+                                    class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center group">
+                                Verstuur aanvraag
+                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Privacy Notice -->
+                        <p class="text-xs text-slate-600 text-center pt-2">
+                            Door dit formulier in te vullen ga je akkoord met onze <a href="/pages/privacy" class="underline hover:text-slate-900">privacyverklaring</a>.
+                        </p>
+
+                    </div>
+                {% endform %}
+            </div>
+
+        </div>
+    </section>
+
+</div>

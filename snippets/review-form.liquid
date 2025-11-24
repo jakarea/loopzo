@@ -1,0 +1,140 @@
+{%- comment -%}
+  Custom Review Submission Form
+  Sends review to email for approval
+  Usage: {% render 'review-form', product: product %}
+{%- endcomment -%}
+
+<div id="review-form-container" class="bg-white rounded-xl border border-slate-200 p-6 sm:p-8">
+  <h3 class="text-xl font-bold text-slate-900 mb-6">Write a Review</h3>
+
+  {% form 'contact', class: 'space-y-4' %}
+    {% if form.posted_successfully? %}
+      <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6">
+        <p class="font-semibold">Thank you for your review!</p>
+        <p class="text-sm mt-1">Your review has been submitted and is pending approval. We'll publish it soon!</p>
+      </div>
+    {% endif %}
+
+    {% if form.errors %}
+      <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6">
+        <p class="font-semibold">Please correct the following:</p>
+        <ul class="list-disc list-inside mt-2 text-sm">
+          {% for field in form.errors %}
+            <li>{{ field }} - {{ form.errors.messages[field] }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- Hidden Fields for Product Info -->
+    <input type="hidden" name="contact[product_title]" value="{{ product.title | escape }}">
+    <input type="hidden" name="contact[product_id]" value="{{ product.id }}">
+    <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}">
+
+    <!-- Name -->
+    <div>
+      <label for="ContactForm-name" class="block text-sm font-semibold text-slate-700 mb-2">
+        Your Name <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="ContactForm-name"
+        name="contact[name]"
+        required
+        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+        placeholder="John Doe"
+      >
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="ContactForm-email" class="block text-sm font-semibold text-slate-700 mb-2">
+        Email Address <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        id="ContactForm-email"
+        name="contact[email]"
+        required
+        autocomplete="email"
+        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+        placeholder="john@example.com"
+      >
+      <p class="text-xs text-slate-500 mt-1">Your email will not be published</p>
+    </div>
+
+    <!-- Rating -->
+    <div>
+      <label class="block text-sm font-semibold text-slate-700 mb-2">
+        Rating <span class="text-red-500">*</span>
+      </label>
+      <select
+        name="contact[rating]"
+        id="ContactForm-rating"
+        required
+        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+      >
+        <option value="">Select a rating...</option>
+        <option value="5">★★★★★ (5 stars - Excellent)</option>
+        <option value="4">★★★★☆ (4 stars - Very Good)</option>
+        <option value="3">★★★☆☆ (3 stars - Good)</option>
+        <option value="2">★★☆☆☆ (2 stars - Fair)</option>
+        <option value="1">★☆☆☆☆ (1 star - Poor)</option>
+      </select>
+    </div>
+
+    <!-- Review Title -->
+    <div>
+      <label for="ContactForm-title" class="block text-sm font-semibold text-slate-700 mb-2">
+        Review Title <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="ContactForm-title"
+        name="contact[review_title]"
+        required
+        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+        placeholder="Summarize your experience"
+      >
+    </div>
+
+    <!-- Review Content -->
+    <div>
+      <label for="ContactForm-body" class="block text-sm font-semibold text-slate-700 mb-2">
+        Your Review <span class="text-red-500">*</span>
+      </label>
+      <textarea
+        id="ContactForm-body"
+        name="contact[body]"
+        required
+        rows="5"
+        class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition resize-y"
+        placeholder="Tell us about your experience with this product..."
+      ></textarea>
+    </div>
+
+    <!-- Verified Purchase Checkbox -->
+    <div class="flex items-start gap-2">
+      <input
+        type="checkbox"
+        id="verified_purchase"
+        name="contact[verified_purchase]"
+        value="yes"
+        class="mt-1 w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-2 focus:ring-blue-500"
+      >
+      <label for="verified_purchase" class="text-sm text-slate-700">
+        I purchased this product from this store
+      </label>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-4">
+      <button
+        type="submit"
+        class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-6 rounded-lg transition"
+      >
+        Submit Review
+      </button>
+    </div>
+  {% endform %}
+</div>

@@ -1,0 +1,50 @@
+{% comment %}
+    Renders a list of product's price (regular, sale)
+    Accepts:
+    - product: {Object} Product Liquid object (optional)
+    - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
+    - show_badges: {Boolean} Renders 'Sale' badge (optional)
+    - price_class: {String} Adds a price class to the price element (optional)
+{% endcomment %}
+
+{%- liquid
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign available = target.available | default: false
+  assign money_price = price | money
+-%}
+
+<div class="price
+  {%- if available == false %} price--sold-out {% endif -%}
+  {%- if compare_at_price > price %} price--on-sale {% endif -%}">
+
+  <div class="price__container flex items-baseline gap-3">
+    {%- if compare_at_price > price -%}
+      <span class="visually-hidden">Regular price</span>
+      <s class="price-item price-item--regular text-xl sm:text-2xl text-gray-400 line-through">
+        {{ compare_at_price | money }}
+      </s>
+      <span class="visually-hidden">Sale price</span>
+      <span class="price-item price-item--sale price-item--last {% if price_class %}{{ price_class }}{% else %}text-3xl sm:text-4xl font-bold text-slate-800{% endif %}">
+        {{ money_price }}
+      </span>
+      {%- if show_badges -%}
+        {%- assign discount_percentage = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round -%}
+        <span class="badge price__badge-sale bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-semibold">
+          {{ discount_percentage }}% OFF
+        </span>
+      {%- endif -%}
+    {%- else -%}
+      <span class="visually-hidden">Regular price</span>
+      <span class="price-item price-item--regular {% if price_class %}{{ price_class }}{% else %}text-3xl sm:text-4xl font-bold text-slate-800{% endif %}">
+        {{ money_price }}
+      </span>
+    {%- endif -%}
+  </div>
+</div>

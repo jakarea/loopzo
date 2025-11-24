@@ -1,0 +1,161 @@
+{
+  "sections": {
+    "main-product": {
+      "name": "Product information",
+      "blocks": {
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text",
+              "default": "Text block"
+            },
+            "text_style": {
+              "label": "Style",
+              "options__1": {
+                "label": "Body"
+              },
+              "options__2": {
+                "label": "Subtitle"
+              },
+              "options__3": {
+                "label": "Uppercase"
+              }
+            }
+          }
+        },
+        "title": {
+          "name": "Title"
+        },
+        "price": {
+          "name": "Price"
+        },
+        "quantity_selector": {
+          "name": "Quantity selector"
+        },
+        "variant_picker": {
+          "name": "Variant picker",
+          "settings": {
+            "picker_type": {
+              "label": "Style",
+              "options__1": {
+                "label": "Dropdown"
+              },
+              "options__2": {
+                "label": "Buttons"
+              }
+            }
+          }
+        },
+        "buy_buttons": {
+          "name": "Buy buttons",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Dynamic checkout buttons",
+              "info": "Customers will see their preferred payment option. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+            }
+          }
+        },
+        "description": {
+          "name": "Description"
+        },
+        "share": {
+          "name": "Share",
+          "settings": {
+            "share_label": {
+              "label": "Share label"
+            }
+          }
+        },
+        "delivery_item": {
+          "name": "Delivery Item",
+          "settings": {
+            "icon_type": {
+              "label": "Icon",
+              "options__1": {
+                "label": "Truck (Delivery)"
+              },
+              "options__2": {
+                "label": "Tools (Installation)"
+              },
+              "options__3": {
+                "label": "Shield (Warranty)"
+              }
+            },
+            "title": {
+              "label": "Title"
+            },
+            "description": {
+              "label": "Description"
+            },
+            "link_text": {
+              "label": "Link Text (optional)",
+              "info": "Leave empty to hide the link"
+            },
+            "link_url": {
+              "label": "Link URL (optional)"
+            }
+          }
+        }
+      },
+      "settings": {
+        "enable_sticky_info": {
+          "label": "Enable sticky info"
+        },
+        "header__stock_status": "Stock Status",
+        "show_stock_status": {
+          "label": "Show Stock Status"
+        },
+        "show_inventory_quantity": {
+          "label": "Show Inventory Quantity when Low",
+          "info": "Shows 'Only X left' message when stock is below threshold"
+        },
+        "low_stock_threshold": {
+          "label": "Low Stock Threshold",
+          "info": "When to show 'Only X left' message"
+        },
+        "in_stock_text": {
+          "label": "In Stock Text"
+        },
+        "out_of_stock_text": {
+          "label": "Out of Stock Text"
+        },
+        "header__product_features": "Product Features",
+        "show_features": {
+          "label": "Show Key Features"
+        },
+        "feature_1": {
+          "label": "Feature 1"
+        },
+        "feature_2": {
+          "label": "Feature 2"
+        },
+        "feature_3": {
+          "label": "Feature 3"
+        },
+        "feature_4": {
+          "label": "Feature 4"
+        },
+        "header__delivery_tab": "Delivery Tab Content",
+        "delivery_heading": {
+          "label": "Delivery Tab Heading",
+          "info": "Add delivery items using the 'Delivery Item' blocks below"
+        },
+        "header__padding": "Section padding",
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      }
+    },
+    "all": {
+      "padding": {
+        "section_padding_heading": "Padding",
+        "padding_top": "Top",
+        "padding_bottom": "Bottom"
+      }
+    }
+  }
+}

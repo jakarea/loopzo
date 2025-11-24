@@ -1,0 +1,240 @@
+{%- comment -%}
+  Display Product Reviews from Metaobjects (List of entries)
+  Metafield: product.metafields.custom.product_reviews
+  Source: Metaobject 'Reviews'
+{%- endcomment -%}
+
+{%- assign reviews_list = product.metafields.custom.product_reviews.value -%}
+
+{%- comment -%} 
+  CALCULATE LOGIC: Automatically calculate average and counts from the list 
+{%- endcomment -%}
+{%- assign review_count = 0 -%}
+{%- assign total_rating = 0 -%}
+{%- assign count_5 = 0 -%}
+{%- assign count_4 = 0 -%}
+{%- assign count_3 = 0 -%}
+{%- assign count_2 = 0 -%}
+{%- assign count_1 = 0 -%}
+
+{%- if reviews_list != blank -%}
+  {%- assign review_count = reviews_list.count -%}
+  {%- for review in reviews_list -%}
+    {%- assign current_rating = review.rating | plus: 0 -%}
+    {%- assign total_rating = total_rating | plus: current_rating -%}
+    
+    {%- case current_rating -%}
+      {%- when 5 -%}
+        {%- assign count_5 = count_5 | plus: 1 -%}
+      {%- when 4 -%}
+        {%- assign count_4 = count_4 | plus: 1 -%}
+      {%- when 3 -%}
+        {%- assign count_3 = count_3 | plus: 1 -%}
+      {%- when 2 -%}
+        {%- assign count_2 = count_2 | plus: 1 -%}
+      {%- when 1 -%}
+        {%- assign count_1 = count_1 | plus: 1 -%}
+    {%- endcase -%}
+  {%- endfor -%}
+  
+  {%- if review_count > 0 -%}
+    {%- assign average_rating = total_rating | times: 1.0 | divided_by: review_count | round: 1 -%}
+  {%- else -%}
+    {%- assign average_rating = 0 -%}
+  {%- endif -%}
+
+{%- else -%}
+  {%- assign average_rating = 0 -%}
+{%- endif -%}
+
+
+<style>
+  @media (min-width: 768px) {
+    .review-sticky-sidebar {
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 1rem;
+      align-self: flex-start;
+      z-index: 10;
+    }
+
+    .reviews-scroll-container {
+      min-height: 100vh; /* Ensure enough height for scrolling */
+    }
+  }
+</style>
+
+<div class="max-w-4xl reviews-scroll-container">
+  <div class="flex flex-col md:flex-row gap-8 mb-12 md:items-start">
+    <!-- Rating Summary (Sticky) -->
+    <div class="md:w-1/3 review-sticky-sidebar">
+      <div class="bg-white p-6 rounded-xl border border-slate-200">
+      {%- if review_count > 0 -%}
+        <div class="text-center">
+          <div class="text-5xl font-bold text-slate-900 mb-2">{{ average_rating }}</div>
+          <div class="flex items-center justify-center gap-1 mb-2">
+            {%- assign full_stars = average_rating | floor -%}
+            {%- assign decimal_part = average_rating | minus: full_stars -%}
+
+            {%- for i in (1..5) -%}
+              {%- assign next_star = full_stars | plus: 1 -%}
+              {%- if i <= full_stars -%}
+                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                </svg>
+              {%- elsif i == next_star and decimal_part >= 0.5 -%}
+                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-opacity=".3" d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                </svg>
+              {%- else -%}
+                <svg class="w-5 h-5 text-slate-300" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                </svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <p class="text-sm text-slate-600">Gebaseerd op {{ review_count }} review{% if review_count != 1 %}s{% endif %}</p>
+        </div>
+
+        <div class="mt-6 space-y-2">
+          {%- for i in (1..5) -%}
+            {%- assign star_num = 6 | minus: i -%}
+            {%- assign current_star_count = 0 -%}
+
+            {%- if star_num == 5 -%}
+              {%- assign current_star_count = count_5 -%}
+            {%- elsif star_num == 4 -%}
+              {%- assign current_star_count = count_4 -%}
+            {%- elsif star_num == 3 -%}
+              {%- assign current_star_count = count_3 -%}
+            {%- elsif star_num == 2 -%}
+              {%- assign current_star_count = count_2 -%}
+            {%- elsif star_num == 1 -%}
+              {%- assign current_star_count = count_1 -%}
+            {%- endif -%}
+
+            {%- assign percentage = 0 -%}
+            {%- if review_count > 0 -%}
+              {%- assign percentage = current_star_count | times: 100.0 | divided_by: review_count | round -%}
+            {%- endif -%}
+
+            <div class="flex items-center gap-2">
+              <span class="text-sm text-slate-700 w-6">{{ star_num }}★</span>
+              <div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
+                <div class="h-full bg-amber-400" style="width: {{ percentage }}%"></div>
+              </div>
+              <span class="text-sm text-slate-600 w-8">{{ current_star_count }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <button onclick="document.getElementById('review-form-container').scrollIntoView({behavior: 'smooth'})" class="w-full mt-6 bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-lg transition">
+          Schrijf een review
+        </button>
+      {%- else -%}
+        <div class="text-center py-8">
+          <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+          </svg>
+          <h3 class="text-xl font-bold text-slate-900 mb-2">Nog geen reviews</h3>
+          <p class="text-slate-600">Wees de eerste om dit product te reviewen!</p>
+        </div>
+
+        <button onclick="document.getElementById('review-form-container').scrollIntoView({behavior: 'smooth'})" class="w-full mt-6 bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-lg transition">
+          Schrijf een review
+        </button>
+      {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Reviews List & Form Column -->
+    <div class="md:w-2/3">
+      {%- if reviews_list != blank and review_count > 0 -%}
+        <div class="space-y-6 mb-12">
+          {%- for review in reviews_list -%}
+            <div class="bg-white p-6 rounded-xl border border-slate-200">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <div class="flex items-center gap-1 mb-1">
+                    {%- assign rating_num = review.rating | plus: 0 -%}
+                    {%- for i in (1..5) -%}
+                      {%- if i <= rating_num -%}
+                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                        </svg>
+                      {%- else -%}
+                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path>
+                        </svg>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                  {%- if review.title != blank -%}
+                    <h4 class="font-bold text-slate-900">{{ review.title }}</h4>
+                  {%- endif -%}
+                  <p class="text-sm text-slate-600">
+                    {{ review.name }}
+                    {%- if review.date != blank -%}
+                      {%- comment -%} Calculate relative time {%- endcomment -%}
+                      {%- assign now = 'now' | date: '%s' | times: 1 -%}
+                      {%- assign review_timestamp = review.date | date: '%s' | times: 1 -%}
+                      {%- assign seconds_diff = now | minus: review_timestamp -%}
+                      {%- assign minutes_diff = seconds_diff | divided_by: 60 -%}
+                      {%- assign hours_diff = seconds_diff | divided_by: 3600 -%}
+                      {%- assign days_diff = seconds_diff | divided_by: 86400 -%}
+                      {%- assign weeks_diff = seconds_diff | divided_by: 604800 -%}
+                      {%- assign months_diff = seconds_diff | divided_by: 2592000 -%}
+
+                      {%- if minutes_diff < 60 -%}
+                        {%- if minutes_diff <= 1 -%}
+                          zojuist
+                        {%- else -%}
+                          {{ minutes_diff }} minuten geleden
+                        {%- endif -%}
+                      {%- elsif hours_diff < 24 -%}
+                        {%- if hours_diff == 1 -%}
+                          1 uur geleden
+                        {%- else -%}
+                          {{ hours_diff }} uur geleden
+                        {%- endif -%}
+                      {%- elsif days_diff < 7 -%}
+                        {%- if days_diff == 1 -%}
+                          1 dag geleden
+                        {%- else -%}
+                          {{ days_diff }} dagen geleden
+                        {%- endif -%}
+                      {%- elsif weeks_diff < 4 -%}
+                        {%- if weeks_diff == 1 -%}
+                          1 week geleden
+                        {%- else -%}
+                          {{ weeks_diff }} weken geleden
+                        {%- endif -%}
+                      {%- elsif months_diff < 12 -%}
+                        {%- if months_diff == 1 -%}
+                          1 maand geleden
+                        {%- else -%}
+                          {{ months_diff }} maanden geleden
+                        {%- endif -%}
+                      {%- else -%}
+                        {{ review.date | date: "%d %B %Y" }}
+                      {%- endif -%}
+                    {%- endif -%}
+                  </p>
+                </div>
+                {%- if review.verified == true -%}
+                  <span class="text-xs text-white bg-green-600 px-2 py-1 rounded">Geverifieerde aankoop</span>
+                {%- endif -%}
+              </div>
+              <p class="text-slate-700">
+                {{ review.content | metafield_tag }}
+              </p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <!-- Review Form in the same column -->
+      {% render 'review-form', product: product %}
+    </div>
+  </div>
+</div>

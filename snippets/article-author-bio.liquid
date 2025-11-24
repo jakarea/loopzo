@@ -1,0 +1,41 @@
+{%- comment -%}
+  Snippet: Author Bio Box
+  Source: Metaobject (custom.related_author)
+  Design: Loopzo Style (Circular Image + Bio)
+{%- endcomment -%}
+
+{%- assign author = article.metafields.custom.related_author.value -%}
+
+{%- if author != blank -%}
+  <div class="author-bio-wrapper mt-10 pt-8 border-t border-slate-200">
+    <div class="flex flex-col sm:flex-row gap-6 items-start">
+      
+      {%- if author.photo != blank -%}
+        <div class="flex-shrink-0">
+          <img 
+            src="{{ author.photo | image_url: width: 150, height: 150, crop: 'center' }}" 
+            alt="{{ author.name }}" 
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border border-slate-100 shadow-sm"
+            loading="lazy"
+            width="96"
+            height="96"
+          >
+        </div>
+      {%- endif -%}
+
+      <div class="flex-1">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">
+          {{ author.name }}
+          {%- if author.job_title != blank -%}
+            <span class="font-semibold text-slate-900">({{ author.job_title }})</span>
+          {%- endif -%}
+        </h3>
+        
+        <div class="text-slate-700 text-base leading-relaxed prose prose-slate max-w-none">
+          {{ author.bio | metafield_tag }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+{%- endif -%}

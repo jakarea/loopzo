@@ -1,0 +1,424 @@
+{%- comment -%} SEO: Meta Tags {%- endcomment -%}
+{%- if article.image -%}
+  {%- assign og_image = article.image | image_url: width: 1200, height: 630, crop: 'center' -%}
+{%- else -%}
+  {%- assign og_image = shop.brand.logo | default: shop.logo | image_url: width: 1200 -%}
+{%- endif -%}
+
+{%- capture article_description -%}
+  {%- if article.excerpt != blank -%}
+    {{ article.excerpt | strip_html | truncate: 160 }}
+  {%- else -%}
+    {{ article.content | strip_html | truncate: 160 }}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- comment -%} Breadcrumbs {%- endcomment -%}
+<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6" aria-label="Breadcrumb">
+  <ol class="flex items-center gap-2 text-sm text-gray-600">
+    <li>
+      <a href="/" class="hover:text-gray-900">Home</a>
+    </li>
+    <li>/</li>
+    <li>
+      <a href="{{ blog.url }}" class="hover:text-gray-900">{{ blog.title }}</a>
+    </li>
+    <li>/</li>
+    <li class="text-gray-900">{{ article.title }}</li>
+  </ol>
+</nav>
+
+<article class="pb-12 sm:pb-16" itemscope itemtype="https://schema.org/BlogPosting">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        <div class="max-w-7xl mx-auto px-4" {{ block.shopify_attributes }}>
+          {% render block %}
+        </div>
+
+      {%- when 'featured_image' -%}
+        {%- if article.image -%}
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12" {{ block.shopify_attributes }}>
+            <div class="grid lg:grid-cols-2 gap-0 items-center rounded-2xl overflow-hidden shadow-lg">
+              {%- comment -%} Left side: Title overlay box {%- endcomment -%}
+              <div class="bg-gradient-to-br from-teal-700 to-teal-600 text-white p-8 sm:p-12 lg:p-16 order-2 lg:order-1">
+                <div class="mb-4">
+                  <span class="text-sm font-semibold tracking-wider uppercase" itemprop="articleSection">{{ blog.title }}</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6" style="font-family: 'Zilla Slab', serif;" itemprop="headline">
+                  {{ article.title | escape }}
+                </h1>
+                <div class="flex flex-wrap items-center gap-4 text-sm">
+                  <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    <span>
+                      {%- if article.tags.size > 0 -%}
+                        {{ article.tags | first }}
+                      {%- else -%}
+                        {{ blog.title }}
+                      {%- endif -%}
+                    </span>
+                  </div>
+                  {%- if block.settings.blog_show_author -%}
+                    <div class="flex items-center gap-2">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                      </svg>
+                      <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                        <span itemprop="name">{{ article.author }}</span>
+                      </span>
+                    </div>
+                  {%- endif -%}
+                  <meta itemprop="datePublished" content="{{ article.published_at | date: '%Y-%m-%d' }}">
+                  <meta itemprop="dateModified" content="{{ article.updated_at | date: '%Y-%m-%d' }}">
+                </div>
+              </div>
+
+              {%- comment -%} Right side: Featured image {%- endcomment -%}
+              <div class="order-1 lg:order-2">
+                {%- case block.settings.image_height -%}
+                  {%- when 'small' -%}
+                    {%- assign image_class = 'h-64 sm:h-80' -%}
+                  {%- when 'medium' -%}
+                    {%- assign image_class = 'h-80 sm:h-96' -%}
+                  {%- when 'large' -%}
+                    {%- assign image_class = 'h-96 sm:h-[32rem]' -%}
+                  {%- else -%}
+                    {%- assign image_class = 'h-80 lg:h-96' -%}
+                {%- endcase -%}
+
+                <img
+                  srcset="
+                    {% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
+                    {% if article.image.width >= 750 %}{{ article.image | image_url: width: 750 }} 750w,{% endif %}
+                    {% if article.image.width >= 1100 %}{{ article.image | image_url: width: 1100 }} 1100w,{% endif %}
+                    {% if article.image.width >= 1500 %}{{ article.image | image_url: width: 1500 }} 1500w,{% endif %}
+                    {{ article.image | image_url }} {{ article.image.width }}w
+                  "
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  src="{{ article.image | image_url: width: 1100 }}"
+                  loading="eager"
+                  fetchpriority="high"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                  alt="{{ article.image.alt | default: article.title | escape }}"
+                  class="w-full object-cover {{ image_class }}"
+                  itemprop="image"
+                >
+              </div>
+            </div>
+          </div>
+        {%- else -%}
+          {%- comment -%} Title block without image {%- endcomment -%}
+          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12" {{ block.shopify_attributes }}>
+            <div class="mb-4">
+              <span class="text-sm font-semibold tracking-wider uppercase text-teal-700">{{ blog.title }}</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6" style="font-family: 'Zilla Slab', serif;">
+              {{ article.title | escape }}
+            </h1>
+            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+              {%- if block.settings.blog_show_date -%}
+                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                  {{ article.published_at | date: '%B %d, %Y' }}
+                </time>
+              {%- endif -%}
+              {%- if block.settings.blog_show_author -%}
+                {%- if block.settings.blog_show_date -%}<span>•</span>{%- endif -%}
+                <span>{{ article.author }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+      {%- when 'title' -%}
+        {%- comment -%} Skip title block if featured_image is present {%- endcomment -%}
+
+      {%- when 'content' -%}
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12" {{ block.shopify_attributes }}>
+          <div class="prose prose-lg max-w-none" itemprop="articleBody" style="font-family: system-ui, -apple-system, sans-serif;">
+            {{ article.content }}
+          </div>
+          {%- comment -%} Hidden meta for publisher schema {%- endcomment -%}
+          <meta itemprop="publisher" itemscope itemtype="https://schema.org/Organization" content="{{ shop.name }}">
+          <meta itemprop="url" content="{{ article.url | prepend: shop.url }}">
+        </div>
+
+      {%- when 'share' -%}
+        {%- comment -%} Share block removed - not needed {%- endcomment -%}
+    {%- endcase -%}
+  {%- endfor -%}
+
+  {%- comment -%} Author Bio Section {%- endcomment -%}
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    {% render 'article-author-bio', article: article %}
+  </div>
+
+  {%- comment -%} Back to Blog Link {%- endcomment -%}
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <a href="{{ blog.url }}" class="inline-flex items-center gap-2 text-teal-700 hover:text-teal-800 font-medium transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Back to {{ blog.title }}
+    </a>
+  </div>
+
+  {%- comment -%} Comments Section {%- endcomment -%}
+  {%- if blog.comments_enabled? -%}
+    <div class="bg-gray-50 py-12 mt-12">
+      <div id="comments" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {%- if article.comments_count > 0 -%}
+          {%- assign anchorId = '#Comments-' | append: article.id -%}
+
+          <h2 id="Comments-{{ article.id }}" class="text-2xl font-bold mb-8" style="font-family: 'Zilla Slab', serif;" tabindex="-1">
+            {{ 'blogs.article.comments' | t: count: article.comments_count }}
+          </h2>
+
+          {% paginate article.comments by 5 %}
+            <div class="space-y-6 mb-8">
+              {%- if comment.status == 'pending' and comment.content -%}
+                <article id="{{ comment.id }}" class="bg-white p-6 rounded border border-gray-200">
+                  <div class="prose max-w-none mb-3">{{ comment.content }}</div>
+                  <footer class="text-sm text-gray-600">
+                    <span class="font-medium">{{ comment.author }}</span>
+                  </footer>
+                </article>
+              {%- endif -%}
+
+              {%- for comment in article.comments -%}
+                <article id="{{ comment.id }}" class="bg-white p-6 rounded border border-gray-200">
+                  <div class="prose max-w-none mb-3">{{ comment.content }}</div>
+                  <footer class="flex items-center gap-2 text-sm text-gray-600">
+                    <span class="font-medium">{{ comment.author }}</span>
+                    <span>•</span>
+                    <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}">
+                      {{ comment.created_at | date: '%B %d, %Y' }}
+                    </time>
+                  </footer>
+                </article>
+              {%- endfor -%}
+              {% render 'pagination', paginate: paginate, anchor: anchorId %}
+            </div>
+          {% endpaginate %}
+        {%- endif -%}
+
+        {% form 'new_comment', article %}
+          {%- liquid
+            assign post_message = 'blogs.article.success'
+            if blog.moderated? and comment.status == 'unapproved'
+              assign post_message = 'blogs.article.success_moderated'
+            endif
+          -%}
+
+          <h2 class="text-2xl font-bold mb-6" style="font-family: 'Zilla Slab', serif;">
+            {{ 'blogs.article.comment_form_title' | t }}
+          </h2>
+
+          {%- if form.errors -%}
+            <div class="bg-red-50 border border-red-200 p-4 mb-6 rounded" role="alert">
+              <h3 class="text-red-800 font-semibold mb-2" tabindex="-1" autofocus>
+                {{ 'templates.contact.form.error_heading' | t }}
+              </h3>
+              <ul class="text-sm text-red-700 space-y-1">
+                {%- for field in form.errors -%}
+                  <li>
+                    <a href="#CommentForm-{{ field }}" class="underline hover:no-underline">
+                      {%- if form.errors.translated_fields[field] contains 'author' -%}
+                        {{ 'blogs.article.name' | t }}
+                      {%- elsif form.errors.translated_fields[field] contains 'body' -%}
+                        {{ 'blogs.article.message' | t }}
+                      {%- else -%}
+                        {{ form.errors.translated_fields[field] }}
+                      {%- endif -%}
+                      {{ form.errors.messages[field] }}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- elsif form.posted_successfully? -%}
+            <div class="bg-green-50 border border-green-200 p-4 mb-6 rounded" role="status">
+              <h3 class="text-green-800 font-semibold" tabindex="-1" autofocus>
+                {{ post_message | t }}
+              </h3>
+            </div>
+          {%- endif -%}
+
+          <div class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="CommentForm-author" class="block text-sm font-medium mb-2">
+                  {{ 'blogs.article.name' | t }} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="comment[author]"
+                  id="CommentForm-author"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  autocomplete="name"
+                  value="{{ form.author }}"
+                  aria-required="true"
+                  required
+                  {% if form.errors contains 'author' %}
+                    aria-invalid="true"
+                    aria-describedby="CommentForm-author-error"
+                  {% endif %}
+                  placeholder="{{ 'blogs.article.name' | t }}"
+                >
+                {%- if form.errors contains 'author' -%}
+                  <small id="CommentForm-author-error" class="text-red-600 text-sm mt-1 block">
+                    {{ 'blogs.article.name' | t }} {{ form.errors.messages.author }}
+                  </small>
+                {%- endif -%}
+              </div>
+
+              <div>
+                <label for="CommentForm-email" class="block text-sm font-medium mb-2">
+                  {{ 'blogs.article.email' | t }} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="comment[email]"
+                  id="CommentForm-email"
+                  autocomplete="email"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                  value="{{ form.email }}"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  aria-required="true"
+                  required
+                  {% if form.errors contains 'email' %}
+                    aria-invalid="true"
+                    aria-describedby="CommentForm-email-error"
+                  {% endif %}
+                  placeholder="{{ 'blogs.article.email' | t }}"
+                >
+                {%- if form.errors contains 'email' -%}
+                  <small id="CommentForm-email-error" class="text-red-600 text-sm mt-1 block">
+                    {{ 'blogs.article.email' | t }} {{ form.errors.messages.email }}
+                  </small>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div>
+              <label for="CommentForm-body" class="block text-sm font-medium mb-2">
+                {{ 'blogs.article.message' | t }} <span class="text-red-500">*</span>
+              </label>
+              <textarea
+                rows="5"
+                name="comment[body]"
+                id="CommentForm-body"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded focus:outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                aria-required="true"
+                required
+                {% if form.errors contains 'body' %}
+                  aria-invalid="true"
+                  aria-describedby="CommentForm-body-error"
+                {% endif %}
+                placeholder="{{ 'blogs.article.message' | t }}"
+              >{{ form.body }}</textarea>
+              {%- if form.errors contains 'body' -%}
+                <small id="CommentForm-body-error" class="text-red-600 text-sm mt-1 block">
+                  {{ 'blogs.article.message' | t }} {{ form.errors.messages.body }}
+                </small>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if blog.moderated? -%}
+            <p class="text-sm text-gray-600 mt-4">{{ 'blogs.article.moderated' | t }}</p>
+          {%- endif -%}
+
+          <button
+            type="submit"
+            class="mt-6 px-8 py-3 bg-teal-700 text-white font-semibold rounded hover:bg-teal-800 transition-colors"
+          >
+            {{ 'blogs.article.post' | t }}
+          </button>
+        {% endform %}
+      </div>
+    </div>
+  {%- endif -%}
+</article>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Blog Post",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "featured_image",
+      "name": "Featured Image & Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "image_height",
+          "options": [
+            {
+              "value": "adapt",
+              "label": "Adapt to image"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "adapt",
+          "label": "Image height"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_show_author",
+          "default": true,
+          "label": "Show author"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title (Legacy)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "blog_show_date",
+          "default": true,
+          "label": "Show date"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_show_author",
+          "default": false,
+          "label": "Show author"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "Content",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %}
