@@ -69,7 +69,11 @@
 
                         <div class="flex-shrink-0">
                             <a href="/" class="flex items-center">
-                                <img class="h-10 w-auto" src="{{ 'loopzo_light_logo.png' | asset_url }}" alt="Loopzo Logo">
+                                {%- if block.settings.logo != blank -%}
+                                    <img class="h-10 w-auto" src="{{ block.settings.logo | image_url: width: 200, height: 80 }}" alt="{{ block.settings.logo.alt | default: 'Loopzo Logo' }}">
+                                {%- else -%}
+                                    <img class="h-10 w-auto" src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" alt="Loopzo Logo">
+                                {%- endif -%}
                             </a>
                         </div>
 
@@ -225,7 +229,14 @@ function toggleMobileMenu(menuId) {
       "type": "main_navigation",
       "name": "Main Navigation",
       "limit": 1,
-      "settings": []
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "If no logo is selected, the default Loopzo logo will be used"
+        }
+      ]
     }
   ],
   "presets": [

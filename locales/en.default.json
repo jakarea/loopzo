@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "accessibility": {
     "skip_to_text": "Skip to content"
@@ -90,6 +99,128 @@
         "padding_top": "Top padding",
         "padding_bottom": "Bottom padding"
       }
+    },
+    "loopzo_hero": {
+      "aria_label": "Hero section",
+      "brand_name_aria_label": "Brand name"
+    },
+    "loopzo_features": {
+      "aria_label": "Features section"
+    },
+    "loopzo_cta": {
+      "title": "Ready to experience freedom on wheels?",
+      "description": "Schedule a free consultation and test ride. Our experts will help you find the perfect adaptive bicycle tailored to your needs.",
+      "schedule_test_ride": "Schedule Test Ride",
+      "chat_whatsapp": "Chat on WhatsApp",
+      "customer_service": {
+        "title": "Customer Service",
+        "description": "Our expert team is ready to help you find the perfect adaptive bicycle solution."
+      },
+      "showroom": {
+        "title": "Visit Showroom",
+        "description": "Experience our bicycles in person. Test rides available by appointment."
+      },
+      "customization": {
+        "title": "Customization",
+        "description": "Tailored adaptations to ensure your perfect fit and comfort."
+      },
+      "support": {
+        "title": "Lifetime Support",
+        "description": "We stand behind every bicycle with comprehensive support and maintenance."
+      }
+    },
+    "loopzo_product_showcase": {
+      "title": "Our Adaptive Bicycles",
+      "subtitle": "Engineered for independence, designed for freedom",
+      "view_all": "View All Products"
+    },
+    "loopzo_history": {
+      "title": "Our Story",
+      "subtitle": "From passion to innovation",
+      "read_more": "Read More"
+    },
+    "loopzo_thuja_ebike": {
+      "title": "Thuja E-Bike",
+      "subtitle": "Revolutionary adaptive electric bicycle",
+      "description": "Experience the perfect blend of innovation and accessibility with our flagship Thuja E-Bike.",
+      "learn_more": "Learn More",
+      "configure": "Configure Yours"
+    },
+    "loopzo_product_info": {
+      "title": "Why Choose Loopzo?",
+      "subtitle": "Innovation meets accessibility",
+      "quality": {
+        "title": "Premium Quality",
+        "description": "Built with the finest materials and components for lasting durability"
+      },
+      "customization": {
+        "title": "Full Customization",
+        "description": "Tailored to your specific needs and preferences"
+      },
+      "support": {
+        "title": "Expert Support",
+        "description": "Dedicated team to help you every step of the way"
+      },
+      "warranty": {
+        "title": "10 Year Warranty",
+        "description": "Peace of mind with our comprehensive warranty program"
+      }
+    },
+    "loopzo_founder_talk": {
+      "title": "A Message from Our Founder",
+      "subtitle": "Creating freedom, one bicycle at a time",
+      "watch_video": "Watch Video"
+    },
+    "loopzo_blog": {
+      "title": "Latest Stories",
+      "subtitle": "Tips, stories, and insights from the Loopzo community",
+      "read_more": "Read More",
+      "view_all": "View All Articles"
+    },
+    "loopzo_faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about our adaptive bicycles",
+      "expand": "Expand question",
+      "collapse": "Collapse question"
+    },
+    "loopzo_footer": {
+      "navigation": "Navigation",
+      "products": "Products",
+      "company": "Company",
+      "support": "Support",
+      "contact": "Contact",
+      "follow_us": "Follow Us",
+      "rating_text": "Our customers rate us 4.3 out of 5 stars",
+      "view_reviews": "View Google reviews",
+      "nav": {
+        "tricycles": "Tricycles",
+        "tandems": "Side by side tandem",
+        "low_step": "Low step through",
+        "bike_selector": "Bike selector",
+        "purchasing_process": "Purchasing process",
+        "dealers": "Dealers",
+        "test_ride": "Test ride",
+        "configure": "Configure your bike",
+        "warranty": "Warranty",
+        "maintenance": "Maintenance",
+        "spare_parts": "Spare parts",
+        "faq": "FAQ",
+        "about_us": "About us",
+        "history": "History",
+        "innovation": "Innovation",
+        "news": "News"
+      },
+      "newsletter": {
+        "title": "Stay in the Loop",
+        "description": "Get the latest news, products, and exclusive offers delivered to your inbox.",
+        "placeholder": "Enter your email address",
+        "subscribe": "Subscribe",
+        "success": "Thank you for subscribing!",
+        "error": "Please enter a valid email address."
+      },
+      "copyright": "© {{ year }} Loopzo. All rights reserved.",
+      "privacy_policy": "Privacy Policy",
+      "terms_of_service": "Terms of Service"
     }
   },
   "products": {
@@ -97,6 +228,8 @@
       "add_to_cart": "Add to cart",
       "sold_out": "Sold out",
       "buy_now": "Buy Now",
+      "view_details": "View Details",
+      "happy_customers": "happy customers",
       "adding_to_cart": "Adding...",
       "add_to_cart_error": "Failed to add product to cart. Please try again.",
       "breadcrumb": "Breadcrumb navigation",

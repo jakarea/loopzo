@@ -1,0 +1,130 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "loopzo_hero": {
+      "type": "loopzo-hero",
+      "settings": {}
+    },
+    "loopzo_features": {
+      "type": "loopzo-features",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "checkmark",
+            "text": "Unieke loopfiets voor volwassenen en senioren"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "text": "Vermindert druk op het lichaam"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "lightning",
+            "text": "Vergroot de loopafstand en zelfredzaamheid"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {}
+    },
+    "loopzo_featured_product": {
+      "type": "loopzo-featured-product",
+      "settings": {
+        "section_title": "Featured Product",
+        "section_subtitle": "Discover our premium selection",
+        "product": "loopzo-bicycle-transparent",
+        "enable_sticky_info": true,
+        "show_stock_status": true,
+        "show_inventory_quantity": true,
+        "low_stock_threshold": 10,
+        "in_stock_text": "In Stock - Ready to Ship",
+        "out_of_stock_text": "Out of Stock",
+        "show_features": true,
+        "feature_1": "Custom-made to your specifications",
+        "feature_2": "Premium Dutch craftsmanship",
+        "feature_3": "Electric and manual options available",
+        "feature_4": "Free test ride included",
+        "padding_top": 0,
+        "padding_bottom": 80
+      }
+    },
+    "loopzo_product_showcase": {
+      "type": "loopzo-product-showcase",
+      "settings": {}
+    },
+    "loopzo_history": {
+      "type": "loopzo-history",
+      "settings": {}
+    },
+    "loopzo_thuja_ebike": {
+      "type": "loopzo-thuja-ebike",
+      "settings": {}
+    },
+    "loopzo_product_info": {
+      "type": "loopzo-product-info",
+      "settings": {
+        "product": "loopzo-bicycle-transparent",
+        "enable_sticky_info": true,
+        "show_stock_status": true,
+        "show_inventory_quantity": true,
+        "low_stock_threshold": 10,
+        "in_stock_text": "In Stock - Ready to Ship",
+        "out_of_stock_text": "Out of Stock",
+        "show_features": true,
+        "feature_1": "Custom-made to your specifications",
+        "feature_2": "Premium Dutch craftsmanship",
+        "feature_3": "Electric and manual options available",
+        "feature_4": "Free test ride included",
+        "padding_top": 0,
+        "padding_bottom": 80
+      }
+    },
+    "loopzo_founder_talk": {
+      "type": "loopzo-founder-talk",
+      "settings": {}
+    },
+    "loopzo_blog": {
+      "type": "loopzo-blog",
+      "settings": {}
+    },
+    "loopzo_faq": {
+      "type": "loopzo-faq",
+      "settings": {}
+    },
+    "loopzo_cta": {
+      "type": "loopzo-cta",
+      "settings": {}
+    }
+  },
+  "order": [
+    "loopzo_hero",
+    "loopzo_features",
+    "loopzo_featured_product",
+    "loopzo_product_showcase",
+    "loopzo_history",
+    "loopzo_thuja_ebike",
+    "loopzo_product_info",
+    "loopzo_founder_talk",
+    "loopzo_blog",
+    "loopzo_faq",
+    "loopzo_cta"
+  ]
+}

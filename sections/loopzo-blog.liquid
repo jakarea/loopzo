@@ -43,7 +43,7 @@
                     <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-4 sm:p-6 pt-16 sm:pt-20 text-white">
                         <h3 class="text-lg sm:text-xl font-bold">{{ article.title }}</h3>
                         <a href="{{ article.url }}" class="mt-2 inline-block text-xs sm:text-sm text-slate-300 hover:underline">
-                            {{ section.settings.read_more_text | default: 'Read more' }} &rarr;
+                            {{ section.settings.read_more_text | default: 'sections.loopzo_blog.read_more' | t }} &rarr;
                         </a>
                     </div>
                 </article>

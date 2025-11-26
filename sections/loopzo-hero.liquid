@@ -13,7 +13,7 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding">
-  <section class="hero relative bg-gray-100" aria-label="Hero section">
+  <section class="hero relative bg-gray-100" aria-label="{{ 'sections.loopzo_hero.aria_label' | t }}">
 
     {%- if section.settings.image != blank -%}
     <div class="h-[60vh] sm:h-[65vh] md:h-[70vh] overflow-hidden bg-gray-200">
@@ -24,6 +24,16 @@
         loading="eager"
         width="1920"
         height="1080">
+    </div>
+    {%- else -%}
+    <div class="h-[60vh] sm:h-[65vh] md:h-[70vh] overflow-hidden bg-gray-200">
+      <img
+        src="https://placehold.co/1900x600"
+        alt="Default hero background"
+        class="w-full h-full object-cover object-center"
+        loading="eager"
+        width="1900"
+        height="600">
     </div>
     {%- endif -%}
 
@@ -36,7 +46,7 @@
 
           {%- if section.settings.brand_name != blank -%}
           <span class="block text-xs sm:text-sm font-semibold text-gray-300"
-                aria-label="Brand name">{{ section.settings.brand_name }}</span>
+                aria-label="{{ 'sections.loopzo_hero.brand_name_aria_label' | t }}">{{ section.settings.brand_name }}</span>
           {%- endif -%}
 
           {%- if section.settings.heading != blank -%}

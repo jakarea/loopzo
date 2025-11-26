@@ -1,0 +1,495 @@
+{% comment %}
+  Dynamic Product Page Section (Loopzo Style)
+  Displays actual product data without tabs
+{% endcomment %}
+
+{%- assign product = all_products[section.settings.product] | default: product -%}
+
+<section class="product_info_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm mb-6 sm:mb-8" aria-label="Breadcrumb">
+            <a href="/" class="text-gray-600 hover:text-gray-900 transition">Home</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <a href="/collections/all" class="text-gray-600 hover:text-gray-900 transition">Producten</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-900 font-medium">{{ product.title }}</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
+
+            <!-- Left: Product Images -->
+            <div class="product-images">
+
+                <!-- Main Image -->
+                <div class="relative bg-slate-100 rounded-2xl overflow-hidden mb-4 group">
+
+                    {% if product.compare_at_price > product.price %}
+                    <!-- Sale Badge -->
+                    <div class="absolute top-4 left-4 z-20 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+                        -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% OFF
+                    </div>
+                    {% endif %}
+
+                    <div class="aspect-square relative">
+                        {% if product.images.size > 0 %}
+                            {% for image in product.images limit: 4 %}
+                            <!-- Slide {{ forloop.index }} -->
+                            <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out"
+                                data-slide="{{ forloop.index }}" {% if forloop.first %}style="opacity: 1;"{% else %}style="opacity: 0;"{% endif %}>
+                                <img src="{{ image | image_url: width: 800 }}"
+                                    alt="{{ image.alt | default: product.title }}"
+                                    class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-105"
+                                    loading="lazy"
+                                    width="800"
+                                    height="800">
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="slider-image absolute inset-0">
+                                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Zoom Icon -->
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg class="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                            </svg>
+                        </div>
+
+                        {% if product.images.size > 1 %}
+                        <!-- Navigation Arrows - Show on hover -->
+                        <button onclick="changeSlide(-1)"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110"
+                            aria-label="Previous">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button onclick="changeSlide(1)"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110"
+                            aria-label="Next">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Thumbnail Images -->
+                {% if product.images.size > 1 %}
+                <div class="grid grid-cols-4 gap-2 sm:gap-3">
+                    {% for image in product.images limit: 4 %}
+                    <button onclick="showSlide({{ forloop.index }})"
+                        class="h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent{% endif %} hover:border-slate-600 transition">
+                        <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title }}"
+                            class="w-full h-full object-cover">
+                    </button>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Trust Badges -->
+                <div class="grid grid-cols-3 gap-3 mt-6 p-4 bg-slate-50 rounded-lg">
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-6 h-6 text-slate-700 mb-1" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-xs text-gray-700 font-medium">{{ section.settings.badge_1_text }}</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-6 h-6 text-slate-700 mb-1" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span class="text-xs text-gray-700 font-medium">{{ section.settings.badge_2_text }}</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-6 h-6 text-slate-700 mb-1" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                        </svg>
+                        <span class="text-xs text-gray-700 font-medium">{{ section.settings.badge_3_text }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Product Info -->
+            <div class="flex flex-col order-2 lg:order-2">
+
+                <!-- Product Title -->
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                    {{ product.title }}
+                </h1>
+
+                <!-- Rating & Reviews -->
+                {% if section.settings.show_ratings %}
+                <div class="flex items-center gap-3 mt-3">
+                    <div class="flex items-center">
+                        {% for i in (1..5) %}
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path {% if i == 5 %}fill-opacity=".3"{% endif %}
+                                d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z" />
+                        </svg>
+                        {% endfor %}
+                    </div>
+                    <span class="text-sm text-gray-600 font-medium">4.8</span>
+                    <span class="text-sm text-gray-500">(247 reviews)</span>
+                </div>
+                {% endif %}
+
+                <!-- Price -->
+                <div class="flex items-baseline gap-3 mt-4">
+                    <span class="text-3xl sm:text-4xl font-bold text-slate-800">
+                        {{ product.price | money }}
+                    </span>
+                    {% if product.compare_at_price > product.price %}
+                    <span class="text-xl sm:text-2xl text-gray-400 line-through">
+                        {{ product.compare_at_price | money }}
+                    </span>
+                    <span class="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-semibold">
+                        {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% OFF
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Stock Status -->
+                <div class="flex items-center gap-2 mt-3">
+                    {% if product.available %}
+                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span class="text-sm text-green-700 font-medium">In Stock - Ready to Ship</span>
+                    {% else %}
+                    <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                    <span class="text-sm text-red-700 font-medium">Out of Stock</span>
+                    {% endif %}
+                </div>
+
+                <!-- Description -->
+                <div class="text-sm sm:text-base text-gray-700 mt-5 leading-relaxed">
+                    {{ product.description }}
+                </div>
+
+                <!-- Key Features -->
+                {% if section.blocks.size > 0 %}
+                <div class="mt-5 space-y-2">
+                    {% for block in section.blocks %}
+                    <div class="flex items-start gap-2" {{ block.shopify_attributes }}>
+                        <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-sm text-gray-700">{{ block.settings.feature_text }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- Product Form -->
+                {% form 'product', product, id: 'product-form' %}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+                    <!-- Variants (if any) -->
+                    {% unless product.has_only_default_variant %}
+                    <div class="mt-6">
+                        {% for option in product.options_with_values %}
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{{ option.name }}</label>
+                            <div class="flex flex-wrap gap-2">
+                                {% for value in option.values %}
+                                <button type="button"
+                                    class="variant-option px-4 py-2 border-2 border-slate-300 rounded-lg hover:border-slate-600 transition"
+                                    data-option="{{ option.name }}"
+                                    data-value="{{ value }}">
+                                    {{ value }}
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endunless %}
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 mt-8">
+                        <button type="submit"
+                            class="flex-1 border-2 border-slate-700 text-slate-700 font-bold py-3.5 px-8 rounded-lg hover:bg-slate-50 transition"
+                            {% unless product.available %}disabled{% endunless %}>
+                            {% if product.available %}
+                                {{ section.settings.buy_button_text }}
+                            {% else %}
+                                Sold Out
+                            {% endif %}
+                        </button>
+                        <a href="{{ section.settings.details_button_link }}"
+                            class="flex-1 border-2 border-slate-700 bg-slate-700 text-white font-bold py-3.5 px-8 rounded-lg hover:bg-slate-800 transition text-center">
+                            {{ section.settings.details_button_text }}
+                        </a>
+                    </div>
+                {% endform %}
+
+                <!-- Expert Advisor Section -->
+                {% if section.settings.show_advisor %}
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
+                        <div class="flex items-start gap-3">
+                            <!-- Profile Image -->
+                            <div class="relative flex-shrink-0">
+                                {% if section.settings.advisor_image %}
+                                <img src="{{ section.settings.advisor_image | image_url: width: 100 }}"
+                                     alt="{{ section.settings.advisor_name }}"
+                                     class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white">
+                                {% else %}
+                                <img src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Photos.png"
+                                     alt="{{ section.settings.advisor_name }}"
+                                     class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white">
+                                {% endif %}
+                                <!-- Online Status -->
+                                <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                            </div>
+
+                            <!-- Advisor Info -->
+                            <div class="flex-1">
+                                <h3 class="text-base font-bold text-slate-900">{{ section.settings.advisor_name }}</h3>
+                                <p class="text-xs text-slate-600 font-medium mb-1">{{ section.settings.advisor_title }}</p>
+
+                                <!-- Stats -->
+                                <div class="flex items-center gap-3 text-xs text-slate-600 mb-2">
+                                    <div class="flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                        </svg>
+                                        <span class="font-semibold">{{ section.settings.advisor_rating }}</span>
+                                    </div>
+                                    <span class="text-slate-400">|</span>
+                                    <span><strong>{{ section.settings.advisor_customers }}</strong> happy customers</span>
+                                </div>
+
+                                <p class="text-xs text-slate-700 italic">
+                                    "{{ section.settings.advisor_quote }}"
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <a href="{{ section.settings.whatsapp_link }}"
+                            target="_blank" rel="noopener noreferrer"
+                            class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group">
+                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                            </svg>
+                            <span>{{ section.settings.whatsapp_button_text }}</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Signals -->
+                    <div class="mt-3 flex items-center justify-center gap-2 text-xs text-slate-600">
+                        <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>{{ section.settings.response_time_text }}</span>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+// Image slider functionality
+let currentSlide = 1;
+
+function showSlide(n) {
+    const slides = document.querySelectorAll('.slider-image');
+    const thumbnails = document.querySelectorAll('[onclick^="showSlide"]');
+
+    if (!slides.length) return;
+
+    if (n > slides.length) { currentSlide = 1; }
+    if (n < 1) { currentSlide = slides.length; }
+    else { currentSlide = n; }
+
+    slides.forEach((slide, index) => {
+        slide.style.opacity = (index + 1) === currentSlide ? '1' : '0';
+    });
+
+    thumbnails.forEach((thumb, index) => {
+        if ((index + 1) === currentSlide) {
+            thumb.classList.remove('border-transparent');
+            thumb.classList.add('border-slate-600');
+        } else {
+            thumb.classList.remove('border-slate-600');
+            thumb.classList.add('border-transparent');
+        }
+    });
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelectorAll('.slider-image').length > 0) {
+        showSlide(1);
+    }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Loopzo Main Product",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_ratings",
+      "label": "Show ratings",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "buy_button_text",
+      "label": "Buy button text",
+      "default": "Buy Now"
+    },
+    {
+      "type": "text",
+      "id": "details_button_text",
+      "label": "Details button text",
+      "default": "View Details"
+    },
+    {
+      "type": "text",
+      "id": "details_button_link",
+      "label": "Details button link",
+      "default": "#details",
+      "info": "Link for the View Details button (e.g., /pages/product-details or an anchor like #details)"
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 Text",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 Text",
+      "default": "10Y Warranty"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "Badge 3 Text",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "header",
+      "content": "Expert Advisor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_advisor",
+      "label": "Show expert advisor",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "advisor_image",
+      "label": "Advisor image"
+    },
+    {
+      "type": "text",
+      "id": "advisor_name",
+      "label": "Advisor name",
+      "default": "Jan Koppers"
+    },
+    {
+      "type": "text",
+      "id": "advisor_title",
+      "label": "Advisor title",
+      "default": "Senior Mobility Advisor"
+    },
+    {
+      "type": "text",
+      "id": "advisor_rating",
+      "label": "Advisor rating",
+      "default": "4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "advisor_customers",
+      "label": "Number of customers",
+      "default": "500+"
+    },
+    {
+      "type": "textarea",
+      "id": "advisor_quote",
+      "label": "Advisor quote",
+      "default": "I'm here to help you find the perfect bike for your needs!"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_link",
+      "label": "WhatsApp link",
+      "default": "https://wa.me/31315257370"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_text",
+      "label": "WhatsApp button text",
+      "default": "Chat with Jan on WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "response_time_text",
+      "label": "Response time text",
+      "default": "Average response time: <strong>2 minutes</strong>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_text",
+          "label": "Feature text",
+          "default": "Custom-made to your specifications"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Loopzo Main Product",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

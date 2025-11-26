@@ -6,7 +6,7 @@
                 <div class="lg:col-span-4">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
                         <div class="flex justify-center md:justify-start">
-                            <img class="h-16 w-auto" src="{{ 'loopzo_light_square_logo.png' | asset_url }}" alt="Loopzo Logo">
+                            <img class="h-20 w-auto" src="{{ 'loopzo_light_square_logo.png' | asset_url }}" alt="Loopzo Logo">
                         </div>
                         <div class="text-center">
                             <div class="flex justify-center text-amber-400 gap-0.5">
@@ -16,11 +16,11 @@
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path></svg>
                                 <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z"></path></svg>
                             </div>
-                            <p class="text-xs sm:text-sm text-gray-400 mt-2">Our customers rate us 4.3 out of 5 stars</p>
-                            <a href="#" class="text-xs sm:text-sm text-slate-300 font-medium underline hover:text-white">View Google reviews</a>
+                            <p class="text-xs sm:text-sm text-gray-400 mt-2">{{ 'sections.loopzo_footer.rating_text' | t }}</p>
+                            <a href="#" class="text-xs sm:text-sm text-slate-300 font-medium underline hover:text-white">{{ 'sections.loopzo_footer.view_reviews' | t }}</a>
                         </div>
                         <div class="flex justify-center md:justify-end items-center gap-3">
-                            <span class="text-xs sm:text-sm text-gray-400 font-medium">Follow us:</span>
+                            <span class="text-xs sm:text-sm text-gray-400 font-medium">{{ 'sections.loopzo_footer.follow_us' | t }}:</span>
                             <div class="flex items-center gap-2">
                                 <!-- Social media icons could go here -->
                             </div>
@@ -30,43 +30,43 @@
             </div>
             <div class="mt-12 pt-12 border-t border-slate-700 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
                 <div>
-                    <h3 class="text-white font-semibold mb-4 text-base">Our bikes</h3>
+                    <h3 class="text-white font-semibold mb-4 text-base">{{ 'sections.loopzo_footer.products' | t }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="/collections/tricycles" class="hover:text-slate-200 transition text-sm">Tricycles</a></li>
-                        <li><a href="/collections/tandems" class="hover:text-slate-200 transition text-sm">Side by side tandem</a></li>
-                        <li><a href="/collections/low-step" class="hover:text-slate-200 transition text-sm">Low step through</a></li>
-                        <li><a href="/pages/bike-selector" class="hover:text-slate-200 transition text-sm">Bike selector</a></li>
+                        <li><a href="/collections/tricycles" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.tricycles' | t }}</a></li>
+                        <li><a href="/collections/tandems" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.tandems' | t }}</a></li>
+                        <li><a href="/collections/low-step" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.low_step' | t }}</a></li>
+                        <li><a href="/pages/bike-selector" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.bike_selector' | t }}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-white font-semibold mb-4 text-base">Shopping</h3>
+                    <h3 class="text-white font-semibold mb-4 text-base">{{ 'sections.loopzo_footer.navigation' | t }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="/pages/purchasing-process" class="hover:text-slate-200 transition text-sm">Purchasing process</a></li>
-                        <li><a href="/pages/dealers" class="hover:text-slate-200 transition text-sm">Dealers</a></li>
-                        <li><a href="/pages/test-ride" class="hover:text-slate-200 transition text-sm">Test ride</a></li>
-                        <li><a href="/pages/configure" class="hover:text-slate-200 transition text-sm">Configure your bike</a></li>
+                        <li><a href="/pages/purchasing-process" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.purchasing_process' | t }}</a></li>
+                        <li><a href="/pages/dealers" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.dealers' | t }}</a></li>
+                        <li><a href="/pages/test-ride" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.test_ride' | t }}</a></li>
+                        <li><a href="/pages/configure" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.configure' | t }}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-white font-semibold mb-4 text-base">Service</h3>
+                    <h3 class="text-white font-semibold mb-4 text-base">{{ 'sections.loopzo_footer.support' | t }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="/pages/warranty" class="hover:text-slate-200 transition text-sm">Warranty</a></li>
-                        <li><a href="/pages/maintenance" class="hover:text-slate-200 transition text-sm">Maintenance</a></li>
-                        <li><a href="/pages/spare-parts" class="hover:text-slate-200 transition text-sm">Spare parts</a></li>
-                        <li><a href="/pages/faq" class="hover:text-slate-200 transition text-sm">FAQ</a></li>
+                        <li><a href="/pages/warranty" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.warranty' | t }}</a></li>
+                        <li><a href="/pages/maintenance" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.maintenance' | t }}</a></li>
+                        <li><a href="/pages/spare-parts" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.spare_parts' | t }}</a></li>
+                        <li><a href="/pages/faq" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.faq' | t }}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-white font-semibold mb-4 text-base">About loopzo</h3>
+                    <h3 class="text-white font-semibold mb-4 text-base">{{ 'sections.loopzo_footer.company' | t }}</h3>
                     <ul class="space-y-3">
-                        <li><a href="/pages/about-us" class="hover:text-slate-200 transition text-sm">About us</a></li>
-                        <li><a href="/pages/history" class="hover:text-slate-200 transition text-sm">History</a></li>
-                        <li><a href="/pages/innovation" class="hover:text-slate-200 transition text-sm">Innovation</a></li>
-                        <li><a href="/blogs/news" class="hover:text-slate-200 transition text-sm">News</a></li>
+                        <li><a href="/pages/about-us" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.about_us' | t }}</a></li>
+                        <li><a href="/pages/history" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.history' | t }}</a></li>
+                        <li><a href="/pages/innovation" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.innovation' | t }}</a></li>
+                        <li><a href="/blogs/news" class="hover:text-slate-200 transition text-sm">{{ 'sections.loopzo_footer.nav.news' | t }}</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-white font-semibold mb-4 text-base">Contact</h3>
+                    <h3 class="text-white font-semibold mb-4 text-base">{{ 'sections.loopzo_footer.contact' | t }}</h3>
                     <div class="space-y-4">
                         <div class="flex gap-3">
                             <svg class="w-5 h-5 flex-shrink-0 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">

@@ -1,6 +1,6 @@
 {% comment %}
-  Dynamic Product Info Section for Home Page
-  Pulls product data from settings
+  Featured Product Section for Home Page
+  Admin selects product to feature with same design as main-product
 {% endcomment %}
 
 {%- assign product_handle = section.settings.product -%}
@@ -22,10 +22,19 @@
   }
 {%- endstyle -%}
 
-<!-- Product Info Section -->
-<section class="product_info_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
+<!-- Featured Product Section -->
+<section class="featured_product_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
+    <!-- Section Header -->
+    {%- if section.settings.section_title != blank -%}
+    <div class="text-center mb-8 sm:mb-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">{{ section.settings.section_title }}</h2>
+      {%- if section.settings.section_subtitle != blank -%}
+      <p class="mt-3 text-lg text-gray-600">{{ section.settings.section_subtitle }}</p>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16">
 
@@ -44,24 +53,24 @@
         <div class="group relative w-full aspect-[4/5] sm:aspect-square overflow-hidden rounded-xl bg-gray-100 mb-4 border-2 border-gray-200">
           {%- if product.featured_media -%}
             {%- for media in product.media -%}
-              <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: {% if forloop.first %}1{% else %}0{% endif %};">
+              <div class="slider-image-featured absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: {% if forloop.first %}1{% else %}0{% endif %};">
                 {% render 'product-media', media: media, class: 'w-full h-full object-contain' %}
               </div>
             {%- endfor -%}
           {%- else -%}
-            <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity: 1;">
+            <div class="slider-image-featured absolute inset-0 transition-opacity duration-700 ease-in-out" style="opacity: 1;">
               {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-contain placeholder' }}
             </div>
           {%- endif -%}
 
           <!-- Navigation Arrows for multiple images -->
           {%- if product.media.size > 1 -%}
-            <button onclick="changeSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="{{ 'products.product.previous_image' | t }}">
+            <button onclick="changeSlideFeatured(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="{{ 'products.product.previous_image' | t }}">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
               </svg>
             </button>
-            <button onclick="changeSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="{{ 'products.product.next_image' | t }}">
+            <button onclick="changeSlideFeatured(1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-slate-800 p-2.5 rounded-full shadow-lg transition-all duration-300 ease-in-out opacity-0 group-hover:opacity-100 hover:scale-110" aria-label="{{ 'products.product.next_image' | t }}">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
               </svg>
@@ -73,7 +82,7 @@
         {%- if product.media.size > 1 -%}
           <div class="flex gap-2 sm:gap-3">
             {%- for media in product.media -%}
-              <button onclick="showSlide({{ forloop.index }})" class="{% if product.media.size <= 4 %}w-1/4{% else %}flex-1 min-w-0{% endif %} h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent hover:border-slate-600{% endif %} transition" data-thumbnail="{{ forloop.index }}">
+              <button onclick="showSlideFeatured({{ forloop.index }})" class="{% if product.media.size <= 4 %}w-1/4{% else %}flex-1 min-w-0{% endif %} h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent hover:border-slate-600{% endif %} transition" data-thumbnail-featured="{{ forloop.index }}">
                 {% render 'product-media', media: media, class: 'w-full h-full object-cover' %}
               </button>
             {%- endfor -%}
@@ -105,7 +114,7 @@
 
       <!-- Right: Product Info -->
       <div class="flex flex-col order-2 lg:order-2">
-        {%- assign product_form_id = 'product-form-' | append: section.id -%}
+        {%- assign product_form_id = 'featured-product-form-' | append: section.id -%}
 
         <!-- Product Title -->
         <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
@@ -159,12 +168,12 @@
               {%- endfor -%}
             </div>
             <span class="text-sm text-gray-600 font-medium">{{ average_rating }}</span>
-            <a href="#reviews-tab" onclick="event.preventDefault(); const reviewBtn = document.querySelector('button[onclick*=reviews-tab]'); if(reviewBtn) { reviewBtn.click(); document.getElementById('reviews-tab').scrollIntoView({behavior: 'smooth', block: 'start'}); }" class="text-sm text-blue-600 hover:text-blue-800 underline cursor-pointer transition">{{ 'products.product.reviews_count' | t: count: review_count }}</a>
+            <span class="text-sm text-gray-500">{{ 'products.product.reviews_count' | t: count: review_count }}</span>
           </div>
         {%- endif -%}
 
         <!-- Price -->
-        <div class="flex items-baseline gap-3 mt-4" id="price-{{ section.id }}" role="status">
+        <div class="flex items-baseline gap-3 mt-4" id="price-featured-{{ section.id }}" role="status">
           {%- assign compare_at_price = product.selected_or_first_available_variant.compare_at_price -%}
           {%- assign price = product.selected_or_first_available_variant.price -%}
 
@@ -245,25 +254,113 @@
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 mt-8">
-          <form method="post" action="/cart/add" id="product-form-{{ section.id }}" class="flex-1">
+          <form method="post" action="/cart/add" id="featured-product-form-{{ section.id }}" class="flex-1">
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
             <input type="hidden" name="quantity" value="1">
             <button
               type="submit"
               name="add"
-              class="w-full border-2 border-slate-700 text-slate-700 font-bold py-3.5 px-8 rounded-lg hover:bg-slate-50 transition"
+              class="w-full bg-emerald-600 text-white font-bold py-4 px-8 rounded-lg hover:bg-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
             >
+              <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
               <span class="submit-button-text">{{ 'products.product.buy_now' | t }}</span>
             </button>
           </form>
-          <a href="{{ product.url }}" class="flex-1 border-2 border-slate-700 bg-slate-700 text-white font-bold py-3.5 px-8 rounded-lg hover:bg-slate-800 transition text-center flex items-center justify-center">
-            View Details
+          <a href="{{ product.url }}" class="flex-1 border-2 border-slate-700 bg-white text-slate-700 font-bold py-4 px-8 rounded-lg hover:bg-slate-50 transition-all duration-200 text-center flex items-center justify-center gap-2 group">
+            <span>{{ 'products.product.view_details' | t }}</span>
+            <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
           </a>
         </div>
-qqq
-        <!-- Dynamic Expert Advisor Section -->
-      {% render 'advisor-card' %}
-      wwww
+
+        <!-- Expert Advisor Section -->
+        {%- if section.settings.show_advisor -%}
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
+            <div class="flex items-start gap-3">
+              <!-- Profile Image -->
+              <div class="relative flex-shrink-0">
+                {%- if section.settings.advisor_image != blank -%}
+                  {{ section.settings.advisor_image | image_url: width: 100, height: 100 | image_tag: class: 'w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white', loading: 'lazy', width: '64', height: '64', alt: section.settings.advisor_name }}
+                {%- else -%}
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-user-avatar.png"
+                    alt="{{ section.settings.advisor_name | escape }}"
+                    class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
+                    loading="lazy"
+                    width="64"
+                    height="64"
+                  >
+                {%- endif -%}
+                <!-- Online Status -->
+                <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full animate-pulse"></div>
+              </div>
+
+              <!-- Advisor Info -->
+              <div class="flex-1">
+                <h3 class="text-base font-bold text-slate-900">{{ section.settings.advisor_name }}</h3>
+                {%- if section.settings.advisor_title != blank -%}
+                  <p class="text-xs text-slate-600 font-medium mb-1">{{ section.settings.advisor_title }}</p>
+                {%- endif -%}
+
+                <!-- Stats -->
+                <div class="flex items-center gap-3 text-xs text-slate-600 mb-2">
+                  {%- if section.settings.advisor_rating != blank -%}
+                    <div class="flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                      </svg>
+                      <span class="font-semibold">{{ section.settings.advisor_rating }}</span>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if section.settings.advisor_rating != blank and section.settings.advisor_customers != blank -%}
+                    <span class="text-slate-400">|</span>
+                  {%- endif -%}
+
+                  {%- if section.settings.advisor_customers != blank -%}
+                    <span><strong>{{ section.settings.advisor_customers }}</strong> {{ 'products.product.happy_customers' | t }}</span>
+                  {%- endif -%}
+                </div>
+
+                {%- if section.settings.advisor_quote != blank -%}
+                  <p class="text-xs text-slate-700 italic">
+                    "{{ section.settings.advisor_quote }}"
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <!-- WhatsApp CTA Button -->
+            {%- if section.settings.whatsapp_link != blank -%}
+              <a
+                href="{{ section.settings.whatsapp_link }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-4 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
+              >
+                <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"></path>
+                </svg>
+                <span>{{ section.settings.whatsapp_button_text }}</span>
+              </a>
+            {%- endif -%}
+
+            <!-- Trust Signals -->
+            {%- if section.settings.response_time_text != blank -%}
+              <div class="mt-3 flex items-center justify-center gap-2 text-xs text-slate-600">
+                <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span>{{ section.settings.response_time_text }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- endif -%}
       </div>
 
     </div>
@@ -271,23 +368,23 @@ qqq
 </section>
 
 <script>
-let currentSlide = 1;
-const totalSlides = {{ product.media.size }};
+let currentSlideFeatured = 1;
+const totalSlidesFeatured = {{ product.media.size }};
 
-function showSlide(n) {
-  if (n > totalSlides) { currentSlide = 1; }
-  if (n < 1) { currentSlide = totalSlides; }
-  else { currentSlide = n; }
+function showSlideFeatured(n) {
+  if (n > totalSlidesFeatured) { currentSlideFeatured = 1; }
+  if (n < 1) { currentSlideFeatured = totalSlidesFeatured; }
+  else { currentSlideFeatured = n; }
 
-  const slides = document.querySelectorAll('.slider-image');
-  const thumbnails = document.querySelectorAll('[data-thumbnail]');
+  const slides = document.querySelectorAll('.slider-image-featured');
+  const thumbnails = document.querySelectorAll('[data-thumbnail-featured]');
 
   slides.forEach((slide, index) => {
-    slide.style.opacity = (index + 1) === currentSlide ? '1' : '0';
+    slide.style.opacity = (index + 1) === currentSlideFeatured ? '1' : '0';
   });
 
   thumbnails.forEach((thumb, index) => {
-    if ((index + 1) === currentSlide) {
+    if ((index + 1) === currentSlideFeatured) {
       thumb.classList.remove('border-transparent');
       thumb.classList.add('border-slate-600');
     } else {
@@ -297,13 +394,13 @@ function showSlide(n) {
   });
 }
 
-function changeSlide(n) {
-  showSlide(currentSlide + n);
+function changeSlideFeatured(n) {
+  showSlideFeatured(currentSlideFeatured + n);
 }
 
 // Buy Now functionality - Add to cart and redirect to checkout
 document.addEventListener('DOMContentLoaded', function() {
-  const productForm = document.getElementById('product-form-{{ section.id }}');
+  const productForm = document.getElementById('featured-product-form-{{ section.id }}');
   const addingText = {{ 'products.product.adding_to_cart' | t | json }};
   const errorText = {{ 'products.product.add_to_cart_error' | t | json }};
 
@@ -351,11 +448,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 {% schema %}
 {
-  "name": "Loopzo Product Info",
+  "name": "Loopzo Featured Product",
   "tag": "section",
   "class": "section",
   "limit": 1,
   "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Featured Product"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section Subtitle",
+      "default": "Discover our premium selection"
+    },
     {
       "type": "header",
       "content": "Product Selection"
@@ -364,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "product",
       "id": "product",
       "label": "Product",
-      "info": "Select a product to display on the home page"
+      "info": "Select a product to feature on the home page"
     },
     {
       "type": "checkbox",
@@ -457,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 4,
       "unit": "px",
       "label": "t:sections.main-product.settings.padding_top.label",
-      "default": 0
+      "default": 36
     },
     {
       "type": "range",
@@ -467,12 +580,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 4,
       "unit": "px",
       "label": "t:sections.main-product.settings.padding_bottom.label",
-      "default": 80
+      "default": 36
     }
   ],
   "presets": [
     {
-      "name": "Loopzo Product Info",
+      "name": "Loopzo Featured Product",
       "category": "Loopzo"
     }
   ]
