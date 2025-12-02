@@ -1,4 +1,4 @@
-{%- comment -%}
+ {%- comment -%}
   Snippet: Author Bio Box
   Source: Metaobject (custom.related_author)
   Design: Loopzo Style (Circular Image + Bio)
@@ -7,35 +7,38 @@
 {%- assign author = article.metafields.custom.related_author.value -%}
 
 {%- if author != blank -%}
-  <div class="author-bio-wrapper mt-10 pt-8 border-t border-slate-200">
-    <div class="flex flex-col sm:flex-row gap-6 items-start">
-      
+  <!-- Author Info -->
+  <div class="flex items-start gap-4 border-t border-slate-200 pt-8">
       {%- if author.photo != blank -%}
-        <div class="flex-shrink-0">
-          <img 
-            src="{{ author.photo | image_url: width: 150, height: 150, crop: 'center' }}" 
-            alt="{{ author.name }}" 
-            class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border border-slate-100 shadow-sm"
-            loading="lazy"
-            width="96"
-            height="96"
-          >
-        </div>
+          <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-slate-200">
+              <img src="{{ author.photo | image_url: width: 150, height: 150, crop: 'center' }}"
+                   alt="{{ author.name }}"
+                   class="w-full h-full object-cover"
+                   loading="lazy"
+                   width="64"
+                   height="64">
+          </div>
+      {%- else -%}
+          <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-slate-200">
+              <img src="https://ui-avatars.com/api/?name={{ author.name | url_encode }}&size=150&background=334155&color=fff"
+                   alt="{{ author.name }}"
+                   class="w-full h-full object-cover"
+                   loading="lazy"
+                   width="64"
+                   height="64">
+          </div>
       {%- endif -%}
-
+      
       <div class="flex-1">
-        <h3 class="text-lg font-bold text-slate-900 mb-2">
-          {{ author.name }}
-          {%- if author.job_title != blank -%}
-            <span class="font-semibold text-slate-900">({{ author.job_title }})</span>
-          {%- endif -%}
-        </h3>
-        
-        <div class="text-slate-700 text-base leading-relaxed prose prose-slate max-w-none">
-          {{ author.bio | metafield_tag }}
-        </div>
+          <h3 class="text-slate-900 font-bold text-base mb-1">
+              {{ author.name }}
+              {%- if author.job_title != blank -%}
+                  <span class="font-normal text-slate-600">({{ author.job_title }})</span>
+              {%- endif -%}
+          </h3>
+          <div class="text-slate-600 text-sm leading-relaxed">
+              {{ author.bio | metafield_tag }}
+          </div>
       </div>
-
-    </div>
   </div>
 {%- endif -%}

@@ -1,0 +1,182 @@
+{% paginate blog.articles by 6 %}
+
+<!-- Hero Section with Breadcrumb -->
+<section class="relative bg-gradient-to-br from-slate-700 to-slate-800 py-16 sm:py-20 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Hero Content -->
+        <div class="text-center max-w-4xl mx-auto">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+                Nieuws & Verhalen
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-200 leading-relaxed">
+                Ontdek inspirerende verhalen, expert tips en het laatste nieuws over adaptive fietsen.
+                Blijf op de hoogte van innovaties en lees hoe onze fietsen het leven van mensen veranderen.
+            </p>
+        </div>
+    </div>
+
+    
+    <!-- Decorative Wave -->
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg class="w-full h-12 sm:h-16 text-white" preserveAspectRatio="none" viewBox="0 0 1440 54" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M0 22L60 25.3C120 28.7 240 35.3 360 37.8C480 40.3 600 38.7 720 35.3C840 32 960 26.7 1080 23.5C1200 20.3 1320 19.3 1380 18.8L1440 18.3V54H1380C1320 54 1200 54 1080 54C960 54 840 54 720 54C600 54 480 54 360 54C240 54 120 54 60 54H0V22Z"
+                fill="currentColor" />
+        </svg>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="bg-white py-12 sm:py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Blog Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            {% for article in blog.articles %}
+            {% assign category_colors = "teal,slate,amber,purple,red,teal" | split: "," %}
+            {% assign color_index = forloop.index0 | modulo: 6 %}
+            {% assign category_color = category_colors[color_index] %}
+
+            <!-- Blog Card {{ forloop.index }} -->
+            <article
+                class="group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <a href="{{ article.url }}" class="block relative aspect-[3/4] overflow-hidden">
+                    {% if article.image %}
+                        <img src="{{ article.image | image_url: width: 600 }}"
+                             alt="{{ article.image.alt | default: article.title }}"
+                             width="600"
+                             height="800"
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             loading="lazy">
+                    {% else %}
+                        <!-- Placeholder for articles without images -->
+                        <div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
+                            <svg class="w-24 h-24 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    {% endif %}
+
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                    </div>
+
+                    <!-- Content Over Image -->
+                    <div class="absolute inset-0 p-6 flex flex-col justify-between">
+                        <!-- Category Badge -->
+                        <div>
+                            {% if article.tags.size > 0 %}
+                                <span
+                                    class="inline-block bg-{{ category_color }}-700 text-white text-xs font-semibold px-3 py-1.5 rounded-md">
+                                    {{ article.tags.first }}
+                                </span>
+                            {% else %}
+                                <span
+                                    class="inline-block bg-slate-700 text-white text-xs font-semibold px-3 py-1.5 rounded-md">
+                                    Nieuws
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <!-- Title and Read More -->
+                        <div>
+                            <h3 class="text-white text-xl font-bold mb-3 leading-tight">
+                                {{ article.title }}
+                            </h3>
+                            <span
+                                class="inline-flex items-center text-white text-sm font-semibold group-hover:gap-2 transition-all">
+                                Read more
+                                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- Pagination -->
+        {% if paginate.pages > 1 %}
+        <div class="mt-12 sm:mt-16">
+            <nav class="flex items-center justify-center gap-2" aria-label="Pagination">
+                <!-- Previous Button -->
+                {% if paginate.previous %}
+                    <a href="{{ paginate.previous.url }}"
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-lg border-2 border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-white transition-all"
+                        aria-label="Vorige pagina">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </a>
+                {% else %}
+                    <button disabled
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-lg border-2 border-slate-300 text-slate-400 cursor-not-allowed transition-all"
+                        aria-label="Vorige pagina (niet beschikbaar)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                {% endif %}
+
+                <!-- Page Numbers -->
+                {% for part in paginate.parts %}
+                    {% if part.is_link %}
+                        <a href="{{ part.url }}"
+                            class="inline-flex items-center justify-center w-10 h-10 rounded-lg border-2 border-slate-300 text-slate-700 font-semibold hover:bg-slate-50 hover:border-slate-400 transition-all"
+                            aria-label="Ga naar pagina {{ part.title }}">
+                            {{ part.title }}
+                        </a>
+                    {% elsif part.title == paginate.current_page %}
+                        <button
+                            class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-slate-700 text-white font-semibold transition-all shadow-md"
+                            aria-current="page"
+                            aria-label="Huidige pagina, pagina {{ part.title }}">
+                            {{ part.title }}
+                        </button>
+                    {% else %}
+                        <span class="inline-flex items-center justify-center w-10 h-10 text-slate-500">
+                            {{ part.title }}
+                        </span>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Next Button -->
+                {% if paginate.next %}
+                    <a href="{{ paginate.next.url }}"
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-lg border-2 border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-white transition-all"
+                        aria-label="Volgende pagina">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                {% else %}
+                    <button disabled
+                        class="inline-flex items-center justify-center w-10 h-10 rounded-lg border-2 border-slate-300 text-slate-400 cursor-not-allowed transition-all"
+                        aria-label="Volgende pagina (niet beschikbaar)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                {% endif %}
+            </nav>
+
+            <!-- Pagination Info -->
+            <p class="text-center text-sm text-slate-600 mt-4">
+                Pagina <span class="font-semibold">{{ paginate.current_page }}</span> van <span class="font-semibold">{{ paginate.pages }}</span>
+            </p>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endpaginate %}

@@ -183,7 +183,6 @@ function initializeSliders() {
 // Change slide function for product image galleries
 window.changeSlide = function(direction) {
     const slides = document.querySelectorAll('.slider-image');
-    const buttons = document.querySelectorAll('.grid button');
 
     if (slides.length === 0) return;
 
@@ -204,7 +203,7 @@ window.changeSlide = function(direction) {
 // Show specific slide
 window.showSlide = function(slideNumber) {
     const slides = document.querySelectorAll('.slider-image');
-    const buttons = document.querySelectorAll('.grid button');
+    const thumbnailButtons = document.querySelectorAll('[data-thumbnail]');
 
     if (slides.length === 0) return;
 
@@ -212,10 +211,14 @@ window.showSlide = function(slideNumber) {
         slide.style.opacity = (index + 1 === slideNumber) ? '1' : '0';
     });
 
-    if (buttons.length > 0) {
-        buttons.forEach((button, index) => {
-            if (button.className.includes('border-2')) {
-                button.className = button.className.replace(/border-\w+-\d+/g, (index + 1 === slideNumber) ? 'border-slate-600' : 'border-transparent');
+    if (thumbnailButtons.length > 0) {
+        thumbnailButtons.forEach((button, index) => {
+            if (index + 1 === slideNumber) {
+                button.classList.remove('border-transparent');
+                button.classList.add('border-slate-600');
+            } else {
+                button.classList.remove('border-slate-600');
+                button.classList.add('border-transparent');
             }
         });
     }

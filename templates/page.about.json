@@ -1,0 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "loopzo_header": {
+      "type": "loopzo-header",
+      "settings": {
+      }
+    },
+    "about_hero": {
+      "type": "about-hero",
+      "settings": {
+        "heading": "Maak kennis met Loopzo",
+        "subheading": "Bij Loopzo draait alles om beweging, comfort en vertrouwen"
+      }
+    },
+    "about_content": {
+      "type": "about-content",
+      "settings": {
+        "intro_text_1": "Bij Loopzo draait alles om beweging, comfort en vertrouwen. Vanuit onze vestiging in Moordrecht ontwikkelen we loopfietsen voor volwassenen die ontworpen zijn om dagelijks, veilig en met plezier te gebruiken.",
+        "intro_text_2": "Elke Loopzo wordt met zorg in Nederland ontwikkeld en getest. Met degelijke materialen en 10 jaar framegarantie ben je verzekerd van kwaliteit die lang meegaat.",
+        "intro_text_3": "We nemen de tijd voor persoonlijk contact en denken graag mee, zodat iedere gebruiker zijn Loopzo kan afstemmen op wat écht prettig voelt.",
+        "image_alt_text": "Loopzo loopfietsen in gebruik",
+        "story_heading": "Ons Verhaal",
+        "story_text_1": "Bij Loopzo geloven we dat mobiliteit de basis is van vrijheid. Het idee voor onze loopfiets ontstond vanuit een simpel uitgangspunt: volwassenen een betrouwbaar hulpmiddel bieden om actief te blijven, zonder gedoe en zonder druk. Een Loopzo moet ondersteunen, niet in de weg zitten.",
+        "story_text_2": "We richten ons op wat echt telt: stabiliteit, kwaliteit en veiligheid. Geen overbodige techniek, maar een stevige loopfiets die jarenlang meegaat en dagelijks gebruikt kan worden. De Loopzo geeft vertrouwen, helpt bij balans en maakt bewegen weer meer vanzelfsprekend.",
+        "who_heading": "Voor Wie?",
+        "who_text_1": "Een loopfiets voor volwassenen is een laagdrempelige manier om conditie en mobiliteit te behouden of te verbeteren. Het risico op ongelukken is klein, omdat de loopfiets op de stoep gebruikt mag worden. Dit maakt de Loopzo geschikt voor mensen die zekerheid willen, maar wél in beweging willen blijven.",
+        "who_text_2": "Ook in revalidatie en zorginstellingen wordt de loopfiets steeds vaker ingezet door de natuurlijke manier van voortbewegen.",
+        "cta_heading": "De Loopzo Ervaring",
+        "cta_text": "Voor veel gebruikers voelt de Loopzo in het begin misschien even anders. Maar wie het probeert, merkt al snel hoe logisch het is. De beweging is natuurlijk, de houding is recht en het gevoel van controle is groot. En vaak ontstaat er iets anders namelijk: <span class=\"font-bold text-teal-300\">plezier!</span>",
+        "cta_button_text": "Bekijk het assortiment",
+        "cta_button_url": "\/collections\/all"
+      }
+    }
+  },
+  "order": [
+    "loopzo_header",
+    "about_hero",
+    "about_content"
+  ]
+}

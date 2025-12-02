@@ -9,12 +9,15 @@
  */
 {
   "current": {
+    "order": [
+      "loopzo-header",
+      "loopzo-hero",
+      "loopzo-footer"
+    ],
     "sections": {
       "loopzo-header": {
         "type": "loopzo-header",
-        "settings": {
-          "logo_text": "Loopzo"
-        }
+        "settings": {}
       },
       "loopzo-hero": {
         "type": "loopzo-hero",
@@ -30,11 +33,6 @@
         "type": "loopzo-footer",
         "settings": {}
       }
-    },
-    "order": [
-      "loopzo-header",
-      "loopzo-hero",
-      "loopzo-footer"
-    ]
+    }
   }
 }

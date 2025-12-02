@@ -1,0 +1,225 @@
+<!-- About Content Section -->
+<section class="bg-white py-12 sm:py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Introduction -->
+    <div class="max-w-4xl mx-auto mb-16">
+      <div class="prose prose-lg max-w-none">
+        {% if section.settings.intro_text_1 != blank %}
+          <p class="text-lg text-slate-700 leading-relaxed mb-6">
+            {{ section.settings.intro_text_1 }}
+          </p>
+        {% endif %}
+        {% if section.settings.intro_text_2 != blank %}
+          <p class="text-base text-slate-700 leading-relaxed mb-6">
+            {{ section.settings.intro_text_2 }}
+          </p>
+        {% endif %}
+        {% if section.settings.intro_text_3 != blank %}
+          <p class="text-base text-slate-700 leading-relaxed">
+            {{ section.settings.intro_text_3 }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Image Section -->
+    {% if section.settings.featured_image != blank %}
+      <div class="mb-16 max-w-4xl mx-auto">
+        <div class="rounded-2xl overflow-hidden shadow-2xl">
+          {{ section.settings.featured_image | image_url: width: 1200 | image_tag:
+            loading: 'lazy',
+            class: 'w-full h-auto max-h-96 object-cover',
+            alt: section.settings.image_alt_text
+          }}
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Our Story & For Who Section (Two Columns) -->
+    <div class="grid lg:grid-cols-2 gap-12 mb-16">
+      <!-- Our Story -->
+      <div class="bg-slate-50 rounded-2xl p-8 shadow-lg">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
+          {{ section.settings.story_heading }}
+        </h2>
+        <div class="space-y-4 text-slate-700">
+          {% if section.settings.story_text_1 != blank %}
+            <p class="leading-relaxed">
+              {{ section.settings.story_text_1 }}
+            </p>
+          {% endif %}
+          {% if section.settings.story_text_2 != blank %}
+            <p class="leading-relaxed">
+              {{ section.settings.story_text_2 }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- For Who -->
+      <div class="bg-teal-50 rounded-2xl p-8 shadow-lg">
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
+          {{ section.settings.who_heading }}
+        </h2>
+        <div class="space-y-4 text-slate-700">
+          {% if section.settings.who_text_1 != blank %}
+            <p class="leading-relaxed">
+              {{ section.settings.who_text_1 }}
+            </p>
+          {% endif %}
+          {% if section.settings.who_text_2 != blank %}
+            <p class="leading-relaxed">
+              {{ section.settings.who_text_2 }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience Section (CTA) -->
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-8 sm:p-12 text-white shadow-2xl">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-center">
+          {{ section.settings.cta_heading }}
+        </h2>
+        <div class="text-lg leading-relaxed text-slate-100 text-center mb-8">
+          {{ section.settings.cta_text }}
+        </div>
+        {% if section.settings.cta_button_text != blank and section.settings.cta_button_url != blank %}
+          <div class="text-center">
+            <a href="{{ section.settings.cta_button_url }}"
+               class="inline-flex items-center bg-white text-slate-800 px-8 py-4 rounded-xl font-semibold text-base hover:bg-slate-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group">
+              {{ section.settings.cta_button_text }}
+              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Content",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Introduction"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_1",
+      "label": "Introduction Text 1",
+      "default": "Bij Loopzo draait alles om beweging, comfort en vertrouwen. Vanuit onze vestiging in Moordrecht ontwikkelen we loopfietsen voor volwassenen die ontworpen zijn om dagelijks, veilig en met plezier te gebruiken."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_2",
+      "label": "Introduction Text 2",
+      "default": "Elke Loopzo wordt met zorg in Nederland ontwikkeld en getest. Met degelijke materialen en 10 jaar framegarantie ben je verzekerd van kwaliteit die lang meegaat."
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text_3",
+      "label": "Introduction Text 3",
+      "default": "We nemen de tijd voor persoonlijk contact en denken graag mee, zodat iedere gebruiker zijn Loopzo kan afstemmen op wat écht prettig voelt."
+    },
+    {
+      "type": "header",
+      "content": "Featured Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt_text",
+      "label": "Image Alt Text",
+      "default": "Loopzo loopfietsen in gebruik"
+    },
+    {
+      "type": "header",
+      "content": "Our Story Section"
+    },
+    {
+      "type": "text",
+      "id": "story_heading",
+      "label": "Story Heading",
+      "default": "Ons Verhaal"
+    },
+    {
+      "type": "textarea",
+      "id": "story_text_1",
+      "label": "Story Text 1",
+      "default": "Bij Loopzo geloven we dat mobiliteit de basis is van vrijheid. Het idee voor onze loopfiets ontstond vanuit een simpel uitgangspunt: volwassenen een betrouwbaar hulpmiddel bieden om actief te blijven, zonder gedoe en zonder druk. Een Loopzo moet ondersteunen, niet in de weg zitten."
+    },
+    {
+      "type": "textarea",
+      "id": "story_text_2",
+      "label": "Story Text 2",
+      "default": "We richten ons op wat echt telt: stabiliteit, kwaliteit en veiligheid. Geen overbodige techniek, maar een stevige loopfiets die jarenlang meegaat en dagelijks gebruikt kan worden. De Loopzo geeft vertrouwen, helpt bij balans en maakt bewegen weer meer vanzelfsprekend."
+    },
+    {
+      "type": "header",
+      "content": "For Who Section"
+    },
+    {
+      "type": "text",
+      "id": "who_heading",
+      "label": "For Who Heading",
+      "default": "Voor Wie?"
+    },
+    {
+      "type": "textarea",
+      "id": "who_text_1",
+      "label": "For Who Text 1",
+      "default": "Een loopfiets voor volwassenen is een laagdrempelige manier om conditie en mobiliteit te behouden of te verbeteren. Het risico op ongelukken is klein, omdat de loopfiets op de stoep gebruikt mag worden. Dit maakt de Loopzo geschikt voor mensen die zekerheid willen, maar wél in beweging willen blijven."
+    },
+    {
+      "type": "textarea",
+      "id": "who_text_2",
+      "label": "For Who Text 2",
+      "default": "Ook in revalidatie en zorginstellingen wordt de loopfiets steeds vaker ingezet door de natuurlijke manier van voortbewegen."
+    },
+    {
+      "type": "header",
+      "content": "Experience Section (CTA)"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA Heading",
+      "default": "De Loopzo Ervaring"
+    },
+    {
+      "type": "html",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Voor veel gebruikers voelt de Loopzo in het begin misschien even anders. Maar wie het probeert, merkt al snel hoe logisch het is. De beweging is natuurlijk, de houding is recht en het gevoel van controle is groot. En vaak ontstaat er iets anders namelijk: <span class=\"font-bold text-teal-300\">plezier!</span>"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "Bekijk het assortiment"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_url",
+      "label": "CTA Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Content"
+    }
+  ]
+}
+{% endschema %}

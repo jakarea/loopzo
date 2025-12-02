@@ -2,7 +2,7 @@
     {%- for block in section.blocks -%}
         {%- case block.type -%}
             {%- when 'announcement_bar' -%}
-                <div class="announcement_bar bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 hidden md:block" {{ block.shopify_attributes }}>
+                <div class="announcement_bar bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 hidden" {{ block.shopify_attributes }}>
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="flex justify-between items-center py-3">
 
@@ -70,9 +70,9 @@
                         <div class="flex-shrink-0">
                             <a href="/" class="flex items-center">
                                 {%- if block.settings.logo != blank -%}
-                                    <img class="h-10 w-auto" src="{{ block.settings.logo | image_url: width: 200, height: 80 }}" alt="{{ block.settings.logo.alt | default: 'Loopzo Logo' }}">
+                                    <img class="h-10 w-auto" src="{{ block.settings.logo | image_url: width: 200, height: 80 }}" alt="{{ block.settings.logo.alt | default: 'Loopzo Logo' }}" loading="eager" fetchpriority="high">
                                 {%- else -%}
-                                    <img class="h-10 w-auto" src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" alt="Loopzo Logo">
+                                    <img class="h-10 w-auto" src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" alt="Loopzo Logo" loading="eager" fetchpriority="high">
                                 {%- endif -%}
                             </a>
                         </div>

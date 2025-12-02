@@ -30,7 +30,7 @@
     <!-- 🎯 Critical Resource Preloading -->
     <link rel="preload" href="{{ 'theme-optimized.js' | asset_url }}" as="script">
     <link rel="preload" href="{{ 'accessibility.js' | asset_url }}" as="script">
-    <link rel="preload" href="{{ 'output.css' | asset_url }}" as="style">
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script"> 
     {%- if settings.favicon != blank -%}
       <link rel="preload" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" as="image" type="image/png">
     {%- endif -%}
@@ -74,11 +74,26 @@
     <!-- Shopify Content for Header (Critical - Required by Shopify) -->
     {{ content_for_header }}
 
-    <!-- Tailwind CSS + Custom Styles -->
-    {{ 'output.css' | asset_url | stylesheet_tag }}
+    <!-- Tailwind CSS CDN (v4) --> 
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#334155',
+              'primary-dark': '#1e293b',
+              'primary-light': '#475569',
+              accent: '#16a34a',
+              sale: '#dc2626',
+            }
+          }
+        }
+      }
+    </script>
     
     <!-- Vite-built CSS (NEW - includes Tailwind) -->
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    
 
     <!-- Custom CSS Variables and Animations -->
     {% style %}

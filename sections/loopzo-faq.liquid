@@ -1,240 +1,189 @@
-<!-- FAQ Section -->
-<section class="faq_section bg-slate-50" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+{%- comment -%}
+  SECTION: Loopzo FAQ (Hybrid)
+  - Products: Pulls from custom.product_faqs Metafield
+  - Pages/Home: Pulls from Section Blocks
+{%- endcomment -%}
 
-        <!-- Header -->
-        <div class="text-center mb-8 sm:mb-12">
-            {% if section.settings.section_title != blank %}
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                {{ section.settings.section_title }}
-            </h2>
-            {% endif %}
-            {% if section.settings.section_subtitle != blank %}
-            <p class="text-slate-600 text-base sm:text-lg">
-                {{ section.settings.section_subtitle }}
-            </p>
-            {% endif %}
-        </div>
+<section class="faq_section bg-slate-50 py-12 sm:py-16 md:py-20" data-section-id="{{ section.id }}">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-
-        <!-- FAQ Accordion -->
-        <div class="space-y-4">
-            {% if section.blocks.size > 0 %}
-                {% for block in section.blocks %}
-                    {% case block.type %}
-                        {% when 'faq_item' %}
-                        <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md"
-                             {{ block.shopify_attributes }}>
-                            <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-start justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-{{ block.id }}">
-                                <div class="flex-1 pr-4">
-                                    {% if block.settings.category != blank %}
-                                    <span class="inline-block bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-full mb-2">
-                                        {{ block.settings.category }}
-                                    </span>
-                                    {% endif %}
-                                    <span class="block text-slate-900 font-semibold text-base sm:text-lg">
-                                        {{ block.settings.question }}
-                                    </span>
-                                </div>
-                                <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                                </svg>
-                            </button>
-                            <div id="faq-answer-{{ block.id }}" class="faq-answer max-h-0 overflow-hidden transition-all duration-300" role="region">
-                                <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed">
-                                    {{ block.settings.answer }}
-                                </div>
-                            </div>
-                        </div>
-                    {% endcase %}
-                {% endfor %}
-            {% else %}
-                <div class="text-center py-12 bg-white rounded-lg border border-slate-200">
-                    <p class="text-slate-600 text-lg">No FAQs added yet. Add FAQ items in the theme editor.</p>
-                </div>
-            {% endif %}
-        </div>
+    <div class="text-center mb-8 sm:mb-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4">{{ section.settings.title }}</h2>
+      <p class="text-slate-600 text-base sm:text-lg">{{ section.settings.subtitle }}</p>
     </div>
+
+    <div class="flex flex-wrap gap-3 mb-8 sm:mb-12 justify-center" id="faq-filters-{{ section.id }}">
+      <button class="faq-tab active px-6 py-2.5 bg-slate-700 text-white rounded-full text-sm font-semibold hover:bg-slate-800 transition-all duration-300" data-category="all">
+        Alles Tonen
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="algemeen">
+        Algemene informatie &amp; proefrit
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="prijs">
+        Prijs &amp; levering
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="garantie">
+        Garantie, service &amp; onderhoud
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="technisch">
+        Technische vragen
+      </button>
+    </div>
+
+    <div class="space-y-4">
+
+      {%- assign faq_items = blank -%}
+      
+      {%- if product and product.metafields.custom.product_faqs.value != blank -%}
+        {%- assign source_type = 'metafield' -%}
+        {%- assign faq_items = product.metafields.custom.product_faqs.value -%}
+      {%- else -%}
+        {%- assign source_type = 'blocks' -%}
+        {%- assign faq_items = section.blocks -%}
+      {%- endif -%}
+
+      {%- for item in faq_items -%}
+        
+        {%- comment -%} Normalize Data Variables {%- endcomment -%}
+        {%- if source_type == 'metafield' -%}
+          {%- assign q = item.question -%}
+          {%- assign a = item.answer | metafield_tag -%}
+          {%- assign c = item.category | downcase -%}
+        {%- else -%}
+          {%- assign q = item.settings.question -%}
+          {%- assign a = item.settings.answer -%}
+          {%- assign c = item.settings.category | downcase -%}
+        {%- endif -%}
+
+        {%- if q != blank -%}
+          <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="{{ c }}">
+            <button class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+              <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">{{ q }}</span>
+              <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+              <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed prose prose-slate">
+                {{ a }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+      {%- endfor -%}
+
+      {%- if faq_items == blank -%}
+        <p class="text-center text-slate-500 py-8">Add FAQ blocks in the editor or link Metaobjects in the product admin.</p>
+      {%- endif -%}
+
+    </div>
+  </div>
 </section>
 
-
-<style>
-/* Open FAQ item styling */
-.faq-item.open .faq-question {
-    background-color: #f8fafc !important;
-}
-
-.faq-item.open .faq-question:hover {
-    background-color: #f8fafc !important;
-}
-</style>
-
 <script>
-// FAQ Toggle Function
-function toggleFAQ(button) {
-    const faqItem = button.closest('.faq-item');
-    const answer = faqItem.querySelector('.faq-answer');
-    const icon = button.querySelector('.faq-icon');
-
-    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-
-    // Close all other items
-    const allItems = document.querySelectorAll('.faq-item');
+  // Accordion Functionality
+  function toggleFaq(button) {
+    const item = button.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+    
+    // Close others (Optional - remove if you want multiple open)
     const allAnswers = document.querySelectorAll('.faq-answer');
     const allIcons = document.querySelectorAll('.faq-icon');
-    const allButtons = document.querySelectorAll('.faq-question');
+    
+    // Check if current is already open
+    const isOpen = answer.style.maxHeight;
 
-    allItems.forEach(item => item.classList.remove('open'));
-    allAnswers.forEach(otherAnswer => {
-        otherAnswer.style.maxHeight = '0px';
-        otherAnswer.style.overflow = 'hidden';
-    });
-    allIcons.forEach(otherIcon => otherIcon.style.transform = 'rotate(0deg)');
-    allButtons.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    // Reset all
+    allAnswers.forEach(ans => ans.style.maxHeight = null);
+    allIcons.forEach(ic => ic.style.transform = 'rotate(0deg)');
 
-    // Toggle current item
     if (!isOpen) {
-        faqItem.classList.add('open');
-        answer.style.maxHeight = answer.scrollHeight + 50 + 'px';
-        answer.style.overflow = 'visible';
-        icon.style.transform = 'rotate(45deg)';
-        button.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      icon.style.transform = 'rotate(45deg)'; // Rotates the plus to x
     }
-}
+  }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Open first FAQ by default
-    const firstItem = document.querySelector('.faq_section .faq-item');
-    const firstButton = document.querySelector('.faq_section .faq-item .faq-question');
-    const firstFAQ = document.querySelector('.faq_section .faq-item .faq-answer');
-    const firstIcon = document.querySelector('.faq_section .faq-item .faq-icon');
+  // Filter Tabs Functionality
+  document.addEventListener("DOMContentLoaded", function() {
+    const filters = document.querySelectorAll('#faq-filters-{{ section.id }} .faq-tab');
+    const items = document.querySelectorAll('[data-section-id="{{ section.id }}"] .faq-item');
 
-    if (firstItem && firstButton && firstFAQ && firstIcon) {
-        setTimeout(() => {
-            firstItem.classList.add('open');
-            firstButton.setAttribute('aria-expanded', 'true');
-            firstFAQ.style.maxHeight = firstFAQ.scrollHeight + 50 + 'px';
-            firstFAQ.style.overflow = 'visible';
-            firstIcon.style.transform = 'rotate(45deg)';
-        }, 100);
-    }
-});
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Active Class Logic
+        filters.forEach(b => {
+            b.classList.remove('bg-slate-700', 'text-white');
+            b.classList.add('bg-white', 'text-slate-700');
+        });
+        btn.classList.remove('bg-white', 'text-slate-700');
+        btn.classList.add('bg-slate-700', 'text-white');
 
-// Make function globally available
-window.toggleFAQ = toggleFAQ;
+        const cat = btn.getAttribute('data-category');
+
+        items.forEach(item => {
+          if (cat === 'all' || item.getAttribute('data-category') === cat) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
 </script>
 
 {% schema %}
 {
-  "name": "FAQ Section",
-  "tag": "section",
-  "class": "section",
+  "name": "Loopzo FAQ",
   "settings": [
     {
-      "type": "header",
-      "content": "Section Settings"
-    },
-    {
-      "type": "paragraph",
-      "content": "Add FAQ items using the blocks below. Each FAQ can have a category for filtering."
-    },
-    {
       "type": "text",
-      "id": "section_title",
+      "id": "title",
       "label": "Section Title",
       "default": "Veelgestelde vragen"
     },
     {
       "type": "text",
-      "id": "section_subtitle",
-      "label": "Section Subtitle",
+      "id": "subtitle",
+      "label": "Subtitle",
       "default": "Frequently asked questions"
-    },
-    {
-      "type": "header",
-      "content": "Section Layout"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 80
     }
   ],
   "blocks": [
     {
-      "type": "faq_item",
-      "name": "FAQ Item",
+      "type": "loopzo_faq_item",
+      "name": "Manual FAQ Item",
       "settings": [
         {
           "type": "text",
-          "id": "category",
-          "label": "Category",
-          "default": "Algemeen",
-          "info": "Category badge displayed above the question (e.g., Algemeen, Prijs, Technisch)"
-        },
-        {
-          "type": "text",
           "id": "question",
-          "label": "Question",
-          "default": "Your question here?",
-          "info": "The FAQ question/title"
+          "label": "Question"
         },
         {
           "type": "richtext",
           "id": "answer",
-          "label": "Answer",
-          "default": "<p>Your answer here.</p>",
-          "info": "The FAQ answer content (supports rich text)"
+          "label": "Answer"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "options": [
+            { "value": "algemeen", "label": "Algemeen" },
+            { "value": "prijs", "label": "Prijs & Levering" },
+            { "value": "garantie", "label": "Garantie" },
+            { "value": "technisch", "label": "Technisch" }
+          ],
+          "default": "algemeen"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "FAQ Section",
-      "category": "Loopzo",
-      "blocks": [
-        {
-          "type": "faq_item",
-          "settings": {
-            "category": "Algemeen",
-            "question": "Wanneer kan een driewielfiets voor mij de oplossing zijn?",
-            "answer": "<p>Een driewielfiets is ideaal voor mensen die moeite hebben met balanceren op een gewone fiets. Dit kan bijvoorbeeld door ouderdom, een lichamelijke beperking, of revalidatie.</p>"
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "category": "Algemeen",
-            "question": "Kan ik een proefrit maken op een Loopzo fiets?",
-            "answer": "<p>Ja, zeker! Wij bieden gratis proefritten aan. U kunt contact met ons opnemen om een afspraak te maken.</p>"
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "category": "Prijs",
-            "question": "Wat zijn de kosten van een aangepaste fiets?",
-            "answer": "<p>De prijs varieert afhankelijk van het model en de aanpassingen. Onze fietsen starten vanaf €1.599.</p>"
-          }
-        }
-      ]
+      "name": "Loopzo FAQ"
     }
   ]
 }

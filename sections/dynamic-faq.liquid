@@ -1,0 +1,190 @@
+{%- comment -%}
+  SECTION: Dynamic FAQ (Hybrid)
+  - Products: Pulls from custom.product_faqs Metafield
+  - Pages/Home: Pulls from Section Blocks
+{%- endcomment -%}
+
+<section class="faq_section bg-slate-50 py-12 sm:py-16 md:py-20" data-section-id="{{ section.id }}">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center mb-8 sm:mb-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4">{{ section.settings.title }}</h2>
+      <p class="text-slate-600 text-base sm:text-lg">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-8 sm:mb-12 justify-center" id="faq-filters-{{ section.id }}">
+      <button class="faq-tab active px-6 py-2.5 bg-slate-700 text-white rounded-full text-sm font-semibold hover:bg-slate-800 transition-all duration-300" data-category="all">
+        Alles Tonen
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="algemeen">
+        Algemene informatie & proefrit
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="prijs">
+        Prijs & levering
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="garantie">
+        Garantie, service & onderhoud
+      </button>
+      <button class="faq-tab px-6 py-2.5 bg-white border-2 border-slate-300 text-slate-700 rounded-full text-sm font-semibold hover:border-slate-700 hover:bg-slate-50 transition-all duration-300" data-category="technisch">
+        Technische vragen
+      </button>
+    </div>
+
+    <div class="space-y-4">
+
+      {%- assign faq_items = blank -%}
+      
+      {%- if product and product.metafields.custom.product_faqs.value != blank -%}
+        {%- assign source_type = 'metafield' -%}
+        {%- assign faq_items = product.metafields.custom.product_faqs.value -%}
+      {%- else -%}
+        {%- assign source_type = 'blocks' -%}
+        {%- assign faq_items = section.blocks -%}
+      {%- endif -%}
+
+      {%- for item in faq_items -%}
+        
+        {%- comment -%} Normalize Data Variables {%- endcomment -%}
+        {%- if source_type == 'metafield' -%}
+          {%- assign q = item.question -%}
+          {%- assign a = item.answer | metafield_tag -%}
+          {%- assign c = item.category | downcase -%}
+        {%- else -%}
+          {%- assign q = item.settings.question -%}
+          {%- assign a = item.settings.answer -%}
+          {%- assign c = item.settings.category | downcase -%}
+        {%- endif -%}
+
+        {%- if q != blank -%}
+          <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md" data-category="{{ c }}">
+            <button class="faq-question w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+              <span class="text-slate-900 font-semibold text-base sm:text-lg pr-4">{{ q }}</span>
+              <svg class="faq-icon w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+            <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+              <div class="p-5 sm:p-6 pt-0 text-slate-600 text-sm sm:text-base leading-relaxed prose prose-slate">
+                {{ a }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+      {%- endfor -%}
+
+      {%- if faq_items == blank -%}
+        <p class="text-center text-slate-500 py-8">Add FAQ blocks in the editor or link Metaobjects in the product admin.</p>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Accordion Functionality
+  function toggleFaq(button) {
+    const item = button.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
+    
+    // Close others (Optional - remove if you want multiple open)
+    const allAnswers = document.querySelectorAll('.faq-answer');
+    const allIcons = document.querySelectorAll('.faq-icon');
+    
+    // Check if current is already open
+    const isOpen = answer.style.maxHeight;
+
+    // Reset all
+    allAnswers.forEach(ans => ans.style.maxHeight = null);
+    allIcons.forEach(ic => ic.style.transform = 'rotate(0deg)');
+
+    if (!isOpen) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      icon.style.transform = 'rotate(45deg)'; // Rotates the plus to x
+    }
+  }
+
+  // Filter Tabs Functionality
+  document.addEventListener("DOMContentLoaded", function() {
+    const filters = document.querySelectorAll('#faq-filters-{{ section.id }} .faq-tab');
+    const items = document.querySelectorAll('[data-section-id="{{ section.id }}"] .faq-item');
+
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Active Class Logic
+        filters.forEach(b => {
+            b.classList.remove('bg-slate-700', 'text-white');
+            b.classList.add('bg-white', 'text-slate-700');
+        });
+        btn.classList.remove('bg-white', 'text-slate-700');
+        btn.classList.add('bg-slate-700', 'text-white');
+
+        const cat = btn.getAttribute('data-category');
+
+        items.forEach(item => {
+          if (cat === 'all' || item.getAttribute('data-category') === cat) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Dynamic FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Veelgestelde vragen"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Frequently asked questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_block",
+      "name": "Manual FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Category",
+          "options": [
+            { "value": "algemeen", "label": "Algemeen" },
+            { "value": "prijs", "label": "Prijs & Levering" },
+            { "value": "garantie", "label": "Garantie" },
+            { "value": "technisch", "label": "Technisch" }
+          ],
+          "default": "algemeen"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic FAQ"
+    }
+  ]
+}
+{% endschema %}

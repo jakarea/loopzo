@@ -11,7 +11,16 @@
   "sections": {
     "loopzo_hero": {
       "type": "loopzo-hero",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/hero-image.jpg",
+        "brand_name": "<strong>Loopzo – </strong>",
+        "heading": "Comfortabele en veilige loopfiets",
+        "subtext": "<p>De Loopzo is een loopfiets voor volwassenen die je helpt om op een veilige, stabiele en vooral ontspannen manier actief te blijven. ideaal voor vakanties, dagtochten of regelmatig gebruik.</p>",
+        "button_1_text": "Onze fietsen",
+        "button_1_url": "shopify://products/loopzo-bicycle-transparent",
+        "button_2_text": "Boek een proefrit",
+        "button_2_url": "shopify://pages/contact"
+      }
     },
     "loopzo_features": {
       "type": "loopzo-features",
@@ -43,32 +52,21 @@
         "feature_2",
         "feature_3"
       ],
-      "settings": {}
-    },
-    "loopzo_featured_product": {
-      "type": "loopzo-featured-product",
       "settings": {
-        "section_title": "Featured Product",
-        "section_subtitle": "Discover our premium selection",
-        "product": "loopzo-bicycle-transparent",
-        "enable_sticky_info": true,
-        "show_stock_status": true,
-        "show_inventory_quantity": true,
-        "low_stock_threshold": 10,
-        "in_stock_text": "In Stock - Ready to Ship",
-        "out_of_stock_text": "Out of Stock",
-        "show_features": true,
-        "feature_1": "Custom-made to your specifications",
-        "feature_2": "Premium Dutch craftsmanship",
-        "feature_3": "Electric and manual options available",
-        "feature_4": "Free test ride included",
-        "padding_top": 0,
-        "padding_bottom": 80
+        "padding_top": 32,
+        "padding_bottom": 48
       }
     },
     "loopzo_product_showcase": {
       "type": "loopzo-product-showcase",
-      "settings": {}
+      "settings": {
+        "main_heading": "",
+        "sub_heading": "",
+        "description_paragraph_1": "",
+        "description_paragraph_2": "",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_history": {
       "type": "loopzo-history",
@@ -76,7 +74,16 @@
     },
     "loopzo_thuja_ebike": {
       "type": "loopzo-thuja-ebike",
-      "settings": {}
+      "settings": {
+        "badge_text": "Nieuw",
+        "section_title": "Thuja elektrische fiets",
+        "section_description": "<p>Ervaar vrijheid, stabiliteit en comfort bij elke rit. De Thuja is een innovatieve en stijlvolle e-bike van vanRaam met twee voorwielen, krachtige elektrische ondersteuning en een optionele bagageunit. Blijf veilig en rijd met vertrouwen.</p>",
+        "button_text": "Ontdek de Thuja",
+        "button_url": "",
+        "image_alt_text": "Thuja elektrische fiets - innovatieve driewieler e-bike van Loopzo",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_product_info": {
       "type": "loopzo-product-info",
@@ -99,32 +106,62 @@
     },
     "loopzo_founder_talk": {
       "type": "loopzo-founder-talk",
-      "settings": {}
+      "settings": {
+        "badge_text": "Expert Testimony",
+        "section_title": "Pulmonologist Ralph Koppers is enthusiastic about the Loopzo bike balance bike.",
+        "paragraph_1": "<p>In the fall of 2010, pulmonologist Ralph Koppers began wondering why balance bikes weren't being used more widely as a mobility aid.</p>",
+        "paragraph_2": "<p>People who already use balance bikes are very enthusiastic. Furthermore, balance bikes offer a wide range of functionalities. Loopzo bike was born from this background.</p>",
+        "button_text": "Read more...",
+        "button_url": "",
+        "image_alt_text": "Pulmonologist Ralph Koppers",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_blog": {
       "type": "loopzo-blog",
-      "settings": {}
-    },
-    "loopzo_faq": {
-      "type": "loopzo-faq",
-      "settings": {}
+      "settings": {
+        "section_title": "Up-to-date met Loopzo",
+        "section_subtitle": "Nieuws, events & blogs",
+        "read_more_text": "Read more",
+        "blog_handle": "",
+        "posts_to_show": 3,
+        "button_text": "Meer nieuws",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_cta": {
       "type": "loopzo-cta",
-      "settings": {}
+      "settings": {
+        "main_title": "Ready to experience freedom on wheels?",
+        "main_description": "<p>Schedule a free consultation and test ride. Our experts will help you find the perfect adaptive bicycle tailored to your needs.</p>",
+        "primary_button_text": "Schedule Test Ride",
+        "primary_button_url": "",
+        "secondary_button_text": "Chat on WhatsApp",
+        "secondary_button_url": "",
+        "service_1_title": "Klantenservice",
+        "service_1_description": "We zijn er voor je en helpen je graag verder!",
+        "service_2_title": "Gratis Verzending",
+        "service_2_description": "Gratis verzending op al onze producten!",
+        "service_3_title": "100% Kwaliteitsgarantie",
+        "service_3_description": "Niet blij? Retour binnen 30 dagen, zonder gedoe!",
+        "service_4_title": "Bestel Voor 16:00 Uur",
+        "service_4_description": "Volgende werkdag in huis!",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
     "loopzo_hero",
     "loopzo_features",
-    "loopzo_featured_product",
-    "loopzo_product_showcase",
     "loopzo_history",
-    "loopzo_thuja_ebike",
+    "loopzo_product_showcase",
     "loopzo_product_info",
+    "loopzo_thuja_ebike",
     "loopzo_founder_talk",
     "loopzo_blog",
-    "loopzo_faq",
     "loopzo_cta"
   ]
 }

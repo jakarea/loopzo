@@ -1,97 +1,167 @@
-<section class="history_section bg-slate-50" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+<!-- ============= History Section ============= -->
+<section class="history_section bg-white py-12 sm:py-16 md:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- H1: Main Heading -->
-        {% if section.settings.main_heading != blank %}
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 sm:mb-8">
-            {% assign title_parts = section.settings.main_heading | split: 'Loopzo' %}
-            {{ title_parts[0] }}<span class="text-slate-700">Loopzo</span>{% if title_parts[1] %}{{ title_parts[1] }}{% endif %}
-        </h1>
-        {% endif %}
-
-        <!-- P1: Introduction Paragraph -->
-        {% if section.settings.intro_paragraph != blank %}
-        <div class="max-w-5xl mb-12 sm:mb-16">
-            <div class="text-[15px] sm:text-base lg:text-[17px] text-slate-700 leading-relaxed [&_strong]:font-semibold [&_strong]:text-slate-900">
-                {{ section.settings.intro_paragraph }}
+       
+        <!-- Main Heading -->
+        <div class="text-center mb-10 sm:mb-12">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Maak kennis met <span class="text-slate-700">Loopzo</span>
+            </h1>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+                    Bij Loopzo draait alles om beweging, comfort en vertrouwen. Vanuit onze vestiging in Moordrecht ontwikkelen we
+                    loopfietsen voor volwassenen die ontworpen zijn om dagelijks, veilig en met plezier te gebruiken.
+                </p>
             </div>
         </div>
-        {% endif %}
 
-        <!-- Two Column Layout: Image + History Content -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            <!-- Left: Image -->
-            <div class="order-2 lg:order-1">
-                {% if section.settings.history_image != blank %}
-                <figure>
-                    <div class="rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="{{ section.settings.history_image | img_url: '600x450' }}"
-                            alt="{{ section.settings.history_image.alt | default: 'Loopzo manufacturing facility - Handcrafted adaptive bicycles production' }}"
-                            class="w-full h-auto object-cover aspect-[4/3]"
-                            loading="lazy"
-                            width="600"
-                            height="450">
+        <!-- Hero Image with Feature Icons Grid -->
+        <div class="mb-12 sm:mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+                <!-- Main Image -->
+                <div class="lg:col-span-7">
+                    <div class="rounded-2xl overflow-hidden shadow-xl">
+                        <img src="{{ 'design-loopzo-bike.png' | asset_url }}"
+                            alt="Loopzo ontwerp en ontwikkeling - Nederlands design uit Moordrecht"
+                            class="w-full h-auto object-cover" loading="lazy">
                     </div>
-                </figure>
-                {% endif %}
-            </div>
-
-            <!-- Right: History Content -->
-            <article class="order-1 lg:order-2">
-                <div class="lg:pl-4">
-                    <!-- H2: History Heading -->
-                    {% if section.settings.history_heading != blank %}
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-5 leading-tight">
-                        {{ section.settings.history_heading }}
-                    </h2>
-                    {% endif %}
-
-                    <!-- P2: History Paragraph 1 -->
-                    {% if section.settings.history_paragraph_1 != blank %}
-                    <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed mb-5 [&_strong]:font-semibold [&_strong]:text-slate-900">
-                        {{ section.settings.history_paragraph_1 }}
-                    </div>
-                    {% endif %}
-
-                    <!-- P3: History Paragraph 2 -->
-                    {% if section.settings.history_paragraph_2 != blank %}
-                    <div class="text-[15px] sm:text-base text-slate-700 leading-relaxed mb-6 [&_strong]:font-semibold [&_strong]:text-slate-900">
-                        {{ section.settings.history_paragraph_2 }}
-                    </div>
-                    {% endif %}
-
-                    {% if section.settings.history_link_text != blank and section.settings.history_link_url != blank %}
-                    <a href="{{ section.settings.history_link_url }}" class="inline-flex items-center text-slate-900 font-semibold text-base hover:text-slate-700 transition-colors group">
-                        {{ section.settings.history_link_text }}
-                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                    {% endif %}
                 </div>
-            </article>
+
+                <!-- Feature Icons -->
+                <div class="lg:col-span-5">
+                    <div class="grid grid-cols-1 gap-4">
+
+                        <!-- Feature 1 -->
+                        <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-xl hover:bg-slate-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex-shrink-0">
+                                <div class="bg-slate-700 p-2.5 rounded-lg">
+                                    <img src="{{ '1idea.png' | asset_url }}" alt="Nederlands Ontwerp" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" style="filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-0.5">Nederlands Ontwerp</h3>
+                                <p class="text-sm text-slate-600">Ontwikkeld en getest in Moordrecht</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-xl hover:bg-slate-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex-shrink-0">
+                                <div class="bg-slate-700 p-2.5 rounded-lg">
+                                    <img src="{{ '2frame.png' | asset_url }}" alt="10 jaar frame garantie" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" style="filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-0.5">10 jaar frame garantie</h3>
+                                <p class="text-sm text-slate-600">Kwaliteit waar je op kunt vertrouwen</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-xl hover:bg-slate-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex-shrink-0">
+                                <div class="bg-slate-700 p-2.5 rounded-lg">
+                                    <img src="{{ '3chain.png' | asset_url }}" alt="Comfort en stabiliteit" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" style="filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-0.5">Comfort en stabiliteit</h3>
+                                <p class="text-sm text-slate-600">Gemaakt voor dagelijks gebruik</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-xl hover:bg-slate-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex-shrink-0">
+                                <div class="bg-slate-700 p-2.5 rounded-lg">
+                                    <img src="{{ '4support.png' | asset_url }}" alt="Persoonlijk contact" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" style="filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-0.5">Persoonlijk contact</h3>
+                                <p class="text-sm text-slate-600">We denken met je mee, zonder haast</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 5 -->
+                        <div class="flex items-start gap-4 bg-slate-50 p-4 rounded-xl hover:bg-slate-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex-shrink-0">
+                                <div class="bg-slate-700 p-2.5 rounded-lg">
+                                    <img src="{{ '5repairing-service.png' | asset_url }}" alt="Service na aankoop" class="w-10 h-10 sm:w-12 sm:h-12 object-contain" style="filter: brightness(0) invert(1);">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-0.5">Service na aankoop</h3>
+                                <p class="text-sm text-slate-600">Onderdelen en onderhoud eenvoudig geregeld</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <!-- CTA -->
-        {% if section.settings.show_cta %}
-        <div class="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-slate-200">
-            {% if section.settings.cta_text != blank %}
-            <p class="text-base sm:text-lg text-slate-800 font-medium mb-5 leading-relaxed max-w-3xl">
-                {{ section.settings.cta_text }}
-            </p>
-            {% endif %}
+        <!-- Innovation Story Section -->
+        <div class="mb-12 sm:mb-16">
+            <div class="max-w-4xl mx-auto text-center mb-8">
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+                    Van idee tot beweging
+                </h2>
+            </div>
 
-            {% if section.settings.cta_button_text != blank and section.settings.cta_button_link != blank %}
-            <a href="{{ section.settings.cta_button_link }}"
-               class="inline-flex items-center bg-slate-800 text-white px-8 py-4 rounded-xl font-semibold text-base hover:bg-slate-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group">
-                {{ section.settings.cta_button_text }}
-                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+
+                <!-- Story Column 1 -->
+                <div class="space-y-4">
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                        Bij Loopzo geloven we dat mobiliteit de basis is van vrijheid. Het idee voor onze loopfiets ontstond vanuit een
+                        simpel uitgangspunt: volwassenen een betrouwbaar hulpmiddel bieden om actief te blijven, zonder gedoe en zonder druk.
+                        Een Loopzo moet ondersteunen, niet in de weg zitten.
+                    </p>
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                        We richten ons op wat echt telt: stabiliteit, kwaliteit en veiligheid. Geen overbodige techniek, maar een stevige
+                        loopfiets die jarenlang meegaat en dagelijks gebruikt kan worden. De Loopzo geeft vertrouwen, helpt bij balans en
+                        maakt bewegen weer meer vanzelfsprekend.
+                    </p>
+                </div>
+
+                <!-- Story Column 2 -->
+                <div class="space-y-4">
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                        Een loopfiets voor volwassenen is een laagdrempelige manier om conditie en mobiliteit te behouden of te verbeteren.
+                        Het risico op ongelukken is klein, omdat de loopfiets op de stoep gebruikt mag worden. Dit maakt de Loopzo geschikt
+                        voor mensen die zekerheid willen, maar wél in beweging willen blijven. Ook in revalidatie en zorginstellingen wordt
+                        de loopfiets steeds vaker ingezet door de natuurlijke manier van voortbewegen.
+                    </p>
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                        Voor veel gebruikers voelt de Loopzo in het begin misschien even anders. Maar wie het probeert, merkt al snel hoe
+                        logisch het is. De beweging is natuurlijk, de houding is recht en het gevoel van controle is groot. En vaak ontstaat
+                        er iets anders namelijk: <strong class="font-semibold text-slate-900">plezier!</strong>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="bg-slate-800 rounded-2xl p-8 sm:p-10 text-center shadow-xl">
+            <p class="text-lg sm:text-xl text-white font-medium mb-6 leading-relaxed max-w-3xl mx-auto">
+                Ontdek onze loopfietsen en accessoires en vind de Loopzo die bij jou past.
+            </p>
+            <a href="{{ routes.collections_url }}"
+                class="inline-flex items-center bg-white text-slate-900 px-8 py-3 rounded-lg font-semibold text-base hover:bg-slate-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group">
+                Bekijk het assortiment
+                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
             </a>
-            {% endif %}
         </div>
-        {% endif %}
+
     </div>
 </section>
 
@@ -101,136 +171,7 @@
   "tag": "section",
   "class": "section",
   "limit": 1,
-  "settings": [
-    {
-      "type": "header",
-      "content": "Main Heading (H1)"
-    },
-    {
-      "type": "paragraph",
-      "content": "Primary heading for SEO - should contain main keywords"
-    },
-    {
-      "type": "text",
-      "id": "main_heading",
-      "label": "Main Heading (H1)",
-      "default": "Maak kennis met Loopzo",
-      "info": "This will be rendered as an H1 tag for SEO"
-    },
-    {
-      "type": "header",
-      "content": "Introduction Paragraph"
-    },
-    {
-      "type": "richtext",
-      "id": "intro_paragraph",
-      "label": "Introduction Paragraph",
-      "default": "<p>Bij <strong>Loopzo</strong> draait alles om beweging, comfort en vertrouwen. Vanuit onze vestiging in Moordrecht ontwikkelen we loopfietsen voor volwassenen die ontworpen zijn om <strong>dagelijks, veilig en met plezier te gebruiken</strong>. Elke Loopzo wordt met zorg in Nederland ontwikkeld en getest. Met degelijke materialen en 10 jaar framegarantie ben je verzekerd van kwaliteit die lang meegaat.</p>",
-      "info": "Main introduction paragraph that appears after H1"
-    },
-    {
-      "type": "header",
-      "content": "History Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "history_image",
-      "label": "History Image",
-      "info": "Recommended size: 600x450px (4:3 aspect ratio). Use descriptive alt text for SEO."
-    },
-    {
-      "type": "header",
-      "content": "History Content (H2)"
-    },
-    {
-      "type": "paragraph",
-      "content": "Secondary heading and content that appears beside the image"
-    },
-    {
-      "type": "text",
-      "id": "history_heading",
-      "label": "History Heading (H2)",
-      "default": "Een familiebedrijf met meer dan 50 jaar ervaring",
-      "info": "This will be rendered as an H2 tag for SEO hierarchy"
-    },
-    {
-      "type": "richtext",
-      "id": "history_paragraph_1",
-      "label": "History Paragraph 1",
-      "default": "<p>Loopzo produceert al meer dan 50 jaar fietsen, en al meer dan 30 jaar ligt de focus op speciale fietsen voor mensen met mobiliteitsbehoefte. Ons team van 25 ervaren medewerkers heeft als doel om duurzame en hedendaagse mobiliteit te bieden aan zoveel mogelijk mensen.</p>",
-      "info": "First paragraph under H2 heading"
-    },
-    {
-      "type": "richtext",
-      "id": "history_paragraph_2",
-      "label": "History Paragraph 2",
-      "default": "<p>We doen dit met Nederlandse kwaliteitsfietsen die geschikt zijn voor zowel volwassenen als kinderen met speciale behoeften. Elke fiets wordt met precisie en vakmanschap gemaakt in onze vestiging in Moordrecht.</p>",
-      "info": "Second paragraph - appears below first paragraph (and image on mobile)"
-    },
-    {
-      "type": "text",
-      "id": "history_link_text",
-      "label": "History Link Text",
-      "default": "Lees meer over onze geschiedenis"
-    },
-    {
-      "type": "url",
-      "id": "history_link_url",
-      "label": "History Link URL",
-      "info": "Link to full history page"
-    },
-    {
-      "type": "header",
-      "content": "Call to Action"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_cta",
-      "label": "Show CTA Button",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA Text",
-      "default": "Ontdek onze loopfietsen en accessoires en vind de Loopzo die bij jou past."
-    },
-    {
-      "type": "text",
-      "id": "cta_button_text",
-      "label": "Button Text",
-      "default": "Bekijk het assortiment"
-    },
-    {
-      "type": "url",
-      "id": "cta_button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "header",
-      "content": "Section Layout"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 64
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 80
-    }
-  ],
+  "settings": [],
   "presets": [
     {
       "name": "Loopzo History",

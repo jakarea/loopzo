@@ -3,78 +3,99 @@
         <div class="lg:grid lg:grid-cols-5 lg:gap-16">
 
             <div class="lg:col-span-2 flex flex-col justify-center mb-8 lg:mb-0">
-                {%- if section.settings.main_heading != blank -%}
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                    {{ section.settings.main_heading }}
+                    {%- if section.settings.main_heading != blank -%}
+                        {{ section.settings.main_heading }}
+                    {%- else -%}
+                        Waarom een loopfiets helpt
+                    {%- endif -%}
                 </h1>
-                {%- endif -%}
 
-                {%- if section.settings.sub_heading != blank -%}
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 {% if section.settings.main_heading != blank %}mt-2{% endif %}">
-                    {{ section.settings.sub_heading }}
-                </h2>
-                {%- endif -%}
-
-                {%- if section.settings.description_paragraph_1 != blank -%}
                 <div class="mt-4 sm:mt-6 text-sm sm:text-base text-gray-700">
-                    {{ section.settings.description_paragraph_1 }}
+                    {%- if section.settings.description_paragraph_1 != blank -%}
+                        {{ section.settings.description_paragraph_1 }}
+                    {%- else -%}
+                        <p>Een volwassen loopfiets geeft stabiliteit wanneer lopen zwaar of onzeker voelt. Je zit stevig, je benen bewegen in je eigen tempo en je hoeft niet je volledige gewicht te dragen. Zo wordt bewegen rustiger, ontspannen en houd je dagelijkse uitstapjes makkelijker vol.</p>
+                    {%- endif -%}
                 </div>
-                {%- endif -%}
 
-                {%- if section.settings.description_paragraph_2 != blank -%}
                 <div class="mt-3 sm:mt-4 text-sm sm:text-base text-gray-700">
-                    {{ section.settings.description_paragraph_2 }}
+                    {%- if section.settings.description_paragraph_2 != blank -%}
+                        {{ section.settings.description_paragraph_2 }}
+                    {%- else -%}
+                        <p>De Loopzo is een compacte fiets zonder trappers, speciaal ontwikkeld voor volwassenen. Je zit comfortabel terwijl de fiets een groot deel van je gewicht draagt. Je benen blijven actief zonder overbelasting, waardoor je vaak langere stukken aflegt dan lopend.</p>
+                    {%- endif -%}
                 </div>
-                {%- endif -%}
             </div>
 
             <div class="lg:col-span-3 mt-8 sm:mt-12 lg:mt-0">
                 <div class="grid grid-cols-2 sm:grid-cols-3 grid-rows-2 gap-3 sm:gap-4 auto-rows-fr">
 
-                    {%- if section.settings.main_image != blank -%}
                     <div class="col-span-2 row-span-2 rounded-lg overflow-hidden shadow-lg relative aspect-[3/4] sm:aspect-[4/3]">
-                        <img src="{{ section.settings.main_image | image_url: width: 800 }}"
-                            srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w,
-                                    {{ section.settings.main_image | image_url: width: 800 }} 800w,
-                                    {{ section.settings.main_image | image_url: width: 1200 }} 1200w"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 40vw"
-                            alt="{{ section.settings.main_image.alt | escape }}"
-                            class="w-full h-full object-cover object-center"
-                            loading="lazy"
-                            width="800"
-                            height="600">
+                        {%- if section.settings.main_image != blank -%}
+                            <img src="{{ section.settings.main_image | image_url: width: 800 }}"
+                                srcset="{{ section.settings.main_image | image_url: width: 400 }} 400w,
+                                        {{ section.settings.main_image | image_url: width: 800 }} 800w,
+                                        {{ section.settings.main_image | image_url: width: 1200 }} 1200w"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 40vw"
+                                alt="{{ section.settings.main_image.alt | escape }}"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                width="800"
+                                height="600">
+                        {%- else -%}
+                            <img src="https://loopzo.nl/cdn/shop/files/senior-citygen-in-park-with-loopzo.png"
+                                alt="Senior with Loopzo in park"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                width="800"
+                                height="600">
+                        {%- endif -%}
                     </div>
-                    {%- endif -%}
 
-                    {%- if section.settings.small_image_1 != blank -%}
                     <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-lg relative aspect-square">
-                        <img src="{{ section.settings.small_image_1 | image_url: width: 400 }}"
-                            srcset="{{ section.settings.small_image_1 | image_url: width: 200 }} 200w,
-                                    {{ section.settings.small_image_1 | image_url: width: 400 }} 400w,
-                                    {{ section.settings.small_image_1 | image_url: width: 600 }} 600w"
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                            alt="{{ section.settings.small_image_1.alt | escape }}"
-                            class="w-full h-full object-cover object-center"
-                            loading="lazy"
-                            width="400"
-                            height="400">
+                        {%- if section.settings.small_image_1 != blank -%}
+                            <img src="{{ section.settings.small_image_1 | image_url: width: 400 }}"
+                                srcset="{{ section.settings.small_image_1 | image_url: width: 200 }} 200w,
+                                        {{ section.settings.small_image_1 | image_url: width: 400 }} 400w,
+                                        {{ section.settings.small_image_1 | image_url: width: 600 }} 600w"
+                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                                alt="{{ section.settings.small_image_1.alt | escape }}"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                width="400"
+                                height="400">
+                        {%- else -%}
+                            <img src="https://loopzo.nl/cdn/shop/files/loopzo-bike.png"
+                                alt="Loopzo bike"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                width="400"
+                                height="400">
+                        {%- endif -%}
                     </div>
-                    {%- endif -%}
 
-                    {%- if section.settings.small_image_2 != blank -%}
                     <div class="col-span-1 row-span-1 rounded-lg overflow-hidden shadow-lg relative aspect-square">
-                        <img src="{{ section.settings.small_image_2 | image_url: width: 400 }}"
-                            srcset="{{ section.settings.small_image_2 | image_url: width: 200 }} 200w,
-                                    {{ section.settings.small_image_2 | image_url: width: 400 }} 400w,
-                                    {{ section.settings.small_image_2 | image_url: width: 600 }} 600w"
-                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                            alt="{{ section.settings.small_image_2.alt | escape }}"
-                            class="w-full h-full object-cover object-center"
-                            loading="lazy"
-                            width="400"
-                            height="400">
+                        {%- if section.settings.small_image_2 != blank -%}
+                            <img src="{{ section.settings.small_image_2 | image_url: width: 400 }}"
+                                srcset="{{ section.settings.small_image_2 | image_url: width: 200 }} 200w,
+                                        {{ section.settings.small_image_2 | image_url: width: 400 }} 400w,
+                                        {{ section.settings.small_image_2 | image_url: width: 600 }} 600w"
+                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                                alt="{{ section.settings.small_image_2.alt | escape }}"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                width="400"
+                                height="400">
+                        {%- else -%}
+                            <img src="https://loopzo.nl/cdn/shop/files/Amped-Balance-Bikes-img.jpg"
+                                alt="Balance bikes"
+                                class="w-full h-full object-cover object-center"
+                                loading="lazy"
+                                width="400"
+                                height="400">
+                        {%- endif -%}
                     </div>
-                    {%- endif -%}
 
                 </div>
             </div>
@@ -99,11 +120,7 @@
       "id": "main_heading",
       "label": "Main Heading"
     },
-    {
-      "type": "inline_richtext",
-      "id": "sub_heading",
-      "label": "Sub Heading"
-    },
+    
     {
       "type": "richtext",
       "id": "description_paragraph_1",
