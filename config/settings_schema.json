@@ -12,58 +12,72 @@
     "settings": [
       {
         "type": "header",
-        "content": "Global Colors"
+        "content": "Header Section"
       },
       {
         "type": "color",
-        "id": "color_bg",
+        "id": "header_bg",
         "label": "Background",
         "default": "#FFFFFF"
       },
       {
         "type": "color",
-        "id": "color_text",
-        "label": "Text",
-        "default": "#0F172A"
+        "id": "header_text",
+        "label": "Text Color",
+        "default": "#1e293b"
+      },
+      {
+        "type": "header",
+        "content": "Hero Section"
       },
       {
         "type": "color",
-        "id": "color_button_bg",
-        "label": "Primary Button Background",
-        "default": "#334155"
-      },
-      {
-        "type": "color",
-        "id": "color_button_text",
-        "label": "Primary Button Text",
+        "id": "hero_bg",
+        "label": "Background",
         "default": "#FFFFFF"
       },
       {
         "type": "color",
-        "id": "color_outline_button",
-        "label": "Outline Button Border",
-        "default": "#334155"
-      },
-      {
-        "type": "color",
-        "id": "color_shadow",
-        "label": "Shadow",
-        "default": "#1E293B"
+        "id": "hero_text",
+        "label": "Text Color",
+        "default": "#1e293b"
       },
       {
         "type": "header",
-        "content": "Accent / Footer Colors"
+        "content": "Content Sections"
       },
       {
         "type": "color",
-        "id": "color_accent_bg",
-        "label": "Accent Background",
-        "default": "#334155"
+        "id": "content_light_bg",
+        "label": "Light Background",
+        "default": "#FFFFFF"
       },
       {
         "type": "color",
-        "id": "color_accent_text",
-        "label": "Accent Text",
+        "id": "content_dark_bg",
+        "label": "Alternate Background",
+        "default": "#f1f5f9"
+      },
+      {
+        "type": "color",
+        "id": "content_text",
+        "label": "Text Color",
+        "default": "#1e293b"
+      },
+      {
+        "type": "header",
+        "content": "Footer Section"
+      },
+      {
+        "type": "color",
+        "id": "footer_bg",
+        "label": "Background",
+        "default": "#1e293b"
+      },
+      {
+        "type": "color",
+        "id": "footer_text",
+        "label": "Text Color",
         "default": "#FFFFFF"
       }
     ]
