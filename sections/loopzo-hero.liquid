@@ -41,20 +41,24 @@
     <div class="md:absolute md:inset-0 md:flex md:items-center">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 
-        <div class="relative bg-slate-800 text-white rounded-2xl p-6 sm:p-8 md:p-10 max-w-lg mx-auto md:mx-0 md:ml-auto
-        -mt-20 sm:-mt-24 md:mt-0 shadow-2xl">
+        <div class="relative rounded-2xl p-6 sm:p-8 md:p-10 max-w-lg mx-auto md:mx-0 md:ml-auto
+        -mt-20 sm:-mt-24 md:mt-0 shadow-2xl hero-card"
+        style="background-color: {% if section.settings.card_bg_color != blank %}{{ section.settings.card_bg_color }}{% else %}#1e293b{% endif %} !important;">
 
           {%- if section.settings.brand_name != blank -%}
-          <span class="block text-xs sm:text-sm font-semibold text-gray-300"
+          <span class="block text-xs sm:text-sm font-semibold hero-brand"
+                style="color: {% if section.settings.brand_text_color != blank %}{{ section.settings.brand_text_color }}{% else %}#d1d5db{% endif %} !important;"
                 aria-label="{{ 'sections.loopzo_hero.brand_name_aria_label' | t }}">{{ section.settings.brand_name }}</span>
           {%- endif -%}
 
           {%- if section.settings.heading != blank -%}
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold {% if section.settings.brand_name != blank %}mt-2{% endif %}">{{ section.settings.heading }}</h1>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold hero-heading {% if section.settings.brand_name != blank %}mt-2{% endif %}"
+              style="color: {% if section.settings.heading_color != blank %}{{ section.settings.heading_color }}{% else %}#ffffff{% endif %} !important;">{{ section.settings.heading }}</h1>
           {%- endif -%}
 
           {%- if section.settings.subtext != blank -%}
-          <div class="text-sm sm:text-base text-gray-200 mt-3 sm:mt-4">
+          <div class="text-sm sm:text-base mt-3 sm:mt-4 hero-subtext"
+               style="color: {% if section.settings.subtext_color != blank %}{{ section.settings.subtext_color }}{% else %}#e5e7eb{% endif %} !important;">
             {{ section.settings.subtext }}
           </div>
           {%- endif -%}
@@ -64,8 +68,9 @@
 
             {%- if section.settings.button_1_text != blank and section.settings.button_1_url != blank -%}
             <a href="{{ section.settings.button_1_url }}"
-               class="bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
-                      flex items-center justify-center gap-2 transition hover:bg-slate-700 text-sm sm:text-base">
+               class="font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg hero-button-1
+                      flex items-center justify-center gap-2 transition hover:bg-slate-700 text-sm sm:text-base"
+               style="background-color: {% if section.settings.button_1_bg != blank %}{{ section.settings.button_1_bg }}{% else %}#475569{% endif %} !important; color: {% if section.settings.button_1_text_color != blank %}{{ section.settings.button_1_text_color }}{% else %}#ffffff{% endif %} !important;">
               <span>{{ section.settings.button_1_text }}</span>
               <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                    stroke-width="2.5">
@@ -76,8 +81,9 @@
 
             {%- if section.settings.button_2_text != blank and section.settings.button_2_url != blank -%}
             <a href="{{ section.settings.button_2_url }}"
-               class="bg-white text-slate-800 font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg
-                      flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:bg-gray-100 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base">
+               class="font-bold py-2.5 sm:py-3 px-5 sm:px-6 rounded-lg hero-button-2
+                      flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:bg-gray-100 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base"
+               style="background-color: {% if section.settings.button_2_bg != blank %}{{ section.settings.button_2_bg }}{% else %}#ffffff{% endif %} !important; color: {% if section.settings.button_2_text_color != blank %}{{ section.settings.button_2_text_color }}{% else %}#1e293b{% endif %} !important;">
               <span>{{ section.settings.button_2_text }}</span>
               <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                    stroke-width="2.5">
@@ -105,6 +111,10 @@
   "limit": 1,
   "settings": [
     {
+      "type": "header",
+      "content": "Content"
+    },
+    {
       "type": "image_picker",
       "id": "image",
       "label": "Background Image"
@@ -126,6 +136,42 @@
     },
     {
       "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "paragraph",
+      "content": "To reset colors to default: clear each color field by clicking the 'x' or delete the hex value."
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#1e293b",
+      "info": "Default: #1e293b"
+    },
+    {
+      "type": "color",
+      "id": "brand_text_color",
+      "label": "Brand Text Color",
+      "default": "#d1d5db",
+      "info": "Default: #d1d5db"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#ffffff",
+      "info": "Default: #ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#e5e7eb",
+      "info": "Default: #e5e7eb"
+    },
+    {
+      "type": "header",
       "content": "Button 1"
     },
     {
@@ -137,6 +183,20 @@
       "type": "url",
       "id": "button_1_url",
       "label": "Button URL"
+    },
+    {
+      "type": "color",
+      "id": "button_1_bg",
+      "label": "Background Color",
+      "default": "#475569",
+      "info": "Default: #475569"
+    },
+    {
+      "type": "color",
+      "id": "button_1_text_color",
+      "label": "Text Color",
+      "default": "#ffffff",
+      "info": "Default: #ffffff"
     },
     {
       "type": "header",
@@ -151,6 +211,20 @@
       "type": "url",
       "id": "button_2_url",
       "label": "Button URL"
+    },
+    {
+      "type": "color",
+      "id": "button_2_bg",
+      "label": "Background Color",
+      "default": "#ffffff",
+      "info": "Default: #ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_2_text_color",
+      "label": "Text Color",
+      "default": "#1e293b",
+      "info": "Default: #1e293b"
     }
   ],
   "presets": [

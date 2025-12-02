@@ -110,8 +110,6 @@
         /* Dynamic Section Colors from Admin */
         --header-bg: {{ settings.header_bg | default: '#FFFFFF' }};
         --header-text: {{ settings.header_text | default: '#1e293b' }};
-        --hero-bg: {{ settings.hero_bg | default: '#FFFFFF' }};
-        --hero-text: {{ settings.hero_text | default: '#1e293b' }};
         --content-light-bg: {{ settings.content_light_bg | default: '#FFFFFF' }};
         --content-dark-bg: {{ settings.content_dark_bg | default: '#f1f5f9' }};
         --content-text: {{ settings.content_text | default: '#1e293b' }};
@@ -142,19 +140,7 @@
       }
 
       /* ===== HERO SECTION ===== */
-      .hero-section,
-      section.hero,
-      .loopzo-hero,
-      [class*="hero"] {
-        background-color: var(--hero-bg) !important;
-      }
-
-      .hero-section *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500),
-      section.hero *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500),
-      .loopzo-hero *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500),
-      [class*="hero"] *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500) {
-        color: var(--hero-text) !important;
-      }
+      /* Hero section colors are controlled by individual section settings, not global theme settings */
 
       /* ===== CONTENT SECTIONS - LIGHT BACKGROUND ===== */
       section.bg-white,
@@ -176,8 +162,8 @@
       }
 
       /* ===== CONTENT SECTIONS - TEXT COLOR ===== */
-      section:not(header):not(footer) *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500):not(.bg-white):not(footer *):not(header *),
-      main *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500):not(.bg-white):not(footer *):not(header *) {
+      section:not(header):not(footer):not(.hero) *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500):not(.bg-white):not(footer *):not(header *):not(.hero-card):not(.hero-card *):not(.hero-brand):not(.hero-heading):not(.hero-subtext):not(.hero-button-1):not(.hero-button-2),
+      main *:not(button):not(.bg-slate-700):not(.bg-green-600):not(.bg-red-500):not(.bg-white):not(footer *):not(header *):not(.hero-card):not(.hero-card *):not(.hero-brand):not(.hero-heading):not(.hero-subtext):not(.hero-button-1):not(.hero-button-2) {
         color: var(--content-text) !important;
       }
 

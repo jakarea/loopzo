@@ -28,22 +28,6 @@
       },
       {
         "type": "header",
-        "content": "Hero Section"
-      },
-      {
-        "type": "color",
-        "id": "hero_bg",
-        "label": "Background",
-        "default": "#FFFFFF"
-      },
-      {
-        "type": "color",
-        "id": "hero_text",
-        "label": "Text Color",
-        "default": "#1e293b"
-      },
-      {
-        "type": "header",
         "content": "Content Sections"
       },
       {
