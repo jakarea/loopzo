@@ -1,0 +1,736 @@
+<style>
+    .dealer-point-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .dealer-map-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 400px;
+    }
+    
+    /* Decorative gear patterns */
+    .gear-decoration {
+        position: absolute;
+        opacity: 0.15;
+        z-index: 1;
+    }
+    
+    .gear-top-left {
+        top: -30px;
+        left: -30px;
+        width: 180px;
+        height: 180px;
+        animation: rotate-slow 30s linear infinite;
+    }
+    
+    .gear-bottom-right {
+        bottom: -20px;
+        right: -20px;
+        width: 120px;
+        height: 120px;
+        animation: rotate-slow 25s linear infinite reverse;
+    }
+    
+    @keyframes rotate-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Map styling */
+    .map-wrapper {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 500px;
+    }
+    
+    .map-frame {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 
+            0 25px 50px -12px rgba(51, 65, 85, 0.25),
+            0 0 0 1px rgba(51, 65, 85, 0.1);
+    }
+    
+    .map-frame::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 20px;
+        border: 3px solid rgba(51, 65, 85, 0.15);
+        pointer-events: none;
+        z-index: 10;
+    }
+    
+    .map-frame iframe {
+        display: block;
+        width: 100%;
+        height: 400px;
+        border: none;
+        filter: saturate(0.9) contrast(1.05);
+        transition: filter 0.3s ease;
+    }
+    
+    .map-frame:hover iframe {
+        filter: saturate(1) contrast(1);
+    }
+    
+    /* Corner decorations */
+    .map-corner {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        z-index: 15;
+        pointer-events: none;
+    }
+    
+    .map-corner::before,
+    .map-corner::after {
+        content: '';
+        position: absolute;
+        background: #334155;
+    }
+    
+    .map-corner-tl {
+        top: -3px;
+        left: -3px;
+    }
+    .map-corner-tl::before { width: 20px; height: 3px; top: 0; left: 0; border-radius: 3px 0 0 0; }
+    .map-corner-tl::after { width: 3px; height: 20px; top: 0; left: 0; border-radius: 3px 0 0 0; }
+    
+    .map-corner-tr {
+        top: -3px;
+        right: -3px;
+    }
+    .map-corner-tr::before { width: 20px; height: 3px; top: 0; right: 0; border-radius: 0 3px 0 0; }
+    .map-corner-tr::after { width: 3px; height: 20px; top: 0; right: 0; border-radius: 0 3px 0 0; }
+    
+    .map-corner-bl {
+        bottom: -3px;
+        left: -3px;
+    }
+    .map-corner-bl::before { width: 20px; height: 3px; bottom: 0; left: 0; border-radius: 0 0 0 3px; }
+    .map-corner-bl::after { width: 3px; height: 20px; bottom: 0; left: 0; border-radius: 0 0 0 3px; }
+    
+    .map-corner-br {
+        bottom: -3px;
+        right: -3px;
+    }
+    .map-corner-br::before { width: 20px; height: 3px; bottom: 0; right: 0; border-radius: 0 0 3px 0; }
+    .map-corner-br::after { width: 3px; height: 20px; bottom: 0; right: 0; border-radius: 0 0 3px 0; }
+    
+    /* Location badge */
+    .location-badge {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        animation: float-badge 3s ease-in-out infinite;
+    }
+    
+    .location-badge-icon {
+        width: 32px;
+        height: 32px;
+        background: #334155;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .location-badge-icon svg {
+        width: 16px;
+        height: 16px;
+        color: white;
+    }
+    
+    .location-badge-text {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #334155;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    @keyframes float-badge {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+    /* Decorative dots pattern */
+    .dots-pattern {
+        position: absolute;
+        z-index: 1;
+        opacity: 0.4;
+    }
+    
+    .dots-pattern-left {
+        top: 50%;
+        left: -40px;
+        transform: translateY(-50%);
+    }
+    
+    .dots-pattern-right {
+        bottom: 20px;
+        right: -30px;
+    }
+    
+    /* Location pin */
+    .location-pin {
+        position: absolute;
+        z-index: 3;
+        transform: translate(-50%, -100%);
+        animation: bounce-pin 2s ease-in-out infinite;
+    }
+    
+    .pin-marker {
+        width: 40px;
+        height: 52px;
+        background: #334155;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.4);
+    }
+    
+    .pin-inner {
+        width: 16px;
+        height: 16px;
+        background: white;
+        border-radius: 50%;
+        transform: rotate(45deg);
+    }
+    
+    .pin-pulse {
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 6px;
+        background: rgba(51, 65, 85, 0.3);
+        border-radius: 50%;
+        animation: pulse-shadow 2s ease-in-out infinite;
+    }
+    
+    @keyframes bounce-pin {
+        0%, 100% { transform: translate(-50%, -100%); }
+        50% { transform: translate(-50%, -110%); }
+    }
+    
+    @keyframes pulse-shadow {
+        0%, 100% { 
+            transform: translateX(-50%) scale(1);
+            opacity: 0.3;
+        }
+        50% { 
+            transform: translateX(-50%) scale(1.5);
+            opacity: 0.1;
+        }
+    }
+    
+    /* Info cards */
+    .info-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 20px;
+        background: #f8fafc;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .info-card:hover {
+        background: #f1f5f9;
+        transform: translateX(5px);
+    }
+    
+    .icon-badge {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        background: #334155;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(51, 65, 85, 0.2);
+    }
+    
+    .icon-badge svg {
+        width: 22px;
+        height: 22px;
+        color: white;
+    }
+    
+    .info-content {
+        flex: 1;
+    }
+    
+    .info-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #334155;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .info-value {
+        font-size: 0.95rem;
+        color: #64748b;
+        line-height: 1.5;
+    }
+    
+    .info-value a {
+        color: #334155;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    
+    .info-value a:hover {
+        color: #1e293b;
+        text-decoration: underline;
+    }
+    
+    /* Contact button */
+    .contact-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: #334155;
+        color: white;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(51, 65, 85, 0.25);
+    }
+    
+    .contact-btn:hover {
+        background: #1e293b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(51, 65, 85, 0.35);
+    }
+    
+    .contact-btn svg {
+        width: 18px;
+        height: 18px;
+        transition: transform 0.3s ease;
+    }
+    
+    .contact-btn:hover svg {
+        transform: translateX(4px);
+    }
+    
+    /* Highlighted text */
+    .highlight-text {
+        color: #334155;
+        font-weight: 700;
+    }
+    
+    .underline-highlight {
+        text-decoration: underline;
+        text-decoration-color: #334155;
+        text-underline-offset: 2px;
+    }
+    
+    /* CTA Invitation Banner */
+    .cta-invitation {
+        position: relative;
+        margin-top: 32px;
+        padding-top: 28px;
+        border-top: 1px solid rgba(51, 65, 85, 0.1);
+    }
+    
+    .cta-paragraph {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #475569;
+        margin-bottom: 24px;
+    }
+    
+    .cta-paragraph .highlight {
+        color: #1e293b;
+        font-weight: 600;
+        position: relative;
+    }
+    
+    .cta-paragraph .highlight::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, #334155 0%, #64748b 100%);
+        border-radius: 2px;
+    }
+    
+    .cta-paragraph .emoji {
+        display: inline-block;
+        margin-left: 6px;
+        animation: wave 2s ease-in-out infinite;
+    }
+    
+    @keyframes wave {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(15deg); }
+        75% { transform: rotate(-10deg); }
+    }
+</style>
+
+<section class="dealer-point-section bg-slate-50" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+
+            <!-- Left: Map with Decorations -->
+            <div class="dealer-map-container">
+                <!-- Decorative Gears -->
+                <svg class="gear-decoration gear-top-left" viewBox="0 0 100 100" fill="currentColor" style="color: #334155;">
+                    <path d="M50 30a20 20 0 100 40 20 20 0 000-40zm0 30a10 10 0 110-20 10 10 0 010 20z"/>
+                    <path d="M50 0l5.5 15.5a24 24 0 019.5 3.9l14.5-8 5.5 9.5-11.5 11.5a24 24 0 013.9 9.5L93 47v11l-15.5 5.5a24 24 0 01-3.9 9.5l8 14.5-9.5 5.5-11.5-11.5a24 24 0 01-9.5 3.9L50 100h-11l-5.5-15.5a24 24 0 01-9.5-3.9l-14.5 8-5.5-9.5 11.5-11.5a24 24 0 01-3.9-9.5L0 53V42l15.5-5.5a24 24 0 013.9-9.5l-8-14.5 9.5-5.5 11.5 11.5a24 24 0 019.5-3.9L39 0h11z"/>
+                </svg>
+                
+                <svg class="gear-decoration gear-bottom-right" viewBox="0 0 100 100" fill="currentColor" style="color: #334155;">
+                    <path d="M50 30a20 20 0 100 40 20 20 0 000-40zm0 30a10 10 0 110-20 10 10 0 010 20z"/>
+                    <path d="M50 0l5.5 15.5a24 24 0 019.5 3.9l14.5-8 5.5 9.5-11.5 11.5a24 24 0 013.9 9.5L93 47v11l-15.5 5.5a24 24 0 01-3.9 9.5l8 14.5-9.5 5.5-11.5-11.5a24 24 0 01-9.5 3.9L50 100h-11l-5.5-15.5a24 24 0 01-9.5-3.9l-14.5 8-5.5-9.5 11.5-11.5a24 24 0 01-3.9-9.5L0 53V42l15.5-5.5a24 24 0 013.9-9.5l-8-14.5 9.5-5.5 11.5 11.5a24 24 0 019.5-3.9L39 0h11z"/>
+                </svg>
+
+                <!-- Decorative Dots Pattern Left -->
+                <svg class="dots-pattern dots-pattern-left" width="60" height="120" viewBox="0 0 60 120" fill="#334155">
+                    <circle cx="10" cy="10" r="4"/>
+                    <circle cx="30" cy="10" r="4"/>
+                    <circle cx="50" cy="10" r="4"/>
+                    <circle cx="10" cy="30" r="4"/>
+                    <circle cx="30" cy="30" r="4"/>
+                    <circle cx="50" cy="30" r="4"/>
+                    <circle cx="10" cy="50" r="4"/>
+                    <circle cx="30" cy="50" r="4"/>
+                    <circle cx="50" cy="50" r="4"/>
+                    <circle cx="10" cy="70" r="4"/>
+                    <circle cx="30" cy="70" r="4"/>
+                    <circle cx="50" cy="70" r="4"/>
+                    <circle cx="10" cy="90" r="4"/>
+                    <circle cx="30" cy="90" r="4"/>
+                    <circle cx="50" cy="90" r="4"/>
+                    <circle cx="10" cy="110" r="4"/>
+                    <circle cx="30" cy="110" r="4"/>
+                    <circle cx="50" cy="110" r="4"/>
+                </svg>
+                
+                <!-- Map Wrapper with Artistic Frame -->
+                <div class="map-wrapper">
+                    <div class="map-frame">
+                        <!-- Corner Decorations -->
+                        <div class="map-corner map-corner-tl"></div>
+                        <div class="map-corner map-corner-tr"></div>
+                        <div class="map-corner map-corner-bl"></div>
+                        <div class="map-corner map-corner-br"></div>
+                        
+                        <!-- Floating Location Badge -->
+                        <div class="location-badge">
+                            <div class="location-badge-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <span class="location-badge-text">{{ section.settings.location_label | default: 'Showroom' }}</span>
+                        </div>
+                        
+                        <!-- Google Maps Iframe -->
+                        <iframe 
+                            src="{{ section.settings.google_maps_url | default: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.789!2d4.6700!3d51.9850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDU5JzA2LjAiTiA0wrA0MCcxMi4wIkU!5e0!3m2!1sen!2snl!4v1234567890' }}"
+                            width="100%" 
+                            height="400" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade" 
+                            title="{{ section.settings.map_title | default: 'Loopzo Showroom locatie' }}" 
+                            aria-label="{{ section.settings.map_aria_label | default: 'Interactieve kaart met de locatie van Loopzo showroom' }}">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Decorative Dots Pattern Right -->
+                <svg class="dots-pattern dots-pattern-right" width="40" height="80" viewBox="0 0 40 80" fill="#334155">
+                    <circle cx="10" cy="10" r="3"/>
+                    <circle cx="30" cy="10" r="3"/>
+                    <circle cx="10" cy="30" r="3"/>
+                    <circle cx="30" cy="30" r="3"/>
+                    <circle cx="10" cy="50" r="3"/>
+                    <circle cx="30" cy="50" r="3"/>
+                    <circle cx="10" cy="70" r="3"/>
+                    <circle cx="30" cy="70" r="3"/>
+                </svg>
+            </div>
+
+            <!-- Right: Content -->
+            <div class="py-8 lg:py-0">
+                {% if section.settings.company_name != blank %}
+                <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-6 leading-tight">
+                    {{ section.settings.company_name | split: ' ' | first }} 
+                    <span class="text-slate-600">{{ section.settings.company_name | split: ' ' | slice: 1, 10 | join: ' ' }}</span>
+                </h2>
+                {% endif %}
+
+                {% if section.settings.intro_text != blank %}
+                <div class="text-slate-600 text-base sm:text-lg leading-relaxed mb-8">
+                    {{ section.settings.intro_text }}
+                </div>
+                {% endif %}
+
+                <!-- Info Cards -->
+                <div class="space-y-4 mb-8">
+                    {% if section.settings.sale_title != blank %}
+                    <div class="info-card">
+                        <div class="icon-badge">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                            </svg>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-label">{{ section.settings.sale_title }}:</div>
+                            <div class="info-value">{{ section.settings.sale_address }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if section.settings.maintenance_title != blank %}
+                    <div class="info-card">
+                        <div class="icon-badge">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-label">{{ section.settings.maintenance_title }}:</div>
+                            <div class="info-value">{{ section.settings.maintenance_address }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- CTA Invitation Section -->
+                <div class="cta-invitation">
+                    <p class="cta-paragraph">
+                        {{ section.settings.cta_text | default: 'Curious about the possibilities? Feel free to contact us. Would you like to see our products in person? Make an' }} <span class="highlight">{{ section.settings.cta_highlight | default: 'appointment' }}</span> {{ section.settings.cta_text_after | default: 'and visit our showroom. We look forward to welcoming you!' }}<span class="emoji">👋</span>
+                    </p>
+                    
+                    <!-- Contact Button -->
+                    {% if section.settings.button_text != blank %}
+                    <a href="{{ section.settings.button_link | default: '/pages/contact' }}" class="contact-btn">
+                        {{ section.settings.button_text }}
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dealer Point Section",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Company Information"
+    },
+    {
+      "type": "paragraph",
+      "content": "Display dealer contact information with a map image on a dark green background."
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company Name",
+      "default": "Visit Loopzo"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction Text",
+      "default": "<p>Curious about the possibilities of our electric (folding) bikes? Feel free to contact us. Would you like to see the bikes in person? Then make an appointment and visit our showroom. We look forward to welcoming you!</p>"
+    },
+    {
+      "type": "header",
+      "content": "Contact Details"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone Number",
+      "default": "+31 315 - 25 73 70"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email Address",
+      "default": "info@loopzo.nl"
+    },
+    {
+      "type": "text",
+      "id": "showroom_text",
+      "label": "Showroom Text",
+      "default": "Make an appointment and visit our showroom"
+    },
+    {
+      "type": "header",
+      "content": "Addresses"
+    },
+    {
+      "type": "text",
+      "id": "sale_title",
+      "label": "Sale Title",
+      "default": "Our Location"
+    },
+    {
+      "type": "text",
+      "id": "sale_address",
+      "label": "Sale Address",
+      "default": "Guldenweg 23, 7051 HT Varsseveld, NL"
+    },
+    {
+      "type": "text",
+      "id": "maintenance_title",
+      "label": "Maintenance Title",
+      "default": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "maintenance_address",
+      "label": "Maintenance Address",
+      "default": "+31 315 - 25 73 70"
+    },
+    {
+      "type": "header",
+      "content": "Google Maps"
+    },
+    {
+      "type": "text",
+      "id": "google_maps_url",
+      "label": "Google Maps Embed URL",
+      "info": "Get embed URL from Google Maps: Share > Embed a map > Copy src URL",
+      "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.789!2d4.6700!3d51.9850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDU5JzA2LjAiTiA0wrA0MCcxMi4wIkU!5e0!3m2!1sen!2snl!4v1234567890"
+    },
+    {
+      "type": "text",
+      "id": "location_label",
+      "label": "Location Badge Label",
+      "default": "Showroom"
+    },
+    {
+      "type": "text",
+      "id": "map_title",
+      "label": "Map Title (for accessibility)",
+      "default": "Loopzo Showroom locatie"
+    },
+    {
+      "type": "text",
+      "id": "map_aria_label",
+      "label": "Map Aria Label (for screen readers)",
+      "default": "Interactieve kaart met de locatie van Loopzo showroom"
+    },
+    {
+      "type": "header",
+      "content": "CTA Invitation Text"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Text before highlight",
+      "default": "Curious about the possibilities? Feel free to contact us. Would you like to see our products in person? Make an"
+    },
+    {
+      "type": "text",
+      "id": "cta_highlight",
+      "label": "Highlighted Word",
+      "default": "appointment"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text_after",
+      "label": "Text after highlight",
+      "default": "and visit our showroom. We look forward to welcoming you!"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Book an Appointment"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dealer Point Section",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}

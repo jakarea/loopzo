@@ -39,18 +39,18 @@
                 <div class="relative h-72 sm:h-80 lg:h-auto">
                     {% if section.settings.product_image != blank %}
                     <img src="{{ section.settings.product_image | img_url: '800x600' }}"
-                         alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
-                         class="w-full h-full object-cover"
-                         loading="lazy"
-                         width="800"
-                         height="600">
+                          alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                          width="800"
+                          height="600">
                     {% else %}
                     <img src="{{ 'loopzo_logistic.png' | asset_url }}"
-                         alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
-                         class="w-full h-full object-cover"
-                         loading="lazy"
-                         width="800"
-                         height="600">
+                          alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
+                          class="w-full h-full object-cover"
+                          loading="lazy"
+                          width="800"
+                          height="600">
                     {% endif %}
                 </div>
 

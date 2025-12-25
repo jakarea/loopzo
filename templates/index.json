@@ -101,6 +101,10 @@
       "type": "loopzo-founder-talk",
       "settings": {}
     },
+    "loopzo_delear_point": {
+      "type": "loopzo-delear-point",
+      "settings": {}
+    },
     "loopzo_blog": {
       "type": "loopzo-blog",
       "settings": {}
@@ -123,6 +127,7 @@
     "loopzo_thuja_ebike",
     "loopzo_product_info",
     "loopzo_founder_talk",
+    "loopzo_delear_point",
     "loopzo_blog",
     "loopzo_faq",
     "loopzo_cta"

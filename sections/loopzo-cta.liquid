@@ -1,4 +1,30 @@
 <!-- Final CTA Section -->
+<style>
+    .cta-description-wrapper {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 3rem;
+        max-width: 42rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .cta-description-wrapper p {
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+        margin: 0;
+    }
+    
+    @media (max-width: 640px) {
+        .cta-description-wrapper {
+            font-size: 1.125rem;
+            margin-bottom: 2.5rem;
+        }
+    }
+</style>
+
 <section
     class="cta_section bg-gradient-to-br from-slate-700 to-slate-900 py-16 sm:py-20 md:py-24 relative overflow-hidden">
     <!-- Background pattern -->
@@ -14,9 +40,9 @@
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
                 {{ section.settings.main_title }}
             </h2>
-            <p class="text-lg sm:text-xl text-slate-200 mb-8 sm:mb-10 max-w-2xl mx-auto">
+            <div class="cta-description-wrapper text-center">
                 {{ section.settings.main_description }}
-            </p>
+            </div>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="{{ section.settings.primary_button_url | default: '#' }}"
