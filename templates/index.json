@@ -11,7 +11,15 @@
   "sections": {
     "loopzo_hero": {
       "type": "loopzo-hero",
-      "settings": {}
+      "settings": {
+        "brand_name": "Loopzo",
+        "heading": "De loopfiets die uw bewegingsvrijheid teruggeeft",
+        "subtext": "<p>Ontdek de Loopzo loopfiets - speciaal ontwikkeld voor volwassenen die extra stabiliteit en zekerheid zoeken tijdens het lopen.</p>",
+        "button_1_text": "Bekijk modellen",
+        "button_1_url": "#products",
+        "button_2_text": "Meer informatie",
+        "button_2_url": "#about"
+      }
     },
     "loopzo_features": {
       "type": "loopzo-features",
