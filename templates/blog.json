@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "show_heading": true,
+        "heading_size": "h2",
+        "show_tags": true,
+        "show_author": false,
+        "show_date": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

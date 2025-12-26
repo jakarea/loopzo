@@ -111,6 +111,100 @@
     },
     "loopzo_faq": {
       "type": "loopzo-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Voor wie is de Loopzo loopfiets geschikt?",
+            "answer": "<p>De Loopzo is ontworpen voor volwassenen die extra stabiliteit en zekerheid zoeken tijdens het lopen, maar geen rollator willen gebruiken. Dankzij de lage instap (17 cm) en het feit dat u altijd met uw voeten bij de grond kunt, is hij ideaal voor mensen met verminderde mobiliteit, evenwichtsproblemen of gewrichtsklachten. Hij ondersteunt een lichaamsgewicht tot 120 kg.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Mag ik met de Loopzo winkels, musea en supermarkten in?",
+            "answer": "<p>Ja, dat mag. De Loopzo is officieel erkend als medisch hulpmiddel. Dit betekent dat u de loopfiets overal mag gebruiken waar u normaal gesproken lopend naar binnen gaat, zoals in winkelcentra, musea, pretparken en ziekenhuizen. U geniet van dezelfde toegangsrechten als gebruikers van een rolstoel of rollator.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Past de Loopzo loopfiets in de auto?",
+            "answer": "<p>Zeker. De Loopzo is speciaal ontworpen om makkelijk mee te nemen. Het frame weegt slechts 7,9 kg en zowel het stuur als het zadel zijn eenvoudig afneembaar zonder gereedschap. Hierdoor wordt de fiets zeer compact en past hij in de kofferbak van vrijwel elke auto.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Technisch",
+            "question": "Is de Loopzo in hoogte verstelbaar?",
+            "answer": "<p>Ja, de Loopzo heeft een universele maatvoering. Zowel het ergonomische zadel als het stuur zijn in hoogte en hoek verstelbaar. Hierdoor kan de fiets perfect worden afgesteld op uw lichaamslengte voor een optimale en comfortabele houding. Tijdens een proefrit of na levering kunt u dit eenvoudig zelf instellen.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Wat is het verschil tussen een loopfiets en een rollator?",
+            "answer": "<p>Met een rollator leunt u en duwt u het gewicht vooruit, wat zwaar kan zijn voor polsen en rug. Op de Loopzo zit u, waardoor uw lichaamsgewicht wordt gedragen door het zadel. Dit ontlast uw heupen, knieën en enkels aanzienlijk. Hierdoor kunt u vaak langere afstanden afleggen en een hoger tempo aanhouden dan met een rollator.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Levering",
+            "question": "Wat is de levertijd van de Loopzo?",
+            "answer": "<p>Wij hanteren: op werkdagen voor 16:00 uur besteld, morgen in huis (voor Nederland en België). Voor leveringen naar Duitsland rekenen wij 2 werkdagen. U ontvangt een Track & Trace-code van onze partners PostNL of DPD om uw pakket te volgen.</p>"
+          }
+        },
+        "faq_7": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Kan ik de Loopzo eerst uitproberen?",
+            "answer": "<p>Ja, wij begrijpen dat u zeker wilt zijn van uw aankoop. U kunt gratis een proefrit aanvragen via onze website. Tijdens deze afspraak leggen we uit hoe de fiets werkt, stellen we hem voor u af en kunt u in alle rust ervaren hoe stabiel en wendbaar de Loopzo rijdt.</p>"
+          }
+        },
+        "faq_8": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Garantie",
+            "question": "Hoeveel garantie zit er op de loopfiets?",
+            "answer": "<p>Wij staan achter de kwaliteit van ons product. Standaard bieden wij 2 jaar garantie op alle onderdelen. Als u uw fiets na aankoop registreert, wordt de garantie op het aluminium frame en de voorvork verlengd naar maar liefst 10 jaar.</p>"
+          }
+        },
+        "faq_9": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Levering",
+            "question": "Wordt de Loopzo rijklaar geleverd?",
+            "answer": "<p>De Loopzo wordt zorgvuldig verpakt en grotendeels voorgemonteerd verzonden. U hoeft slechts enkele eenvoudige handelingen te verrichten (zoals het plaatsen van stuur en zadel) om de fiets gebruiksklaar te maken. Er wordt een duidelijke handleiding meegeleverd.</p>"
+          }
+        },
+        "faq_10": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Retour",
+            "question": "Wat als de Loopzo toch niet bevalt? (Retourneren)",
+            "answer": "<p>U heeft een wettelijke bedenktijd van 14 dagen na ontvangst. Mocht de loopfiets niet aan uw verwachtingen voldoen, dan kunt u deze in originele staat en verpakking retourneren. De retourkosten bedragen €10,- voor Nederland en België. Zodra wij de fiets in goede staat hebben ontvangen, storten wij het aankoopbedrag binnen 7 werkdagen terug.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9",
+        "faq_10"
+      ],
       "settings": {}
     },
     "loopzo_cta": {

@@ -17,8 +17,23 @@
 
         <!-- Blog Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {%- comment -%} Get selected blog or auto-select 'Nieuws' or first available {%- endcomment -%}
             {%- assign blog = blogs[section.settings.blog_handle] -%}
-            {%- if blog != blank -%}
+
+            {%- if blog == blank -%}
+                {%- comment -%} Try to use 'Nieuws' blog first {%- endcomment -%}
+                {%- assign blog = blogs['nieuws'] -%}
+            {%- endif -%}
+
+            {%- if blog == blank -%}
+                {%- comment -%} Fall back to first available blog {%- endcomment -%}
+                {%- for blog_item in blogs -%}
+                    {%- assign blog = blog_item -%}
+                    {%- break -%}
+                {%- endfor -%}
+            {%- endif -%}
+
+            {%- if blog != blank and blog.articles.size > 0 -%}
                 {% for article in blog.articles limit: section.settings.posts_to_show %}
                 <article class="relative rounded-lg overflow-hidden shadow-lg group aspect-[3/4]">
                     {% if article.image != blank %}
@@ -50,14 +65,14 @@
                 {% endfor %}
             {%- else -%}
                 <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12">
-                    <p class="text-slate-600 text-lg mb-4">No blog selected or no articles found.</p>
-                    <p class="text-slate-500 text-sm">Please select a blog in the theme editor settings.</p>
+                    <p class="text-slate-600 text-lg mb-4">Geen blog artikelen gevonden.</p>
+                    <p class="text-slate-500 text-sm">Maak een blog aan en voeg artikelen toe in de Shopify admin.</p>
                 </div>
             {%- endif -%}
         </div>
 
         <!-- View All Button -->
-        {% if section.settings.button_text != blank and blog != blank %}
+        {% if section.settings.button_text != blank and blog != blank and blog.articles.size > 0 %}
         <div class="text-center mt-12 sm:mt-16 md:mt-20">
             <a href="{{ blog.url }}" class="inline-flex items-center bg-slate-600 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-full space-x-2.5 transition hover:bg-slate-700 text-sm sm:text-base">
                 <span>{{ section.settings.button_text }}</span>
@@ -107,7 +122,7 @@
       "type": "blog",
       "id": "blog_handle",
       "label": "Blog",
-      "info": "Select which blog to display posts from"
+      "info": "Select which blog to display posts from. By default, the 'Nieuws' blog will be used if available, otherwise the first available blog."
     },
     {
       "type": "range",

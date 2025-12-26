@@ -1,0 +1,33 @@
+{% comment %}
+  Redirect to main product for single product website
+  This section is used for all collection pages since this is a single product website
+{% endcomment %}
+
+<script>
+  // Immediate JavaScript redirect
+  window.location.href = '/products/loopzo-bicycle-transparent';
+</script>
+
+<noscript>
+  <!-- Fallback for users with JavaScript disabled -->
+  <meta http-equiv="refresh" content="0;url=/products/loopzo-bicycle-transparent">
+</noscript>
+
+<div style="padding: 100px 20px; text-align: center;">
+  <h2>Redirecting to our main product...</h2>
+  <p>If you are not redirected automatically, <a href="/products/loopzo-bicycle-transparent">click here</a>.</p>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Redirect",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection Redirect"
+    }
+  ]
+}
+{% endschema %}

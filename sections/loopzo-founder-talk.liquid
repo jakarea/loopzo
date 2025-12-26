@@ -1,28 +1,25 @@
-<section class="founder_talk_section bg-gradient-to-br from-gray-50 to-gray-100 py-12 sm:py-16 md:py-20">
+<section class="founder_talk_section bg-gradient-to-br from-gray-50 to-gray-100" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-16 items-center">
 
             <div class="md:col-span-2 order-2 md:order-1">
                 <div class="inline-block px-4 py-2 bg-white border border-slate-200 rounded-full mb-4 sm:mb-6">
-                    <span class="text-slate-700 text-xs sm:text-sm font-medium uppercase tracking-wider">Expert
-                        Testimony</span>
+                    <span class="text-slate-700 text-xs sm:text-sm font-medium uppercase tracking-wider">{{ section.settings.badge_text }}</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                    Pulmonologist Ralph Koppers is enthusiastic about the Loopzo bike balance bike.
+                    {{ section.settings.section_title }}
                 </h2>
-                <p class="text-base sm:text-lg text-gray-600 mt-4 sm:mt-6 leading-relaxed">
-                    In the fall of 2010, pulmonologist Ralph Koppers began wondering why balance bikes weren't
-                    being used more widely as a mobility aid.
-                </p>
-                <p class="text-base sm:text-lg text-gray-600 mt-3 sm:mt-4 leading-relaxed">
-                    People who already use balance bikes are very enthusiastic. Furthermore, balance bikes offer
-                    a wide range of functionalities. Loopzo bike was born from this background.
-                </p>
+                <div class="text-base sm:text-lg text-gray-600 mt-4 sm:mt-6 leading-relaxed">
+                    {{ section.settings.paragraph_1 }}
+                </div>
+                <div class="text-base sm:text-lg text-gray-600 mt-3 sm:mt-4 leading-relaxed">
+                    {{ section.settings.paragraph_2 }}
+                </div>
 
                 <div class="mt-6 sm:mt-8">
-                    <a href="#"
+                    <a href="{{ section.settings.button_url | default: '#' }}"
                         class="group inline-flex items-center gap-2 bg-slate-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 ease-in-out hover:bg-slate-800 text-sm sm:text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                        <span>Read more...</span>
+                        <span>{{ section.settings.button_text }}</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
                             stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -34,8 +31,13 @@
             <div class="md:col-span-1 order-1 md:order-2 flex justify-center md:justify-start">
                 <div
                     class="relative w-full max-w-[200px] sm:max-w-xs md:max-w-full aspect-square sm:aspect-[3/4] md:aspect-auto">
-                    <img src="https://kovapaa.nl/cdn/shop/files/b_900x.png" alt="Pulmonologist Ralph Koppers"
-                        class="w-full h-full object-contain sm:object-cover rounded-lg shadow-md">
+                    {% if section.settings.expert_image != blank %}
+                        <img src="{{ section.settings.expert_image | image_url: width: 900 }}" alt="{{ section.settings.image_alt_text }}"
+                            class="w-full h-full object-contain sm:object-cover rounded-lg shadow-md">
+                    {% else %}
+                        <img src="https://kovapaa.nl/cdn/shop/files/b_900x.png" alt="{{ section.settings.image_alt_text }}"
+                            class="w-full h-full object-contain sm:object-cover rounded-lg shadow-md">
+                    {% endif %}
                 </div>
             </div>
 

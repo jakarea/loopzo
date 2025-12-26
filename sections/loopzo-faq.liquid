@@ -16,6 +16,32 @@
             {% endif %}
         </div>
 
+        <!-- Category Filter -->
+        {% if section.blocks.size > 0 %}
+            {% assign unique_categories = '' %}
+            {% for block in section.blocks %}
+                {% if block.type == 'faq_item' and block.settings.category != blank %}
+                    {% assign category = block.settings.category | strip %}
+                    {% unless unique_categories contains category %}
+                        {% assign unique_categories = unique_categories | append: '|' | append: category %}
+                    {% endunless %}
+                {% endif %}
+            {% endfor %}
+            {% assign unique_categories = unique_categories | remove_first: '|' | split: '|' %}
+
+            {% if unique_categories.size > 0 %}
+            <div class="flex flex-wrap justify-center gap-3 mb-8 sm:mb-12">
+                <button onclick="filterFAQ('all', this)" class="faq-filter-btn active px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-slate-900 text-white hover:bg-slate-800" data-category="all">
+                    Alle
+                </button>
+                {% for category in unique_categories %}
+                <button onclick="filterFAQ('{{ category | escape }}', this)" class="faq-filter-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 hover:border-slate-400" data-category="{{ category | escape }}">
+                    {{ category }}
+                </button>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endif %}
 
         <!-- FAQ Accordion -->
         <div class="space-y-4">
@@ -24,14 +50,11 @@
                     {% case block.type %}
                         {% when 'faq_item' %}
                         <div class="faq-item bg-white rounded-lg border border-slate-200 overflow-hidden transition-all duration-300 hover:shadow-md"
-                             {{ block.shopify_attributes }}>
+                             {{ block.shopify_attributes }}
+                             data-category="{{ block.settings.category | default: 'general' | escape }}">
                             <button onclick="toggleFAQ(this)" class="faq-question w-full flex items-start justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors" aria-expanded="false" aria-controls="faq-answer-{{ block.id }}">
                                 <div class="flex-1 pr-4">
-                                    {% if block.settings.category != blank %}
-                                    <span class="inline-block bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-full mb-2">
-                                        {{ block.settings.category }}
-                                    </span>
-                                    {% endif %}
+                                    
                                     <span class="block text-slate-900 font-semibold text-base sm:text-lg">
                                         {{ block.settings.question }}
                                     </span>
@@ -67,9 +90,71 @@
 .faq-item.open .faq-question:hover {
     background-color: #f8fafc !important;
 }
+
+/* Hidden FAQ items */
+.faq-item.hidden {
+    display: none;
+}
+
+/* Active filter button */
+.faq-filter-btn.active {
+    background-color: #1e293b !important;
+    color: white !important;
+    border-color: #1e293b !important;
+}
+
+.faq-filter-btn:not(.active):hover {
+    background-color: #f8fafc !important;
+}
 </style>
 
 <script>
+// FAQ Filter Function
+function filterFAQ(category, button) {
+    const allItems = document.querySelectorAll('.faq-item');
+    const allButtons = document.querySelectorAll('.faq-filter-btn');
+
+    // Update active button
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    button.classList.add('active');
+
+    // Filter items
+    allItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+
+        if (category === 'all' || itemCategory === category) {
+            item.classList.remove('hidden');
+        } else {
+            item.classList.add('hidden');
+            item.classList.remove('open');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-icon');
+            const btn = item.querySelector('.faq-question');
+            if (answer) answer.style.maxHeight = '0px';
+            if (icon) icon.style.transform = 'rotate(0deg)';
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Open first visible FAQ
+    const firstVisible = document.querySelector('.faq-item:not(.hidden)');
+    if (firstVisible) {
+        const firstButton = firstVisible.querySelector('.faq-question');
+        const firstFAQ = firstVisible.querySelector('.faq-answer');
+        const firstIcon = firstVisible.querySelector('.faq-icon');
+
+        if (firstButton && firstFAQ && firstIcon) {
+            setTimeout(() => {
+                firstVisible.classList.add('open');
+                firstButton.setAttribute('aria-expanded', 'true');
+                firstFAQ.style.maxHeight = firstFAQ.scrollHeight + 50 + 'px';
+                firstFAQ.style.overflow = 'visible';
+                firstIcon.style.transform = 'rotate(45deg)';
+            }, 100);
+        }
+    }
+}
+
 // FAQ Toggle Function
 function toggleFAQ(button) {
     const faqItem = button.closest('.faq-item');
@@ -123,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Make function globally available
 window.toggleFAQ = toggleFAQ;
+window.filterFAQ = filterFAQ;
 </script>
 
 {% schema %}
@@ -214,24 +300,80 @@ window.toggleFAQ = toggleFAQ;
           "type": "faq_item",
           "settings": {
             "category": "Algemeen",
-            "question": "Wanneer kan een driewielfiets voor mij de oplossing zijn?",
-            "answer": "<p>Een driewielfiets is ideaal voor mensen die moeite hebben met balanceren op een gewone fiets. Dit kan bijvoorbeeld door ouderdom, een lichamelijke beperking, of revalidatie.</p>"
+            "question": "Voor wie is de Loopzo loopfiets geschikt?",
+            "answer": "<p>De Loopzo is ontworpen voor volwassenen die extra stabiliteit en zekerheid zoeken tijdens het lopen, maar geen rollator willen gebruiken. Dankzij de lage instap (17 cm) en het feit dat u altijd met uw voeten bij de grond kunt, is hij ideaal voor mensen met verminderde mobiliteit, evenwichtsproblemen of gewrichtsklachten. Hij ondersteunt een lichaamsgewicht tot 120 kg.</p>"
           }
         },
         {
           "type": "faq_item",
           "settings": {
             "category": "Algemeen",
-            "question": "Kan ik een proefrit maken op een Loopzo fiets?",
-            "answer": "<p>Ja, zeker! Wij bieden gratis proefritten aan. U kunt contact met ons opnemen om een afspraak te maken.</p>"
+            "question": "Mag ik met de Loopzo winkels, musea en supermarkten in?",
+            "answer": "<p>Ja, dat mag. De Loopzo is officieel erkend als medisch hulpmiddel. Dit betekent dat u de loopfiets overal mag gebruiken waar u normaal gesproken lopend naar binnen gaat, zoals in winkelcentra, musea, pretparken en ziekenhuizen. U geniet van dezelfde toegangsrechten als gebruikers van een rolstoel of rollator.</p>"
           }
         },
         {
           "type": "faq_item",
           "settings": {
-            "category": "Prijs",
-            "question": "Wat zijn de kosten van een aangepaste fiets?",
-            "answer": "<p>De prijs varieert afhankelijk van het model en de aanpassingen. Onze fietsen starten vanaf €1.599.</p>"
+            "category": "Algemeen",
+            "question": "Past de Loopzo loopfiets in de auto?",
+            "answer": "<p>Zeker. De Loopzo is speciaal ontworpen om makkelijk mee te nemen. Het frame weegt slechts 7,9 kg en zowel het stuur als het zadel zijn eenvoudig afneembaar zonder gereedschap. Hierdoor wordt de fiets zeer compact en past hij in de kofferbak van vrijwel elke auto.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Technisch",
+            "question": "Is de Loopzo in hoogte verstelbaar?",
+            "answer": "<p>Ja, de Loopzo heeft een universele maatvoering. Zowel het ergonomische zadel als het stuur zijn in hoogte en hoek verstelbaar. Hierdoor kan de fiets perfect worden afgesteld op uw lichaamslengte voor een optimale en comfortabele houding. Tijdens een proefrit of na levering kunt u dit eenvoudig zelf instellen.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Wat is het verschil tussen een loopfiets en een rollator?",
+            "answer": "<p>Met een rollator leunt u en duwt u het gewicht vooruit, wat zwaar kan zijn voor polsen en rug. Op de Loopzo zit u, waardoor uw lichaamsgewicht wordt gedragen door het zadel. Dit ontlast uw heupen, knieën en enkels aanzienlijk. Hierdoor kunt u vaak langere afstanden afleggen en een hoger tempo aanhouden dan met een rollator.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Levering",
+            "question": "Wat is de levertijd van de Loopzo?",
+            "answer": "<p>Wij hanteren: op werkdagen voor 16:00 uur besteld, morgen in huis (voor Nederland en België). Voor leveringen naar Duitsland rekenen wij 2 werkdagen. U ontvangt een Track & Trace-code van onze partners PostNL of DPD om uw pakkette volgen.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Algemeen",
+            "question": "Kan ik de Loopzo eerst uitproberen?",
+            "answer": "<p>Ja, wij begrijpen dat u zeker wilt zijn van uw aankoop. U kunt gratis een proefrit aanvragen via onze website. Tijdens deze afspraak leggen we uit hoe de fiets werkt, stellen we hem voor u af en kunt u in alle rust ervaren hoe stabiel en wendbaar de Loopzo rijdt.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Garantie",
+            "question": "Hoeveel garantie zit er op de loopfiets?",
+            "answer": "<p>Wij staan achter de kwaliteit van ons product. Standaard bieden wij 2 jaar garantie op alle onderdelen. Als u uw fiets na aankoop registreert, wordt de garantie op het aluminium frame en de voorvork verlengd naar maar liefst 10 jaar.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Levering",
+            "question": "Wordt de Loopzo rijklaar geleverd?",
+            "answer": "<p>De Loopzo wordt zorgvuldig verpakt en grotendeels voorgemonteerd verzonden. U hoeft slechts enkele eenvoudige handelingen te verrichten (zoals het plaatsen van stuur en zadel) om de fiets gebruiksklaar te maken. Er wordt een duidelijke handleiding meegeleverd.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "category": "Retour",
+            "question": "Wat als de Loopzo toch niet bevalt? (Retourneren)",
+            "answer": "<p>U heeft een wettelijke bedenktijd van 14 dagen na ontvangst. Mocht de loopfiets niet aan uw verwachtingen voldoen, dan kunt u deze in originele staat en verpakking retourneren. De retourkosten bedragen €10,- voor Nederland en België. Zodra wij de fiets in goede staat hebben ontvangen, storten wij het aankoopbedrag binnen 7 werkdagen terug.</p>"
           }
         }
       ]
