@@ -12,6 +12,7 @@
     "loopzo_hero": {
       "type": "loopzo-hero",
       "settings": {
+        "box_opacity": 90,
         "brand_name": "Loopzo",
         "heading": "De loopfiets die uw bewegingsvrijheid teruggeeft",
         "subtext": "<p>Ontdek de Loopzo loopfiets - speciaal ontwikkeld voor volwassenen die extra stabiliteit en zekerheid zoeken tijdens het lopen.</p>",
@@ -86,25 +87,25 @@
       "type": "loopzo-thuja-ebike",
       "settings": {}
     },
-    "loopzo_product_info": {
-      "type": "loopzo-product-info",
-      "settings": {
-        "product": "loopzo-bicycle-transparent",
-        "enable_sticky_info": true,
-        "show_stock_status": true,
-        "show_inventory_quantity": true,
-        "low_stock_threshold": 10,
-        "in_stock_text": "In Stock - Ready to Ship",
-        "out_of_stock_text": "Out of Stock",
-        "show_features": true,
-        "feature_1": "Custom-made to your specifications",
-        "feature_2": "Premium Dutch craftsmanship",
-        "feature_3": "Electric and manual options available",
-        "feature_4": "Free test ride included",
-        "padding_top": 0,
-        "padding_bottom": 80
-      }
-    },
+    // "loopzo_product_info": {
+    //   "type": "loopzo-product-info",
+    //   "settings": {
+    //     "product": "loopzo-bicycle-transparent",
+    //     "enable_sticky_info": true,
+    //     "show_stock_status": true,
+    //     "show_inventory_quantity": true,
+    //     "low_stock_threshold": 10,
+    //     "in_stock_text": "In Stock - Ready to Ship",
+    //     "out_of_stock_text": "Out of Stock",
+    //     "show_features": true,
+    //     "feature_1": "Custom-made to your specifications",
+    //     "feature_2": "Premium Dutch craftsmanship",
+    //     "feature_3": "Electric and manual options available",
+    //     "feature_4": "Free test ride included",
+    //     "padding_top": 0,
+    //     "padding_bottom": 80
+    //   }
+    // },
     "loopzo_founder_talk": {
       "type": "loopzo-founder-talk",
       "settings": {}
@@ -115,7 +116,21 @@
     },
     "loopzo_blog": {
       "type": "loopzo-blog",
-      "settings": {}
+      "settings": {
+        "section_title": "Up-to-date met Loopzo",
+        "section_subtitle": "Nieuws, events & blogs",
+        "show_rating": true,
+        "rating_value": 5,
+        "rating_text": "Gebaseerd op 25+ reviews",
+        "google_reviews_link": "https://search.google.com/locals",
+        "google_reviews_text": "Bekijk Google reviews",
+        "show_social_icons": true,
+        "facebook_link": "https://facebook.com",
+        "instagram_link": "https://instagram.com",
+        "twitter_link": "https://twitter.com",
+        "linkedin_link": "https://linkedin.com",
+        "youtube_link": "https://youtube.com"
+      }
     },
     "loopzo_faq": {
       "type": "loopzo-faq",
@@ -227,7 +242,7 @@
     "loopzo_product_showcase",
     "loopzo_history",
     "loopzo_thuja_ebike",
-    "loopzo_product_info",
+    // "loopzo_product_info",
     "loopzo_founder_talk",
     "loopzo_delear_point",
     "loopzo_blog",

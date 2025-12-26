@@ -1,0 +1,384 @@
+<!-- Dealer Page Section - Matching Contact Form Style -->
+<section class="dealer-page-section bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+
+    <!-- Hero Section -->
+    <div class="text-center mb-12 sm:mb-16">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
+        {{ section.settings.heading }}
+      </h1>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+
+      <!-- Left: Contact Form -->
+      <div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 lg:mb-10">
+          {{ section.settings.form_heading }}
+        </h2>
+
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6">
+              {{ section.settings.success_message }}
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6">
+              <p class="font-semibold">{{ section.settings.error_heading }}</p>
+              <ul class="list-disc list-inside mt-2">
+                {% for field in form.errors %}
+                  <li>{{ field }} - {{ form.errors.messages[field] }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <div class="space-y-4">
+            <!-- Name & Email -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <input
+                  type="text"
+                  name="contact[name]"
+                  id="ContactForm-name"
+                  required
+                  placeholder="{{ section.settings.name_placeholder }}"
+                  class="w-full px-4 py-3.5 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent bg-white placeholder:text-slate-400 text-sm"
+                >
+              </div>
+
+              <div>
+                <input
+                  type="email"
+                  name="contact[email]"
+                  id="ContactForm-email"
+                  required
+                  placeholder="{{ section.settings.email_placeholder }}"
+                  autocomplete="email"
+                  class="w-full px-4 py-3.5 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent bg-white placeholder:text-slate-400 text-sm"
+                >
+              </div>
+            </div>
+
+            <!-- Phone (Optional) -->
+            <div>
+              <input
+                type="tel"
+                name="contact[phone]"
+                id="ContactForm-phone"
+                placeholder="{{ section.settings.phone_placeholder }}"
+                class="w-full px-4 py-3.5 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent bg-white placeholder:text-slate-400 text-sm"
+              >
+            </div>
+
+            <!-- Company Name -->
+            <div>
+              <input
+                type="text"
+                name="contact[company]"
+                id="ContactForm-company"
+                placeholder="{{ section.settings.company_placeholder }}"
+                class="w-full px-4 py-3.5 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent bg-white placeholder:text-slate-400 text-sm"
+              >
+            </div>
+
+            <!-- Message -->
+            <div>
+              <textarea
+                name="contact[body]"
+                id="ContactForm-body"
+                rows="8"
+                required
+                placeholder="{{ section.settings.message_placeholder }}"
+                class="w-full px-4 py-3.5 rounded-md border border-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent bg-white placeholder:text-slate-400 resize-none text-sm"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-2">
+              <button
+                type="submit"
+                class="bg-teal-700 hover:bg-teal-800 text-white font-semibold py-3.5 px-8 rounded-md transition-colors duration-200 text-sm"
+              >
+                {{ section.settings.submit_button_text }}
+              </button>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+
+      <!-- Right: Info Banner with Image -->
+      <div>
+        <div class="relative bg-gradient-to-br from-teal-700 to-teal-800 rounded-2xl overflow-hidden shadow-xl h-full min-h-[500px] lg:min-h-[600px]">
+          <!-- Content Overlay -->
+          <div class="relative z-10 p-8 sm:p-10 lg:p-12 h-full flex flex-col justify-between">
+            <!-- Text Content -->
+            <div class="space-y-6 max-w-lg">
+              {% if section.settings.banner_heading != blank %}
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                  {{ section.settings.banner_heading }}
+                </h2>
+              {% endif %}
+
+              <div class="space-y-4 text-white/90 text-sm sm:text-base leading-relaxed">
+                {% if section.settings.banner_text_1 != blank %}
+                  <p>{{ section.settings.banner_text_1 }}</p>
+                {% endif %}
+
+                {% if section.settings.banner_text_2 != blank %}
+                  <p>{{ section.settings.banner_text_2 }}</p>
+                {% endif %}
+              </div>
+
+              <!-- Benefits List -->
+              {% if section.settings.show_benefits %}
+              <div class="space-y-3">
+                {% if section.settings.benefit_1 != blank %}
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-white text-sm">{{ section.settings.benefit_1 }}</span>
+                </div>
+                {% endif %}
+
+                {% if section.settings.benefit_2 != blank %}
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-white text-sm">{{ section.settings.benefit_2 }}</span>
+                </div>
+                {% endif %}
+
+                {% if section.settings.benefit_3 != blank %}
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-white text-sm">{{ section.settings.benefit_3 }}</span>
+                </div>
+                {% endif %}
+
+                {% if section.settings.benefit_4 != blank %}
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-white text-sm">{{ section.settings.benefit_4 }}</span>
+                </div>
+                {% endif %}
+
+                {% if section.settings.benefit_5 != blank %}
+                <div class="flex items-start">
+                  <svg class="w-5 h-5 text-white flex-shrink-0 mt-0.5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-white text-sm">{{ section.settings.benefit_5 }}</span>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+
+              <!-- Contact Email -->
+              {% if section.settings.contact_email != blank %}
+              <div class="pt-4">
+                <a href="mailto:{{ section.settings.contact_email }}" class="inline-flex items-center text-white hover:text-white/80 font-semibold text-sm">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                  {{ section.settings.contact_email }}
+                </a>
+              </div>
+              {% endif %}
+            </div>
+
+            <!-- Image Placeholder - Bottom Right -->
+            <div class="absolute bottom-0 right-0 w-1/2 h-3/4 hidden lg:flex items-end justify-end">
+              {% if section.settings.banner_image != blank %}
+                <img
+                  src="{{ section.settings.banner_image | img_url: 'master' }}"
+                  alt="{{ section.settings.banner_image_alt }}"
+                  class="w-full h-full object-cover object-bottom opacity-90"
+                  loading="lazy"
+                >
+              {% else %}
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/Loopzo_bicycle_1.png?v=1763448572"
+                  alt="Loopzo Bicycle"
+                  class="w-full h-full object-cover object-bottom opacity-90"
+                  loading="lazy"
+                  width="400"
+                  height="600"
+                >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Word Dealer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Page Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page Heading",
+      "default": "Word dealer van Loopzo"
+    },
+    {
+      "type": "header",
+      "content": "Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form Heading",
+      "default": "Neem contact op"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Placeholder",
+      "default": "Naam"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "E-mail"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone Placeholder",
+      "default": "Telefoonnummer"
+    },
+    {
+      "type": "text",
+      "id": "company_placeholder",
+      "label": "Company Placeholder",
+      "default": "Bedrijfsnaam"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Placeholder",
+      "default": "Bericht"
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit Button Text",
+      "default": "Versturen"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op."
+    },
+    {
+      "type": "text",
+      "id": "error_heading",
+      "label": "Error Heading",
+      "default": "Er zijn enkele problemen met je inzending:"
+    },
+    {
+      "type": "header",
+      "content": "Banner Settings"
+    },
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "Banner Heading",
+      "default": "Word distributeur van Loopzo"
+    },
+    {
+      "type": "textarea",
+      "id": "banner_text_1",
+      "label": "Banner Text 1",
+      "default": "Steeds meer mensen ontdekken de voordelen van de Loopzo loopfietsen. Een stabiel en betrouwbaar alternatief voor wie graag in beweging blijft. Als distributeur speel je een belangrijke rol in die ontdekking."
+    },
+    {
+      "type": "textarea",
+      "id": "banner_text_2",
+      "label": "Banner Text 2",
+      "default": "Wij geloven in samenwerking op basis van vertrouwen, persoonlijk contact en kwaliteit. Als Loopzo-distributeur bied je jouw klanten een uniek product dat zich onderscheidt door kwaliteit, comfort, duurzaamheid en interessante prijzen."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show Benefits List",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "• 10 jaar garantie op het frame"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "• Goede marges en flexibele bestelmogelijkheden"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "• Ondersteuning met promotiemateriaal en advies op maat"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefit 4",
+      "default": "• Snelle levering binnen Nederland, België en Duitsland"
+    },
+    {
+      "type": "text",
+      "id": "benefit_5",
+      "label": "Benefit 5",
+      "default": "• Een betrokken contactpersoon dat met je meedenkt"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_image_alt",
+      "label": "Banner Image Alt Text",
+      "default": "Loopzo Bicycle"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email",
+      "default": "sales@loopzo.nl"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Word Dealer",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}
