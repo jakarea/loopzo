@@ -20,7 +20,7 @@
 
 <!-- Breadcrumb -->
 <div class="bg-slate-50 border-b border-slate-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
     <nav class="flex items-center gap-2 text-sm" aria-label="{{ 'products.product.breadcrumb' | t }}">
       <a href="{{ routes.root_url }}" class="text-slate-600 hover:text-slate-900 transition">{{ 'general.breadcrumbs.home' | t }}</a>
       <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@
 </div>
 
 <!-- Product Info Section -->
-<section class="product_info_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
+<section class="product_info_section bg-white pt-10 sm:pt-14 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
 
@@ -121,7 +121,7 @@
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
         <!-- Product Title -->
-        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">
           {{ product.title | escape }}
         </h1>
 
@@ -149,7 +149,7 @@
         {%- endif -%}
 
         {%- if review_count > 0 -%}
-          <div class="flex items-center gap-3 mt-3">
+          <div class="flex items-center gap-3 mb-5">
             <div class="flex items-center">
               {%- assign full_stars = average_rating | floor -%}
               {%- assign has_half_star = average_rating | minus: full_stars | at_least: 0.5 -%}
@@ -177,7 +177,7 @@
         {%- endif -%}
 
         <!-- Price -->
-        <div class="flex items-baseline gap-3 mt-4" id="price-{{ section.id }}" role="status">
+        <div class="flex items-baseline gap-3 mb-5" id="price-{{ section.id }}" role="status">
           {%- assign compare_at_price = product.selected_or_first_available_variant.compare_at_price -%}
           {%- assign price = product.selected_or_first_available_variant.price -%}
 
@@ -193,7 +193,7 @@
         <!-- Stock Status -->
         {%- if section.settings.show_stock_status -%}
           {%- if product.selected_or_first_available_variant.inventory_management == 'shopify' -%}
-            <div class="flex items-center gap-2 mt-3">
+            <div class="flex items-center gap-2 mb-6">
               {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
                 <div class="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span class="text-sm text-green-700 font-medium">
@@ -213,16 +213,16 @@
 
         <!-- Description -->
         {%- if product.description != blank -%}
-          <div class="product__description rte text-sm sm:text-base text-gray-700 mt-5 leading-relaxed">
+          <div class="product__description rte text-sm sm:text-base text-gray-700 mb-6 leading-relaxed">
             {{ product.description | truncatewords: 50 }}
           </div>
         {%- endif -%}
 
         <!-- Key Features -->
         {%- if section.settings.show_features -%}
-        <div class="mt-5 space-y-2">
+        <div class="mb-8 space-y-3">
           {%- if section.settings.feature_1 != blank -%}
-          <div class="flex items-start gap-2">
+          <div class="flex items-start gap-3">
             <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
@@ -230,7 +230,7 @@
           </div>
           {%- endif -%}
           {%- if section.settings.feature_2 != blank -%}
-          <div class="flex items-start gap-2">
+          <div class="flex items-start gap-3">
             <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
@@ -238,7 +238,7 @@
           </div>
           {%- endif -%}
           {%- if section.settings.feature_3 != blank -%}
-          <div class="flex items-start gap-2">
+          <div class="flex items-start gap-3">
             <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
@@ -246,7 +246,7 @@
           </div>
           {%- endif -%}
           {%- if section.settings.feature_4 != blank -%}
-          <div class="flex items-start gap-2">
+          <div class="flex items-start gap-3">
             <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
             </svg>
@@ -257,7 +257,7 @@
         {%- endif -%}
 
         <!-- Action Buttons -->
-        <div class="flex flex-col gap-3 mt-8">
+        <div class="flex flex-col gap-3">
           <form method="post" action="/cart/add" id="product-form-{{ section.id }}">
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
             <input type="hidden" name="quantity" value="1">
@@ -311,12 +311,14 @@
     <div class="tab-content">
 
       <div id="description-tab" class="tab-panel block">
-        <div class="prose prose-slate max-w-none text-slate-700">
-          {%- if product.description != blank -%}
-            {{ product.description }}
-          {%- else -%}
-            <p>{{ 'products.product.tabs.no_description' | t }}</p>
-          {%- endif -%}
+        <div class="bg-white p-6 rounded-xl border border-slate-200">
+          <div class="prose prose-slate max-w-none text-slate-700">
+            {%- if product.description != blank -%}
+              {{ product.description }}
+            {%- else -%}
+              <p>{{ 'products.product.tabs.no_description' | t }}</p>
+            {%- endif -%}
+          </div>
         </div>
       </div>
 
