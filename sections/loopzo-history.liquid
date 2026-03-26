@@ -15,6 +15,7 @@
             <div class="text-[15px] sm:text-base lg:text-[17px] text-slate-700 leading-relaxed [&_strong]:font-semibold [&_strong]:text-slate-900">
                 {{ section.settings.intro_paragraph }}
             </div>
+
         </div>
         {% endif %}
 
@@ -61,7 +62,7 @@
                     {% endif %}
 
                     {% if section.settings.history_link_text != blank and section.settings.history_link_url != blank %}
-                    <a href="{{ section.settings.history_link_url }}" class="inline-flex items-center text-slate-900 font-semibold text-base hover:text-slate-700 transition-colors group">
+                    <a id="btnsubmitstory" href="{{ section.settings.history_link_url }}" class="inline-flex items-center text-slate-900 font-semibold text-base hover:text-slate-700 transition-colors group">
                         {{ section.settings.history_link_text }}
                         <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>

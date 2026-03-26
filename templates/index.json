@@ -12,12 +12,13 @@
     "loopzo_hero": {
       "type": "loopzo-hero",
       "settings": {
+        "image": "shopify://shop_images/Image_20260209150727.jpg",
         "box_opacity": 90,
         "brand_name": "Loopzo",
         "heading": "De loopfiets die uw bewegingsvrijheid teruggeeft",
         "subtext": "<p>Ontdek de Loopzo loopfiets - speciaal ontwikkeld voor volwassenen die extra stabiliteit en zekerheid zoeken tijdens het lopen.</p>",
         "button_1_text": "Bekijk modellen",
-        "button_1_url": "#products",
+        "button_1_url": "shopify://collections/all",
         "button_2_text": "Meer informatie",
         "button_2_url": "#about"
       }
@@ -29,21 +30,21 @@
           "type": "feature",
           "settings": {
             "icon": "checkmark",
-            "text": "Unieke loopfiets voor volwassenen en senioren"
+            "text": "Nederlandse betrouwbaarheid"
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
-            "icon": "shield",
-            "text": "Vermindert druk op het lichaam"
+            "icon": "checkmark",
+            "text": "Extra stabiliteit bij elke stap"
           }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
-            "icon": "lightning",
-            "text": "Vergroot de loopafstand en zelfredzaamheid"
+            "icon": "checkmark",
+            "text": "Comfort en zekerheid in beweging"
           }
         }
       },
@@ -52,67 +53,95 @@
         "feature_2",
         "feature_3"
       ],
-      "settings": {}
+      "settings": {
+        "padding_top": 32,
+        "padding_bottom": 48
+      }
     },
     "loopzo_featured_product": {
       "type": "loopzo-featured-product",
       "settings": {
-        "section_title": "Featured Product",
-        "section_subtitle": "Discover our premium selection",
-        "product": "loopzo-bicycle-transparent",
+        "section_title": "Een oplossing die perfect bij je past",
+        "section_subtitle": "",
+        "product": "loopzo-loopfiets-volwassenen-zwart",
         "enable_sticky_info": true,
-        "show_stock_status": true,
-        "show_inventory_quantity": true,
+        "show_stock_status": false,
+        "show_inventory_quantity": false,
         "low_stock_threshold": 10,
-        "in_stock_text": "In Stock - Ready to Ship",
-        "out_of_stock_text": "Out of Stock",
+        "in_stock_text": "",
+        "out_of_stock_text": "",
         "show_features": true,
-        "feature_1": "Custom-made to your specifications",
-        "feature_2": "Premium Dutch craftsmanship",
-        "feature_3": "Electric and manual options available",
-        "feature_4": "Free test ride included",
+        "feature_1": "Lage instap voor veilig op- en afstappen",
+        "feature_2": "Lichtgewicht en stevig aluminium frame",
+        "feature_3": "Belastbaar tot 120 kg",
+        "feature_4": "Verstelbaar stuur en zadel",
         "padding_top": 0,
         "padding_bottom": 80
       }
     },
     "loopzo_product_showcase": {
       "type": "loopzo-product-showcase",
-      "settings": {}
+      "settings": {
+        "main_heading": "",
+        "sub_heading": "",
+        "description_paragraph_1": "",
+        "description_paragraph_2": "",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_history": {
       "type": "loopzo-history",
-      "settings": {}
+      "settings": {
+        "main_heading": "Maak kennis met Loopzo",
+        "intro_paragraph": "<p>Loopzo is ontwikkeld voor volwassenen die graag in beweging blijven, op een manier die prettig en vertrouwd aanvoelt. We richten ons op comfortabel gebruik in het dagelijks leven, met aandacht voor houding, stabiliteit en gebruiksgemak.<br/><br/></p>",
+        "history_image": "shopify://shop_images/Design_Loopzo.png",
+        "history_heading": "Ontwikkeld met oog voor kwaliteit en veiligheid",
+        "history_paragraph_1": "<p>Bij <strong>Loopzo</strong> draait alles om beweging, comfort en vertrouwen. Vanuit onze vestiging in Moordrecht ontwikkelen we loopfietsen voor volwassenen die ontworpen zijn om <strong>dagelijks, veilig en met plezier te gebruiken</strong>. Elke Loopzo wordt met zorg ontwikkeld en getest. Met degelijke materialen en 10 jaar framegarantie ben je verzekerd van kwaliteit die lang meegaat.</p>",
+        "history_paragraph_2": "",
+        "history_link_text": "Lees meer over onze geschiedenis",
+        "history_link_url": "shopify://pages/over-ons",
+        "show_cta": false,
+        "cta_text": "Ontdek onze loopfietsen en accessoires en vind de Loopzo die bij jou past.",
+        "cta_button_text": "Bekijk het assortiment",
+        "cta_button_link": "",
+        "padding_top": 64,
+        "padding_bottom": 80
+      }
     },
-    "loopzo_thuja_ebike": {
-      "type": "loopzo-thuja-ebike",
-      "settings": {}
-    },
-    // "loopzo_product_info": {
-    //   "type": "loopzo-product-info",
-    //   "settings": {
-    //     "product": "loopzo-bicycle-transparent",
-    //     "enable_sticky_info": true,
-    //     "show_stock_status": true,
-    //     "show_inventory_quantity": true,
-    //     "low_stock_threshold": 10,
-    //     "in_stock_text": "In Stock - Ready to Ship",
-    //     "out_of_stock_text": "Out of Stock",
-    //     "show_features": true,
-    //     "feature_1": "Custom-made to your specifications",
-    //     "feature_2": "Premium Dutch craftsmanship",
-    //     "feature_3": "Electric and manual options available",
-    //     "feature_4": "Free test ride included",
-    //     "padding_top": 0,
-    //     "padding_bottom": 80
-    //   }
-    // },
     "loopzo_founder_talk": {
       "type": "loopzo-founder-talk",
-      "settings": {}
+      "settings": {
+        "badge_text": "Ervaringen uit de praktijk",
+        "section_title": "Licht van gewicht, prettig in gebruik (7,9 kg)",
+        "paragraph_1": "<p>Met een gewicht van 7,9 kg is de Loopzo loopfiets voor volwassenen makkelijk te hanteren en prettig in gebruik. Dat maakt bewegen ontspannen en overzichtelijk, zowel binnen als buiten. In de klantervaringen delen gebruikers hun ervaringen en laten zij zien wat Loopzo voor hen betekent in het dagelijks leven.<br/><br/></p>",
+        "paragraph_2": "",
+        "button_text": "Lees klantervaringen",
+        "button_url": "",
+        "expert_image": "shopify://shop_images/Loopzo_bicycle_12.png",
+        "image_alt_text": "Pulmonologist Ralph Koppers",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_delear_point": {
       "type": "loopzo-delear-point",
-      "settings": {}
+      "settings": {
+        "company_name": "Kom langs bij Loopzo",
+        "intro_text": "<p>Nieuwsgierig naar wat Loopzo voor jou kan betekenen? Neem gerust contact met ons op via <strong>0182 239 021</strong> of stuur een e-mail naar <a><strong>info@loopzo.nl</strong></a>. Wil je de Loopzo loopfiets voor volwassenen zelf ervaren? Dan ben je welkom voor een persoonlijk bezoek. We nemen graag de tijd om je verder te helpen.<br/><br/></p>",
+        "sale_title": "Locatie",
+        "sale_address": "Zuidbaan 548H, 2841MD Moordrecht",
+        "maintenance_title": "Contact",
+        "maintenance_address": "0182 239 021",
+        "google_maps_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2456.789!2d4.6700!3d51.9850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDU5JzA2LjAiTiA0wrA0MCcxMi4wIkU!5e0!3m2!1sen!2snl!4v1234567890",
+        "cta_text": "",
+        "cta_highlight": "appointment",
+        "cta_text_after": "",
+        "button_text": "Maak een afspraak",
+        "button_link": "shopify://pages/contact",
+        "padding_top": 80,
+        "padding_bottom": 20
+      }
     },
     "loopzo_blog": {
       "type": "loopzo-blog",
@@ -129,7 +158,27 @@
         "instagram_link": "https://instagram.com",
         "twitter_link": "https://twitter.com",
         "linkedin_link": "https://linkedin.com",
-        "youtube_link": "https://youtube.com"
+        "youtube_link": "https://youtube.com",
+        "blog_handle": "",
+        "read_more_text": "Read more",
+        "posts_to_show": 3,
+        "button_text": "Meer nieuws",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
+    },
+    "loopzo_thuja_ebike": {
+      "type": "loopzo-thuja-ebike",
+      "settings": {
+        "badge_text": "Premium versie",
+        "section_title": "Inclusief fietsmand en Slot",
+        "section_description": "<p>De luxe Loopzo is uitgevoerd met een stevige afneembare fietsmand en een ringslot. Handig voor dagelijkse ritten, of je boodschappen in de supermarkt. De loopfiets biedt extra stabiliteit en comfort, zodat je ontspannen en met vertrouwen onderweg bent.</p>",
+        "button_text": "Ontdek de luxe Loopzo",
+        "button_url": "",
+        "product_image": "shopify://shop_images/2I6A6369_iATh_O_2.jpg",
+        "image_alt_text": "De Luxe Versie Zwarte Loopzo loopfiets voor volwassenen met mand aan het stuur en fietsslot.",
+        "padding_top": 48,
+        "padding_bottom": 80
       }
     },
     "loopzo_faq": {
@@ -228,11 +277,51 @@
         "faq_9",
         "faq_10"
       ],
-      "settings": {}
+      "settings": {
+        "section_title": "Veelgestelde vragen",
+        "section_subtitle": "Frequently asked questions",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
     },
     "loopzo_cta": {
       "type": "loopzo-cta",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "main_title": "Ervaar zelf het verschil van Loopzo",
+        "main_description": "<p>Plan een proefrit of ontvang persoonlijke advies. Wij helpen u graag naar zekerheid en beweginsvrijheid. </p>",
+        "primary_button_text": "Plan uw proefrit",
+        "primary_button_url": "",
+        "secondary_button_text": "Direct contact via WhatsApp",
+        "secondary_button_url": "",
+        "service_1_title": "Klantenservice",
+        "service_1_description": "We zijn er voor je en helpen je graag verder!",
+        "service_2_title": "Gratis Verzending",
+        "service_2_description": "Gratis verzending op al onze producten!",
+        "service_3_title": "100% Kwaliteitsgarantie",
+        "service_3_description": "Niet blij? Retour binnen 30 dagen, zonder gedoe!",
+        "service_4_title": "Bestel Voor 16:00 Uur",
+        "service_4_description": "Volgende werkdag in huis!",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
+    },
+    "loopzo_vanraam_history_JVAyAi": {
+      "type": "loopzo-vanraam-history",
+      "disabled": true,
+      "name": "vanRaam History",
+      "settings": {
+        "main_heading": "vanRaam manufacturer of adapted bikes throughout the years",
+        "about_heading": "About vanRaam adapted bicycles",
+        "about_paragraph_1": "<p>vanRaam is a manufacturer of customized adapted bicycles. As a manufacturer of adapted bikes the goal is to offer as many people as possible <strong>sustainable and contemporary mobility</strong>. vanRaam has been producing <strong>bikes for almost 100 years</strong> with a focus on quality and innovation. A unique feature of vanRaam is that every bicycle is produced to order. With about 270 employees vanRaam produces Dutch <strong>quality</strong> bicycles, both for adults and children with a disability or for people who want more safety and stability when cycling. The specialties of vanRaam are:</p>",
+        "about_paragraph_2": "",
+        "factory_image_alt": "vanRaam factory - Sustainable adapted bicycle manufacturing with solar panels",
+        "show_tv_programme": true,
+        "tv_programme_text": "<p>A series of Fun2Go duo bikes by vanRaam is specially adapted for use in a reality TV programme in <strong>South Africa</strong>.</p><p>In the television programme 'Expedition Unlimited' ten candidates travelled to Cape Town in 2008, five models (Celina, Fleur, Joey, Ronald and Tanneq) and five young people with <strong>a physical disability</strong> (Crites, Kjetil, Lisanne, Samir and Shaushila).</p>",
+        "show_candidates_list": false,
+        "padding_top": 64,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
@@ -241,12 +330,12 @@
     "loopzo_featured_product",
     "loopzo_product_showcase",
     "loopzo_history",
-    "loopzo_thuja_ebike",
-    // "loopzo_product_info",
     "loopzo_founder_talk",
     "loopzo_delear_point",
     "loopzo_blog",
+    "loopzo_thuja_ebike",
     "loopzo_faq",
-    "loopzo_cta"
+    "loopzo_cta",
+    "loopzo_vanraam_history_JVAyAi"
   ]
 }

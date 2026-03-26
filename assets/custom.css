@@ -1,0 +1,202 @@
+
+.collect_header {
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(https://cdn.shopify.com/s/files/1/0983/3476/9483/files/image_on_rectangle.png?v=1773814825);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 320px;
+    padding: 100px;
+    text-align: center;
+    color: white; /* Make text visible on dark overlay */
+}
+
+.desktop-display h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color:#fff;
+}
+.desktop-display p {
+    font-size: 19px;
+}
+.desktop-display {
+    padding: 15px;
+}
+.collect_footer {
+    padding-bottom: 50px;
+}
+.waranty-sec h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color:rgb(15 23 42);
+}
+.waranty-sec h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #0f172a;
+    margin-top: 30px;
+}
+.waranty-sec p {
+    font-size: 19px;
+}
+.waranty-sec {
+    padding: 20px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+button#btnsubmit {
+    background: #1e293b;
+}
+section#contact-form-warea {
+    background: #f3f4f6;
+}
+section#contact-form-warea h2 {
+    text-transform: capitalize;
+}
+.sec-area-drive.py-10 {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.sec-area-drive p{
+   color:#000
+}
+.sec-area p{
+   color:#000
+}
+.sec-area-map {
+    padding-bottom: 100px;
+}
+
+a#btnsubmitmap {
+    background: #2a364a;
+}
+
+
+
+div#treebtn {
+    margin-top: 30px;
+}
+.sec-area-order {
+    background: #e5e7eb3d;
+}
+.sec-area-order p{
+
+    color: #000;
+}
+
+a#btnsubmitstory {
+    border: 1px solid #ddd;
+    padding: 13px;
+    border-radius: 23px;
+}
+.sec-area-deler {
+    padding-top: 50px;
+}
+.sec-area-deler p{
+   color:#000
+}
+div#formdeler {
+    background: #e5e7eb42;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+p#condes {
+    font-size: 17px;
+}
+.pbulet_list ul li img {
+    width: 17px;
+}
+
+.pbulet_list ul li span {
+    font-size: 9px;
+    margin-left: 10px;
+}
+.pbulet_list ul li {
+    list-style: none;
+    display: inline-flex;
+    margin-bottom: 20px;
+}
+
+div#felist span {
+    font-size: 12px;
+}
+div#felist {
+    border-right: 1px solid #ddd;
+}
+div#herobox {
+    width: 35%;
+}
+div#herobox h1 {
+    font-size: 24px;
+    line-height: 34px;
+}
+div#herobox a {
+    font-size: 11px;
+}
+
+
+
+
+
+
+
+
+/*=================responsive css===========================*/
+
+
+/* All Mobile Sizes */
+@media only screen and (max-width: 767px) {
+	
+div#herobox {
+    margin-right: 0px;
+}
+
+.collect_header {
+     padding: 0px; 
+}
+.collect_header .desktop-display p {
+    font-size: 14px;
+}
+div#felist {
+    border-right: 0px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding-bottom:30px
+}
+div#herobox {
+    width: 100%;
+}
+div#herobox h1 {
+    font-size: 22px;
+    line-height: 34px;
+}
+section#shopify-section-template--28020009828683__loopzo_thuja_ebike {
+    margin-top: -75px;
+}
+section#shopify-section-template--28020009828683__loopzo_history {
+    margin-top: -128px;
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

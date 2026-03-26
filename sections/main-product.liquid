@@ -2,6 +2,8 @@
   Using Tailwind CSS instead of component stylesheets
 {%- endcomment -%}
 
+
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -34,6 +36,9 @@
     </nav>
   </div>
 </div>
+
+
+
 
 <!-- Product Info Section -->
 <section class="product_info_section bg-white pt-10 sm:pt-14 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
@@ -218,9 +223,16 @@
           </div>
         {%- endif -%}
 
-        <!-- Key Features -->
+
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+  <!-- LEFT COLUMN (Text) -->
+  <div>
+            <!-- Key Features -->
         {%- if section.settings.show_features -%}
-        <div class="mb-8 space-y-3">
+        <div id="felist" class="mb-8 space-y-3">
           {%- if section.settings.feature_1 != blank -%}
           <div class="flex items-start gap-3">
             <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
@@ -255,6 +267,32 @@
           {%- endif -%}
         </div>
         {%- endif -%}
+  </div>
+
+  <!-- RIGHT COLUMN (Image) -->
+  <div>
+    <div class="pbulet_list">
+    <ul class="bullet-list">
+      <li>
+        <img src="https://cdn.shopify.com/s/files/1/0625/5240/8234/files/ideal-logo-1024.webp" alt="" class="bullet-icon">
+        <span class="bullet-text">Veilig betalen met IDEAL, Bankcontact of Klarna. </span>
+      </li>
+      <li class="postnord-item">
+        <img src="https://cdn.shopify.com/s/files/1/0625/5240/8234/files/WhatsApp_Image_2025-02-14_at_15.24.38.jpg?v=1739525258" alt="" class="bullet-icon postnord-icon" loading="lazy">
+        <span class="bullet-text">Voor 15:59 besteld, morgen in huis.</span>
+      </li>
+      <li>
+        <img src="https://cdn.shopify.com/s/files/1/0625/5240/8234/files/1.webp" alt="" class="bullet-icon">
+        <span class="bullet-text"> 30 dagen kosteloos retourneren.</span>
+      </li>
+    </ul>
+  </div>
+  </div>
+
+</div>
+
+
+
 
         <!-- Action Buttons -->
         <div class="flex flex-col gap-3">

@@ -1,0 +1,230 @@
+  
+  
+<div class="sec-area">
+	<div class="max-w-7xl mx-auto px-4"> 
+		  <div class="grid">
+			<div class="grid-cols-1"> 
+				<div class="waranty-sec">
+				<h1>Plan een proefrit bij Loopzo</h1>
+				<p>Ben je benieuwd hoe het voelt om te lopen op een Loopzo? Tijdens een proefrit ervaar je zelf hoe soepel, 
+                    stabiel en comfortabel onze loopfiets rijdt. We staan klaar om al je vragen te beantwoorden.
+				  </p>
+                  <h2>Wat kan je verwachten? </h2>
+				<p>Tijdens de proefrit kijken we samen naar de juiste hoogte, houding en uitvoering. We nemen de tijd om alles 
+                    rustig uit te leggen, zodat jij precies weet wat goed voelt. 
+
+				  </p>
+                   <h2>Hoe Maak je een afspraak?</h2>
+				<p>1. Vul je gegevens in via het formulier hieronder<br>
+2. Heb je een voorkeur voor een datum of tijd? Vermeld dit gerust bij `Voorkeursdatum`<br>
+3. Klik op Proefrit aanvragen om je aanvraag te versturen.
+
+
+				  </p>
+
+				</div>
+			</div>
+		  </div>
+	</div>
+</div>
+
+
+
+
+  <!-- Contact Form Section -->
+  <section
+    id="contact-form-warea"
+    aria-labelledby="contact-form-heading"
+    class="bg-gradient-to-br from-slate-50 to-white py-12 sm:py-16 lg:py-20"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Full Width Form -->
+      <div class="max-w-4xl mx-auto">
+        <h2
+          id="contact-form-heading"
+          class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 lg:mb-10 leading-tight text-center"
+        >
+          Plan een proefrit 
+        </h2>
+        <p style="text-align:center">Ben je benieuwd hoe het voelt om te lopen op een Loopzo?  </p>
+
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <div
+              role="status"
+              aria-live="polite"
+              class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6 shadow-sm"
+            >
+              Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div
+              role="alert"
+              aria-live="assertive"
+              class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6 shadow-sm"
+            >
+              <p class="font-semibold">Er zijn enkele problemen met je inzending:</p>
+              <ul class="list-disc list-inside mt-2">
+                {% for field in form.errors %}
+                  <li>{{ field }} - {{ form.errors.messages[field] }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <div class="space-y-4">
+
+<div class="max-w-5xl mx-auto py-12 px-6">
+
+
+
+<div class="bg-gray-100 p-8 rounded-lg">
+
+{% form 'contact' %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Naam</label>
+<input type="text" name="contact[Naam]" placeholder="Naam" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">E-mailadres</label>
+<input type="email" name="contact[email]" placeholder="E-mailadres" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Telefoonnummer</label>
+<input type="text" name="contact[Telefoonnummer]" placeholder="Telefoonnummer" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Voorkeursdatum</label>
+<input type="date" name="contact[Voorkeursdatum]" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<!-- ✅ Full Width Textarea -->
+<div class="md:col-span-2">
+<label class="block mb-2 font-medium text-gray-700">Bericht</label>
+<textarea name="contact[body]" rows="5" placeholder="Typ hier je vragen en/of opmerkingen
+Bijv. voorkeur voor tijdstip of specifieke vragiegen" class="w-full border border-gray-300 p-3 rounded-md"></textarea>
+</div>
+
+
+</div>
+
+<button id="btnsubmit" type="submit" class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg text-lg">
+Proefrit aanvragen
+</button>
+
+{% endform %}
+
+</div>
+
+</div>
+
+
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </section>
+
+    
+<div class="sec-area-drive py-10">
+  <div class="max-w-7xl mx-auto px-4"> 
+
+    <!-- ✅ grid এখানে define হবে -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+      <!-- Left Content -->
+      <div class="waranty-sec">
+        <h1 class="text-3xl font-bold mb-4">
+          Proefrit bij Loopzo ?
+        </h1>
+
+        <p class="text-gray-600 leading-relaxed">
+          Tijdens de proefrit neem je rustig de tijd om te ervaren hoe soepel en stabiel een loopfiets voor volwassenen van Loopzo rijdt. 
+          Vooraf leggen we kort uit hoe de loopfiets werkt en waar je op kunt letten tijdens het gebruik. 
+          Geen zorgen als dit nieuwe voor je is. We begeleiden je stap voor stap en kunnen al je vragen beantwoorden. 
+          Zodra je op pad gaat, merk je meteen hoe natuurlijk het voelt om te bewegen met een Loopzo. 
+          De loopfiets rijdt licht en voelt stabiel aan, waardoor je op een ontspannen manier kunt lopen en sturen.
+        </p>
+      </div>
+
+      <!-- Right Image -->
+      <div class="image-sec">
+        <img 
+          src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/hero-image.jpg?v=1764173972" 
+          class="w-full rounded-lg shadow-md"
+          alt=""
+        />
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="sec-area">
+  <div class="max-w-7xl mx-auto px-4"> 
+
+    <div class="grid grid-cols-1 gap-6">
+
+      <div class="waranty-sec">
+        <h1 class="text-3xl font-bold mb-4">
+         Na de proefrit 
+
+        </h1>
+
+        <p class="text-gray-600 leading-relaxed">
+         Na de proefrit bespreken we samen je ervaring met de Loopzo loopfiets voor volwassenen. Dit is het moment om al je vragen te stellen en eventueel te kijken naar extra mogelijkheden.<br> <br>
+
+We laten je graag zien welke accessoires het comfort nog verder kunnen vergroten, zoals een verende zadelpen voor een soepelere rit of een mand voor extra gemak onderweg. Zo kunnen we 
+jouw Loopzo precies afstemmen op wat jij fijn vindt. 
+
+
+
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% comment %}
+  google map
+{% endcomment %}
+<div class="sec-area-map">
+  <div class="max-w-7xl mx-auto px-4"> 
+
+    <div class="grid grid-cols-1 gap-6">
+   
+      <!-- ✅ Force height -->
+      <div class="w-full">
+        <iframe 
+          src="https://www.google.com/maps?q=Dhaka,Bangladesh&output=embed"
+          style="width:100%; height:400px; border:0;"
+          loading="lazy">
+        </iframe>
+      </div>  
+            
+      <!-- Button -->
+      <div class="text-center">
+        <a href="" 
+          id="btnsubmitmap" 
+          type="submit" 
+          class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg text-base">
+          Route starten
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</div>

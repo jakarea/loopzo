@@ -1,0 +1,147 @@
+  
+  
+<div class="sec-area">
+	<div class="max-w-7xl mx-auto px-4"> 
+		  <div class="grid">
+			<div class="grid-cols-1"> 
+				<div class="waranty-sec">
+				<h1>Garantie op je Loopzo</h1>
+				<p>Bij Loopzo geloven we in degelijkheid en kwaliteit. Daarom bieden we standaard 5 jaar garantie op het frame 
+                    van elke Loopzo. We willen dat je jarenlang met plezier kunt blijven bewegen, zonder zorgen.
+				  </p>
+                  <h2>Jouw framegarantie verlengen naar 10 jaar?</h2>
+				<p>Dat kan eenvoudig. Vul binnen 3 maanden na de aankoopdatum het registratieformulier in, en je garantie wordt 
+                    automatisch verlengd. Na het voltooien van de registratie ontvang je een bevestiging per e-mail.
+
+				  </p>
+
+				</div>
+			</div>
+		  </div>
+	</div>
+</div>
+
+
+
+
+  <!-- Contact Form Section -->
+  <section
+    id="contact-form-warea"
+    aria-labelledby="contact-form-heading"
+    class="bg-gradient-to-br from-slate-50 to-white py-12 sm:py-16 lg:py-20"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Full Width Form -->
+      <div class="max-w-4xl mx-auto">
+        <h2
+          id="contact-form-heading"
+          class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 lg:mb-10 leading-tight text-center"
+        >
+          garantie registreren
+        </h2>
+
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <div
+              role="status"
+              aria-live="polite"
+              class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg mb-6 shadow-sm"
+            >
+              Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div
+              role="alert"
+              aria-live="assertive"
+              class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mb-6 shadow-sm"
+            >
+              <p class="font-semibold">Er zijn enkele problemen met je inzending:</p>
+              <ul class="list-disc list-inside mt-2">
+                {% for field in form.errors %}
+                  <li>{{ field }} - {{ form.errors.messages[field] }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <div class="space-y-4">
+
+<div class="max-w-5xl mx-auto py-12 px-6">
+
+
+
+<div class="bg-gray-100 p-8 rounded-lg">
+
+{% form 'contact' %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Naam</label>
+<input type="text" name="contact[Naam]" placeholder="Naam" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Adres</label>
+<input type="text" name="contact[Adres]" placeholder="Adres" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Postcode</label>
+<input type="text" name="contact[Postcode]" placeholder="Postcode" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Woonplaats</label>
+<input type="text" name="contact[city]" placeholder="Woonplaats" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">E-mailadres</label>
+<input type="email" name="contact[email]" placeholder="E-mailadres" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+<div>
+<label class="block mb-2 font-medium text-gray-700">Orderdatum</label>
+<input type="date" name="contact[orderdatum]" class="w-full border border-gray-300 p-3 rounded-md">
+</div>
+
+</div>
+
+<button id="btnsubmit" type="submit" class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-lg text-lg">
+Garantie registreren
+</button>
+
+{% endform %}
+
+</div>
+
+</div>
+
+
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </section>
+
+    
+<div class="sec-area">
+	<div class="max-w-7xl mx-auto px-4"> 
+		  <div class="grid">
+			<div class="grid-cols-1"> 
+				<div class="waranty-sec">
+				<h1>Vragen?</h1>
+				<p>Mocht je verdere vragen hebben over de garantie of het registreren, neem dan gerust contact met
+                     ons op via het contactformulier. We helpen je graag verder
+
+				  </p>
+                  
+
+				</div>
+			</div>
+		  </div>
+	</div>
+</div>

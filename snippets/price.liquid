@@ -26,7 +26,7 @@
 
   <div class="price__container flex items-baseline gap-3">
     {%- if compare_at_price > price -%}
-      <span class="visually-hidden">Regular price</span>
+      <span class="visually-hidden">Normale prijs</span>
       <s class="price-item price-item--regular text-xl sm:text-2xl text-gray-400 line-through">
         {{ compare_at_price | money }}
       </s>
@@ -41,7 +41,7 @@
         </span>
       {%- endif -%}
     {%- else -%}
-      <span class="visually-hidden">Regular price</span>
+      <span class="visually-hidden">Normale prijs</span>
       <span class="price-item price-item--regular {% if price_class %}{{ price_class }}{% else %}text-3xl sm:text-4xl font-bold text-slate-800{% endif %}">
         {{ money_price }}
       </span>

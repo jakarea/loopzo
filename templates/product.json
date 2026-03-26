@@ -19,10 +19,11 @@
         "in_stock_text": "In Stock - Ready to Ship",
         "out_of_stock_text": "Out of Stock",
         "show_features": true,
-        "feature_1": "Custom-made to your specifications",
-        "feature_2": "Premium Dutch craftsmanship",
-        "feature_3": "Electric and manual options available",
-        "feature_4": "Free test ride included",
+        "feature_1": "Lage instap voor veilig op- en afstappen",
+        "feature_2": "Lichtgewicht en stevig aluminium frame",
+        "feature_3": "Belastbaar tot 120 kg",
+        "feature_4": "Verstelbaar stuur en zadel",
+        "delivery_heading": "Levering & Montage",
         "padding_top": 0,
         "padding_bottom": 80
       }
@@ -125,7 +126,9 @@
       ],
       "settings": {
         "section_title": "Veelgestelde vragen",
-        "section_subtitle": "Frequently asked questions"
+        "section_subtitle": "Frequently asked questions",
+        "padding_top": 48,
+        "padding_bottom": 80
       }
     }
   },

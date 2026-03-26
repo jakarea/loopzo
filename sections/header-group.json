@@ -17,46 +17,43 @@
         "benefit_1": {
           "type": "benefit",
           "settings": {
-            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' /></svg>",
+            "icon_svg": "<svg class=\"w-4 h-4 text-white\" viewbox=\"0 0 24 24\" fill=\"none\">\n  <path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z\"></path>\n  <path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z\"></path>\n</svg>",
             "benefit_text": "Gratis proefrit"
           }
         },
         "benefit_2": {
           "type": "benefit",
           "settings": {
-            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z' /></svg>",
+            "icon_svg": "<svg class=\"w-4 h-4 text-white\" viewbox=\"0 0 24 24\" fill=\"none\">\n  <path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z\"></path>\n</svg>",
             "benefit_text": "Korte levertijd"
           }
         },
         "benefit_3": {
           "type": "benefit",
           "settings": {
-            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' /></svg>",
+            "icon_svg": "<svg class=\"w-4 h-4 text-white\" viewbox=\"0 0 24 24\" fill=\"none\">\n  <path stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"m8.032 12 1.984 1.984 4.96-4.96m4.55 5.272.893-.893a1.984 1.984 0 0 0 0-2.806l-.893-.893a1.984 1.984 0 0 1-.581-1.403V7.04a1.984 1.984 0 0 0-1.984-1.984h-1.262a1.983 1.983 0 0 1-1.403-.581l-.893-.893a1.984 1.984 0 0 0-2.806 0l-.893.893a1.984 1.984 0 0 1-1.403.581H7.04A1.984 1.984 0 0 0 5.055 7.04v1.262c0 .527-.209 1.031-.581 1.403l-.893.893a1.984 1.984 0 0 0 0 2.806l.893.893c.372.372.581.876.581 1.403v1.262a1.984 1.984 0 0 0 1.984 1.984h1.262c.527 0 1.031.209 1.403.581l.893.893a1.984 1.984 0 0 0 2.806 0l.893-.893a1.985 1.985 0 0 1 1.403-.581h1.262a1.984 1.984 0 0 0 1.984-1.984V15.7c0-.527.209-1.031.581-1.403Z\"></path>\n</svg>",
             "benefit_text": "10 jaar garantie"
-          }
-        },
-        "benefit_4": {
-          "type": "benefit",
-          "settings": {
-            "icon_svg": "<svg class='w-4 h-4 text-white' fill='none' stroke='currentColor' viewBox='0 0 24 24' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4' /></svg>",
-            "benefit_text": "Fiets samenstellen"
           }
         }
       },
       "block_order": [
         "benefit_1",
         "benefit_2",
-        "benefit_3",
-        "benefit_4"
+        "benefit_3"
       ],
       "settings": {
         "show_contact_button": true,
-        "contact_text": "Contact"
+        "contact_text": "Contact",
+        "contact_link": "shopify://pages/contact",
+        "open_in_new_tab": false,
+        "button_left_icon": "",
+        "button_right_icon": "<svg class=\"w-5 h-5 group-hover:translate-x-1 transition-transform\" fill=\"none\" stroke=\"currentColor\" viewbox=\"0 0 24 24\" stroke-width=\"2.5\">\n                                <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17 8l4 4m0 0l-4 4m4-4H3\"></path>\n                            </svg>"
       }
     },
     "main_navigation": {
       "type": "main_navigation",
       "settings": {
+        "logo": "shopify://shop_images/loopzo_light_logo_5a4ae7d1-85ee-452e-8ba1-2c05c1a81eed.png",
         "menu": "main-menu"
       }
     }

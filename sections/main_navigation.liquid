@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center h-20">
 
             <!-- Logo -->
-            <div class="flex-shrink-0">
+            {%- comment -%} <div class="flex-shrink-0">
                 <a href="/" class="flex items-center">
                     {%- if section.settings.logo != blank -%}
                         <img class="h-10 w-auto" src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" loading="lazy">
@@ -11,7 +11,34 @@
                         <img class="h-10 w-auto" src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" alt="{{ shop.name | default: 'Loopzo Logo' }}" loading="lazy">
                     {%- endif -%}
                 </a>
-            </div>
+            </div>{%- endcomment -%}
+
+
+            <div class="flex-shrink-0">
+  <a href="/" class="flex items-center">
+    {%- if section.settings.logo != blank -%}
+      {%- comment -%} Using image_tag automatically calculates the correct aspect ratio {%- endcomment -%}
+      {{ section.settings.logo | image_url: width: 400 | image_tag: 
+        class: 'h-10 w-auto',
+        loading: 'eager', 
+        preload: true,
+        alt: shop.name,
+        style: 'background: transparent; color: transparent;'
+      }}
+    {%- else -%}
+      {%- comment -%} Manual fallback for the hardcoded logo {%- endcomment -%}
+      <img 
+        src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" 
+        class="h-10 w-auto" 
+        style="aspect-ratio: auto; background: transparent;"
+        alt="Loopzo Logo" 
+        loading="eager"
+        width="200"
+        height="50">
+    {%- endif -%}
+  </a>
+</div>
+
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex md:items-center md:space-x-8">

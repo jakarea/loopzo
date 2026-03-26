@@ -9,12 +9,15 @@
  */
 {
   "current": {
+    "order": [
+      "loopzo-header",
+      "loopzo-hero",
+      "loopzo-footer"
+    ],
     "sections": {
       "loopzo-header": {
         "type": "loopzo-header",
-        "settings": {
-          "logo_text": "Loopzo"
-        }
+        "settings": {}
       },
       "loopzo-hero": {
         "type": "loopzo-hero",
@@ -31,10 +34,18 @@
         "settings": {}
       }
     },
-    "order": [
-      "loopzo-header",
-      "loopzo-hero",
-      "loopzo-footer"
-    ]
+    "content_for_index": [],
+    "blocks": {
+      "4976129024724438625": {
+        "type": "shopify://apps/smart-seo/blocks/brokenLinkDetection/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
+      },
+      "6406956604159796213": {
+        "type": "shopify://apps/smart-seo/blocks/smartseo/7b0a6064-ca2e-4392-9a1d-8c43c942357b",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   }
 }

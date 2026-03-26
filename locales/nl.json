@@ -1,0 +1,292 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "blocks": {
+        "share": {
+          "name": "Deel",
+          "settings": {
+            "text": {
+              "default": "Deel",
+              "label": "Deel label"
+            }
+          }
+        },
+        "text": {
+          "name": "Tekst",
+          "settings": {
+            "text": {
+              "label": "Tekst"
+            },
+            "text_style": {
+              "label": "Tekststijl",
+              "options__1": {
+                "label": "Lichaam"
+              },
+              "options__2": {
+                "label": "Ondertiteling"
+              },
+              "options__3": {
+                "label": "Hoofdletters"
+              }
+            }
+          }
+        },
+        "title": {
+          "name": "Titel"
+        },
+        "price": {
+          "name": "Prijs"
+        },
+        "quantity_selector": {
+          "name": "Hoeveelheidsselector"
+        },
+        "variant_picker": {
+          "name": "Variantkiezer",
+          "settings": {
+            "picker_type": {
+              "options__1": {
+                "label": "Uitklapmenu"
+              },
+              "options__2": {
+                "label": "Knoppen"
+              }
+            }
+          }
+        },
+        "buy_buttons": {
+          "name": "Koopknoppen",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Toon dynamische afrekenknoppen",
+              "info": "Klanten kunnen via de beschikbare betaalmethoden in uw webwinkel hun voorkeursoptie zien, zoals PayPal of Apple Pay."
+            }
+          }
+        },
+        "description": {
+          "name": "Beschrijving"
+        }
+      },
+      "settings": {
+        "enable_sticky_info": {
+          "label": "Schakel vastgeplakte informatie in"
+        }
+      }
+    },
+    "all": {
+      "padding": {
+        "section_padding_heading": "Sectievulling",
+        "padding_top": "Bovenste vulling",
+        "padding_bottom": "Bodemvulling"
+      }
+    },
+    "loopzo_hero": {
+      "aria_label": "Heldensectie",
+      "brand_name_aria_label": "Merknaam"
+    },
+    "loopzo_features": {
+      "aria_label": "Functies sectie"
+    },
+    "loopzo_cta": {
+      "title": "Klaar om de vrijheid op wielen te ervaren?",
+      "description": "Plan een gratis consult en proefrit in. Onze experts helpen u bij het vinden van de perfecte aangepaste fiets die aansluit op uw behoeften.",
+      "schedule_test_ride": "Plan een proefrit",
+      "chat_whatsapp": "Chatten via WhatsApp",
+      "customer_service": {
+        "title": "Klantenservice",
+        "description": "Ons team van experts staat klaar om u te helpen bij het vinden van de perfecte aangepaste fietsoplossing."
+      },
+      "showroom": {
+        "title": "Bezoek de showroom",
+        "description": "Ervaar onze fietsen zelf. Proefritten zijn mogelijk op afspraak."
+      },
+      "customization": {
+        "title": "Aanpassing",
+        "description": "Aanpassingen op maat voor een perfecte pasvorm en optimaal comfort."
+      },
+      "support": {
+        "title": "Levenslange ondersteuning",
+        "description": "Wij staan ​​volledig achter elke fiets met uitgebreide ondersteuning en onderhoud."
+      }
+    },
+    "loopzo_product_showcase": {
+      "title": "Onze aangepaste fietsen",
+      "subtitle": "Ontworpen voor onafhankelijkheid, gemaakt voor vrijheid.",
+      "view_all": "Bekijk alle producten"
+    },
+    "loopzo_history": {
+      "title": "Ons verhaal",
+      "subtitle": "Van passie naar innovatie",
+      "read_more": "Lees meer"
+    },
+    "loopzo_thuja_ebike": {
+      "title": "Thuja E-bike",
+      "subtitle": "Revolutionaire adaptieve elektrische fiets",
+      "description": "Ervaar de perfecte combinatie van innovatie en toegankelijkheid met onze topklasse Thuja E-bike.",
+      "learn_more": "Meer informatie",
+      "configure": "Configureer die van jou"
+    },
+    "loopzo_product_info": {
+      "title": "Waarom kiezen voor Loopzo?",
+      "subtitle": "Innovatie en toegankelijkheid gaan hand in hand.",
+      "quality": {
+        "title": "Premium kwaliteit",
+        "description": "Gemaakt met de beste materialen en componenten voor duurzaamheid op lange termijn."
+      },
+      "customization": {
+        "title": "Volledige aanpassing",
+        "description": "Afgestemd op uw specifieke behoeften en voorkeuren."
+      },
+      "support": {
+        "title": "Deskundige ondersteuning",
+        "description": "Een toegewijd team dat u bij elke stap helpt."
+      },
+      "warranty": {
+        "title": "10 jaar garantie",
+        "description": "Gemoedsrust dankzij ons uitgebreide garantieprogramma."
+      }
+    },
+    "loopzo_founder_talk": {
+      "title": "Een boodschap van onze oprichter",
+      "subtitle": "Vrijheid creëren, één fiets tegelijk.",
+      "watch_video": "Bekijk de video"
+    },
+    "loopzo_blog": {
+      "title": "Laatste nieuwsberichten",
+      "subtitle": "Tips, verhalen en inzichten van de Loopzo-community",
+      "read_more": "Lees meer",
+      "view_all": "Bekijk alle artikelen"
+    },
+    "loopzo_faq": {
+      "title": "Veelgestelde vragen",
+      "subtitle": "Alles wat je moet weten over onze aangepaste fietsen.",
+      "expand": "Vraag uitbreiden",
+      "collapse": "Inklapvraag"
+    },
+    "loopzo_footer": {
+      "navigation": "Navigatie",
+      "products": "Producten",
+      "company": "Bedrijf",
+      "support": "Steun",
+      "follow_us": "Volg ons",
+      "rating_text": "Onze klanten beoordelen ons met 4,3 van de 5 sterren.",
+      "view_reviews": "Bekijk Google-recensies",
+      "nav": {
+        "tricycles": "Driewielers",
+        "tandems": "naast elkaar tandem",
+        "low_step": "Lage instap",
+        "bike_selector": "Fietsselector",
+        "purchasing_process": "Aankoopproces",
+        "test_ride": "Proefrit",
+        "configure": "Configureer je fiets",
+        "warranty": "Garantie",
+        "maintenance": "Onderhoud",
+        "spare_parts": "Reserveonderdelen",
+        "faq": "Veelgestelde vragen",
+        "about_us": "Over ons",
+        "history": "Geschiedenis",
+        "innovation": "Innovatie",
+        "news": "Nieuws"
+      },
+      "newsletter": {
+        "title": "Blijf op de hoogte",
+        "description": "Ontvang het laatste nieuws, productinformatie en exclusieve aanbiedingen rechtstreeks in uw inbox.",
+        "placeholder": "Voer uw e-mailadres in",
+        "subscribe": "Abonneren",
+        "success": "Bedankt voor je abonnement!",
+        "error": "Voer een geldig e-mailadres in."
+      },
+      "copyright": "© {{ year }} Loopzo. Alle rechten voorbehouden.",
+      "privacy_policy": "Privacybeleid",
+      "terms_of_service": "Gebruiksvoorwaarden"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Ga direct naar de inhoud"
+  },
+  "general": {
+    "404": {
+      "title": "Pagina niet gevonden"
+    },
+    "breadcrumbs": {
+      "home": "Thuis"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Voeg toe aan winkelwagen",
+      "sold_out": "Uitverkocht",
+      "buy_now": "Nu kopen",
+      "view_details": "Bekijk details",
+      "happy_customers": "tevreden klanten",
+      "adding_to_cart": "Bezig met toevoegen...",
+      "add_to_cart_error": "Het toevoegen van dit product aan de winkelwagen is mislukt. Probeer het opnieuw.",
+      "breadcrumb": "Broodkruimelnavigatie",
+      "products": "Aangepaste fietsen",
+      "sale_badge": "Bespaar {{ percentage }} %",
+      "reviews_count": {
+        "one": "( {{ count }} beoordeling)",
+        "other": "( {{ count }} recensies)"
+      },
+      "previous_image": "Vorige afbeelding",
+      "next_image": "Volgende afbeelding",
+      "quantity": {
+        "label": "Hoeveelheid",
+        "increase": "Verhoog de hoeveelheid voor {{ product }}",
+        "decrease": "Verminder de hoeveelheid voor {{ product }}"
+      },
+      "price": {
+        "regular_price": "Normale prijs",
+        "sale_price": "Verkoopprijs",
+        "from_price_html": "Vanaf {{ price }}"
+      },
+      "stock": {
+        "in_stock": "Op voorraad - Klaar voor verzending",
+        "out_of_stock": "Niet op voorraad",
+        "low_stock": "Er is nog maar {{ quantity }} over"
+      },
+      "trust_badges": {
+        "warranty": "10 jaar garantie",
+        "free_shipping": "Gratis verzending",
+        "returns": "30 dagen retourrecht"
+      },
+      "tabs": {
+        "description": "Beschrijving",
+        "specifications": "Specificaties",
+        "reviews": "Recensies ( {{ count }} )",
+        "no_description": "Geen beschrijving beschikbaar.",
+        "specifications_heading": "Technische specificaties",
+        "no_specifications": "Er zijn nog geen specificaties voor dit product toegevoegd."
+      }
+    }
+  },
+  "blogs": {
+    "article": {
+      "comments": "{{ count }} reacties",
+      "comment_form_title": "Laat een reactie achter",
+      "name": "Naam",
+      "email": "E-mail",
+      "message": "Bericht",
+      "post": "Plaats een reactie",
+      "moderated": "Let op: reacties moeten eerst worden goedgekeurd voordat ze worden gepubliceerd.",
+      "success": "Je reactie is succesvol geplaatst! Dankjewel!",
+      "success_moderated": "Je reactie is succesvol geplaatst. We publiceren hem binnenkort, aangezien onze blog momenteel wordt gemodereerd.",
+      "back_to_blog": "Terug naar {{ title }}"
+    }
+  },
+  "templates": {
+    "contact": {
+      "form": {
+        "error_heading": "Gelieve het volgende aan te passen:"
+      }
+    }
+  }
+}

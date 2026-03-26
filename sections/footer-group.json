@@ -1,11 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
   "sections": {
+    "loopzo_cta_XG7jXp": {
+      "type": "loopzo-cta",
+      "name": "CTA Section",
+      "settings": {
+        "main_title": "Ready to experience freedom on wheels?",
+        "main_description": "<p>Schedule a free consultation and test ride. Our experts will help you find the perfect adaptive bicycle tailored to your needs.</p>",
+        "primary_button_text": "Schedule Test Ride",
+        "primary_button_url": "",
+        "secondary_button_text": "Chat on WhatsApp",
+        "secondary_button_url": "",
+        "service_1_title": "Klantenservice",
+        "service_1_description": "We zijn er voor je en helpen je graag verder!",
+        "service_2_title": "Gratis Verzending",
+        "service_2_description": "Gratis verzending op al onze producten!",
+        "service_3_title": "100% Kwaliteitsgarantie",
+        "service_3_description": "Niet blij? Retour binnen 30 dagen, zonder gedoe!",
+        "service_4_title": "Bestel Voor 16:00 Uur",
+        "service_4_description": "Volgende werkdag in huis!",
+        "padding_top": 64,
+        "padding_bottom": 96
+      }
+    },
     "loopzo-footer": {
       "type": "loopzo-footer",
-      "settings": {}
+      "blocks": {
+        "nav_column_j7VEJx": {
+          "type": "nav_column",
+          "settings": {
+            "heading": "Support",
+            "menu": "main-menu"
+          }
+        },
+        "nav_column_4AMAwf": {
+          "type": "nav_column",
+          "settings": {
+            "heading": "Support",
+            "menu": "info-menu"
+          }
+        }
+      },
+      "block_order": [
+        "nav_column_j7VEJx",
+        "nav_column_4AMAwf"
+      ],
+      "settings": {
+        "footer_logo": "shopify://shop_images/loopzo_light_square_logo.png",
+        "logo_alt_text": "Loopzo Logo",
+        "about_text_heading": "Over ons",
+        "about_text": "<p>Loopzo biedt hoogwaardige loopfietsen voor volwassenen en senioren. Onze fietsen zijn ontworpen voor extra stabiliteit, comfort en bewegingsvrijheid.</p><p>Met aandacht voor detail en Nederlandse vakmanschap garanderen wij kwaliteit en betrouwbaarheid.</p>",
+        "show_rating": true,
+        "rating_value": 5,
+        "rating_text": "Gebaseerd op 25+ reviews",
+        "reviews_link": "",
+        "reviews_text": "Bekijk reviews",
+        "show_social": true,
+        "follow_us_text": "Volg ons:",
+        "facebook_link": "https://fb.com",
+        "instagram_link": "https://instagram.com",
+        "twitter_link": "https://x.com",
+        "linkedin_link": "https://linkedin.com",
+        "youtube_link": "https://youtube.com"
+      }
     }
   },
-  "order": ["loopzo-footer"]
+  "order": [
+    "loopzo_cta_XG7jXp",
+    "loopzo-footer"
+  ]
 }

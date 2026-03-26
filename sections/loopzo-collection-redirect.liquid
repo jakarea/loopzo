@@ -1,32 +1,256 @@
 {% comment %}
-  Redirect to main product for single product website
-  This section is used for all collection pages since this is a single product website
+  Loopzo Collection / All Products Section
+  - Used by `collection` and `list-collections` templates
+  - Follows Loopzo Tailwind design and hierarchy
+  - Shows all products in a responsive grid with pricing, stock and CTA
 {% endcomment %}
 
-<script>
-  // Immediate JavaScript redirect
-  window.location.href = '/products/loopzo-bicycle-transparent';
-</script>
 
-<noscript>
-  <!-- Fallback for users with JavaScript disabled -->
-  <meta http-equiv="refresh" content="0;url=/products/loopzo-bicycle-transparent">
-</noscript>
 
-<div style="padding: 100px 20px; text-align: center;">
-  <h2>Redirecting to our main product...</h2>
-  <p>If you are not redirected automatically, <a href="/products/loopzo-bicycle-transparent">click here</a>.</p>
+{% comment %}
+  collection header
+{% endcomment %}
+
+<div class="collect_header">
+
+<div class="max-w-7xl mx-auto px-4"> 
+  <div class="grid">
+    <div class="grid-cols-1"> 
+<div class="desktop-display">
+    <h1> {{ collection.title }}</h1>
+    <p>
+      {{ collection.metafields.custom.header_title_descriptions }}
+      </p>
+
+  </div>
+
+</div>
+  </div>
+</div>
+
+</div>
+
+
+{%- if template contains 'list-collections' -%}
+  {%- assign current_collection = collections['all'] -%}
+{%- else -%}
+  {%- assign current_collection = collection -%}
+{%- endif -%}
+
+
+
+<section class="bg-white py-10 sm:py-14 md:py-16" id="collection-products">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    {%- comment -%} Breadcrumb {%- endcomment -%}
+    <nav class="flex items-center gap-2 text-sm mb-6 sm:mb-8" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}" class="text-slate-600 hover:text-slate-900 transition">
+        {{ 'general.breadcrumbs.home' | t }}
+      </a>
+      <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+      <a href="{{ routes.all_products_collection_url }}" class="text-slate-600 hover:text-slate-900 transition">
+        {{ 'products.product.products' | t }}
+      </a>
+      {%- if current_collection -%}
+        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+        <span class="text-slate-900 font-medium">
+          {{ current_collection.title }}
+        </span>
+      {%- endif -%}
+    </nav>
+
+    {%- if current_collection -%}
+      {%- comment -%} Header / Hero {%- endcomment -%}
+      <div class="mb-8 sm:mb-10 md:mb-12">
+       {% comment %}
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+          {{ current_collection.title }}
+        </h1>
+       {% endcomment %}
+
+        {%- if current_collection.description != blank -%}
+          <div class="mt-3 sm:mt-4 text-sm sm:text-base text-slate-700 max-w-3xl prose prose-slate">
+            {{ current_collection.description }}
+          </div>
+        {%- elsif template contains 'list-collections' -%}
+          <p class="mt-3 sm:mt-4 text-sm sm:text-base text-slate-700 max-w-3xl">
+            Ontdek al onze Loopzo producten in één overzicht. Kies het model dat het beste bij uw dagelijkse gebruik en mobiliteit past.
+          </p>
+        {%- endif -%}
+      </div>
+
+      {%- paginate current_collection.products by 12 -%}
+        {%- if current_collection.products_count > 0 -%}
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {%- for product in current_collection.products -%}
+              <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-200 flex flex-col">
+                <a href="{{ product.url }}" class="block relative bg-slate-50">
+                  <div class="aspect-[4/3] sm:aspect-[4/3] w-full overflow-hidden">
+                    {%- if product.featured_media -%}
+                      <div class="w-full h-full">
+                        {% render 'product-media', media: product.featured_media, class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300' %}
+                      </div>
+                    {%- else -%}
+                      <div class="w-full h-full flex items-center justify-center bg-slate-100">
+                        {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 text-slate-300' }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  {%- assign compare_at_price = product.selected_or_first_available_variant.compare_at_price -%}
+                  {%- assign price = product.selected_or_first_available_variant.price -%}
+
+                  {%- if compare_at_price > price -%}
+                    <div class="absolute top-3 left-3 z-10 bg-red-500 text-white px-2.5 py-1 rounded-full text-xs font-semibold shadow">
+                      {{ 'products.product.sale_badge' | t }}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if product.available == false -%}
+                    <div class="absolute top-3 right-3 z-10 bg-slate-800/85 text-white px-2.5 py-1 rounded-full text-xs font-semibold shadow">
+                      {{ 'products.product.sold_out' | t }}
+                    </div>
+                  {%- endif -%}
+                </a>
+
+                <div class="flex flex-col flex-1 p-4 sm:p-5">
+                  <h2 class="text-lg sm:text-xl font-semibold text-slate-900 leading-snug mb-2 line-clamp-2">
+                    <a href="{{ product.url }}" class="hover:text-slate-700 transition-colors">
+                      {{ product.title | escape }}
+                    </a>
+                  </h2>
+
+                  <div class="mb-3">
+                    {% render 'price',
+                      product: product,
+                      use_variant: true,
+                      show_badges: true,
+                      price_class: 'text-2xl font-bold text-slate-900'
+                    %}
+                  </div>
+
+                  <div class="flex items-center gap-2 mb-4 text-xs text-slate-600">
+                    {%- if product.available -%}
+                      <span class="inline-flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>{{ 'products.product.stock.in_stock' | t }}</span>
+                      </span>
+                    {%- else -%}
+                      <span class="inline-flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        <span>{{ 'products.product.stock.out_of_stock' | t }}</span>
+                      </span>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="mt-auto">
+                    <a
+                      href="{{ product.url }}"
+                      class="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-slate-700 bg-slate-700 text-white font-semibold py-2.5 px-4 text-sm sm:text-base hover:bg-slate-800 hover:border-slate-800 transition-all duration-150"
+                    >
+                      <span>{{ 'products.product.view_details' | t }}</span>
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav class="mt-10 flex items-center justify-between text-sm text-slate-700" role="navigation" aria-label="Paginatie">
+              <div>
+                {%- if paginate.previous -%}
+                  <a href="{{ paginate.previous.url }}" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>Vorige</span>
+                  </a>
+                {%- endif -%}
+              </div>
+
+              <div class="flex items-center gap-1">
+                <span class="px-3 py-1 rounded-full bg-slate-900 text-white font-medium">
+                  {{ paginate.current_page }}
+                </span>
+                <span class="text-slate-500">
+                  / {{ paginate.pages }}
+                </span>
+              </div>
+
+              <div class="text-right">
+                {%- if paginate.next -%}
+                  <a href="{{ paginate.next.url }}" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
+                    <span>Volgende</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                {%- endif -%}
+              </div>
+            </nav>
+          {%- endif -%}
+        {%- else -%}
+          <div class="bg-slate-50 border border-dashed border-slate-300 rounded-2xl px-6 py-10 sm:px-8 text-center">
+            <h2 class="text-xl font-semibold text-slate-900 mb-2">
+              Geen producten gevonden
+            </h2>
+            <p class="text-sm text-slate-600 max-w-xl mx-auto">
+              Er zijn momenteel geen producten beschikbaar in deze collectie. Probeer een andere categorie of neem contact met ons op voor persoonlijk advies.
+            </p>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      <div class="bg-slate-50 border border-dashed border-slate-300 rounded-2xl px-6 py-10 sm:px-8 text-center">
+        <h2 class="text-xl font-semibold text-slate-900 mb-2">
+          Collectie niet gevonden
+        </h2>
+        <p class="text-sm text-slate-600 max-w-xl mx-auto">
+          We konden deze collectie niet laden. Ga terug naar de <a href="{{ routes.all_products_collection_url }}" class="text-slate-900 underline font-medium">overzichtspagina met alle producten</a>.
+        </p>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+
+<div class="collect_footer">
+
+<div class="max-w-7xl mx-auto px-4"> 
+  <div class="grid">
+    <div class="grid-cols-1"> 
+<div class="desktop-display">
+    <h1 style="color:#000">{{ collection.metafields.custom.footer_title }}</h1>
+    <p>
+      {{ collection.metafields.custom.footer_title_descriptions }}
+      </p>
+
+  </div>
+
+</div>
+  </div>
+</div>
+
 </div>
 
 {% schema %}
 {
-  "name": "Collection Redirect",
+  "name": "Loopzo Collection Grid",
   "tag": "section",
   "class": "section",
   "settings": [],
   "presets": [
     {
-      "name": "Collection Redirect"
+      "name": "Loopzo Collection Grid"
     }
   ]
 }
