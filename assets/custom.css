@@ -1,8 +1,7 @@
 
 .collect_header {
     background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-        url(https://cdn.shopify.com/s/files/1/0983/3476/9483/files/image_on_rectangle.png?v=1773814825);
+        url(https://cdn.shopify.com/s/files/1/0983/3476/9483/files/WhatsApp_Image_2026-03-26_at_14.46.51_1.jpg?v=1774515992);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -142,9 +141,22 @@ div#herobox h1 {
 div#herobox a {
     font-size: 11px;
 }
+#cusinfo{
+       padding: 20px;
+    border: 1px solid #000;
+    height: 400px; 
+}
 
-
-
+#addifo{
+     margin-top: 134px;
+    background: #1e293b;
+}
+#addifo .text-start p {
+    color: #fff;
+}
+#pindosec {
+       padding-top: 46px;
+}
 
 
 
@@ -162,6 +174,7 @@ div#herobox {
 
 .collect_header {
      padding: 0px; 
+     padding-top:50px;
 }
 .collect_header .desktop-display p {
     font-size: 14px;

@@ -41,7 +41,7 @@
 
 
 <!-- Product Info Section -->
-<section class="product_info_section bg-white pt-10 sm:pt-14 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
+<section id="pindosec" class="product_info_section bg-white pt-10 sm:pt-14 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
 
@@ -202,12 +202,8 @@
               {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
                 <div class="w-2 h-2 bg-green-500 rounded-full"></div>
                 <span class="text-sm text-green-700 font-medium">
-                  {%- if section.settings.show_inventory_quantity and product.selected_or_first_available_variant.inventory_quantity <= section.settings.low_stock_threshold -%}
-                    {{ 'products.product.stock.low_stock' | t: quantity: product.selected_or_first_available_variant.inventory_quantity }}
-                  {%- else -%}
-                    {{ section.settings.in_stock_text | default: 'products.product.stock.in_stock' | t }}
-                  {%- endif -%}
-                </span>
+  {{ section.settings.in_stock_text | default: 'Op voorraad - Klaar voor verzending' }}
+</span>
               {%- else -%}
                 <div class="w-2 h-2 bg-red-500 rounded-full"></div>
                 <span class="text-sm text-red-700 font-medium">{{ section.settings.out_of_stock_text | default: 'products.product.stock.out_of_stock' | t }}</span>
