@@ -112,22 +112,25 @@ p#condes {
     font-size: 17px;
 }
 .pbulet_list ul li img {
-    width: 17px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .pbulet_list ul li span {
-    font-size: 9px;
-    margin-left: 10px;
+    font-size: 1rem;
+    margin-left: 0;
+    color: #374151;
 }
 .pbulet_list ul li {
     list-style: none;
-    display: inline-flex;
-    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 12px;
 }
 
-div#felist span {
-    font-size: 12px;
-}
 div#felist {
     border-right: 1px solid #ddd;
 }
@@ -156,6 +159,18 @@ div#herobox a {
 }
 #pindosec {
        padding-top: 46px;
+}
+
+/* Sticky mobile CTA — show only below desktop breakpoint */
+@media only screen and (max-width: 1023px) {
+    .sticky-mobile-cta {
+        display: block !important;
+    }
+}
+
+/* Hide thumbnail slider scrollbar */
+#thumb-slider::-webkit-scrollbar {
+    display: none;
 }
 
 

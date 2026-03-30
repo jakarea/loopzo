@@ -87,15 +87,15 @@
         {%- if current_collection.products_count > 0 -%}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {%- for product in current_collection.products -%}
-              <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-200 flex flex-col">
-                <a href="{{ product.url }}" class="block relative bg-slate-50">
-                  <div class="aspect-[4/3] sm:aspect-[4/3] w-full overflow-hidden">
+              <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-200" style="display:flex;flex-direction:column;">
+                <a href="{{ product.url }}" style="display:block;position:relative;background:#f8fafc;">
+                  <div style="aspect-ratio:1/1;width:100%;overflow:hidden;">
                     {%- if product.featured_media -%}
-                      <div class="w-full h-full">
-                        {% render 'product-media', media: product.featured_media, class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300' %}
+                      <div style="width:100%;height:100%;">
+                        {% render 'product-media', media: product.featured_media, class: 'w-full h-full' %}
                       </div>
                     {%- else -%}
-                      <div class="w-full h-full flex items-center justify-center bg-slate-100">
+                      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f1f5f9;">
                         {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 text-slate-300' }}
                       </div>
                     {%- endif -%}
@@ -117,14 +117,14 @@
                   {%- endif -%}
                 </a>
 
-                <div class="flex flex-col flex-1 p-4 sm:p-5">
-                  <h2 class="text-lg sm:text-xl font-semibold text-slate-900 leading-snug mb-2 line-clamp-2">
-                    <a href="{{ product.url }}" class="hover:text-slate-700 transition-colors">
+                <div style="display:flex;flex-direction:column;flex:1;padding:1rem 1.25rem;">
+                  <h2 style="font-size:1.125rem;font-weight:600;color:#0f172a;line-height:1.4;margin-bottom:0.5rem;min-height:3.5rem;">
+                    <a href="{{ product.url }}" style="color:inherit;text-decoration:none;">
                       {{ product.title | escape }}
                     </a>
                   </h2>
 
-                  <div class="mb-3">
+                  <div style="margin-bottom:0.75rem;min-height:2rem;">
                     {% render 'price',
                       product: product,
                       use_variant: true,
@@ -133,27 +133,27 @@
                     %}
                   </div>
 
-                  <div class="flex items-center gap-2 mb-4 text-xs text-slate-600">
+                  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;font-size:0.75rem;color:#475569;">
                     {%- if product.available -%}
-                      <span class="inline-flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      <span style="display:inline-flex;align-items:center;gap:0.25rem;">
+                        <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#10b981;"></span>
                         <span>{{ 'products.product.stock.in_stock' | t }}</span>
                       </span>
                     {%- else -%}
-                      <span class="inline-flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                      <span style="display:inline-flex;align-items:center;gap:0.25rem;">
+                        <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#ef4444;"></span>
                         <span>{{ 'products.product.stock.out_of_stock' | t }}</span>
                       </span>
                     {%- endif -%}
                   </div>
 
-                  <div class="mt-auto">
+                  <div style="margin-top:auto;">
                     <a
                       href="{{ product.url }}"
-                      class="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-slate-700 bg-slate-700 text-white font-semibold py-2.5 px-4 text-sm sm:text-base hover:bg-slate-800 hover:border-slate-800 transition-all duration-150"
+                      style="display:flex;width:100%;align-items:center;justify-content:center;gap:0.5rem;border-radius:0.5rem;border:2px solid #334155;background:#334155;color:#fff;font-weight:600;padding:0.625rem 1rem;font-size:0.9375rem;text-decoration:none;transition:background 0.15s;"
                     >
                       <span>{{ 'products.product.view_details' | t }}</span>
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg style="width:1rem;height:1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                       </svg>
                     </a>
