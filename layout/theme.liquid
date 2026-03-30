@@ -263,10 +263,8 @@
       <div class="animate-pulse text-slate-700">Loading...</div>
     </div>
 
-    <!-- Cart Drawer (if enabled) -->
-    {%- if settings.cart_type == 'drawer' -%}
-      {%- render 'cart-drawer' -%}
-    {%- endif -%}
+    <!-- Cart Drawer -->
+    {%- render 'cart-drawer' -%}
 
     <!-- Header Section Group -->
     {% sections 'header-group' %}
@@ -368,11 +366,27 @@
       };
     </script>
 
-    <!-- Cart Drawer Script (if enabled) -->
-    {%- if settings.cart_type == 'drawer' -%}
-      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
-      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
-      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
+    <!-- Cart Drawer Script -->
+    <script>
+      window.cartDrawerStrings = {
+        remove: {{ 'general.cart.remove' | t | json }},
+        empty: {{ 'general.cart.empty_title' | t | json }},
+        continue_shopping: {{ 'general.cart.continue_shopping' | t | json }},
+        you_might_also_like: {{ 'general.cart.you_might_also_like' | t | json }},
+        add: {{ 'general.cart.add' | t | json }},
+        adding: {{ 'general.cart.adding' | t | json }},
+        sold_out: {{ 'general.cart.sold_out' | t | json }},
+        save: {{ 'general.cart.save' | t | json }},
+        free_shipping: {{ 'general.cart.free_shipping' | t | json }},
+        secure_payment: {{ 'general.cart.secure_payment' | t | json }},
+        day_returns: {{ 'general.cart.day_returns' | t | json }}
+      };
+      window.cartDrawerCurrency = {{ cart.currency.iso_code | json }};
+      window.cartDrawerCollections = {
+        loopfietsen: [{% for product in collections['loopfietsen'].products limit: 20 %}{"handle":{{ product.handle | json }},"title":{{ product.title | json }},"price":{{ product.price }},"compare_at_price":{{ product.compare_at_price | default: 0 }},"available":{{ product.available }},"image":{{ product.featured_image | image_url: width: 300 | json }},"url":{{ product.url | json }},"variant_id":{{ product.variants.first.id }}}{% unless forloop.last %},{% endunless %}{% endfor %}],
+        accessoires: [{% for product in collections['accessoires'].products limit: 20 %}{"handle":{{ product.handle | json }},"title":{{ product.title | json }},"price":{{ product.price }},"compare_at_price":{{ product.compare_at_price | default: 0 }},"available":{{ product.available }},"image":{{ product.featured_image | image_url: width: 300 | json }},"url":{{ product.url | json }},"variant_id":{{ product.variants.first.id }}}{% unless forloop.last %},{% endunless %}{% endfor %}]
+      };
+    </script>
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

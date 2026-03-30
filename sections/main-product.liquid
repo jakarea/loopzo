@@ -485,7 +485,7 @@ function openTab(evt, tabName) {
   evt.currentTarget.classList.add("border-slate-900", "text-slate-900");
 }
 
-// Buy Now functionality - Add to cart and redirect to checkout
+// Buy Now functionality - Add to cart and open drawer
 document.addEventListener('DOMContentLoaded', function() {
   const productForm = document.getElementById('product-form-{{ section.id }}');
   const addingText = {{ 'products.product.adding_to_cart' | t | json }};
@@ -517,8 +517,13 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(response => response.json())
       .then(data => {
-        // Redirect to checkout
-        window.location.href = '/checkout';
+        // Open cart drawer instead of redirecting
+        if (window.CartDrawer) {
+          window.CartDrawer.open();
+        }
+        // Re-enable button and restore text
+        submitButton.disabled = false;
+        buttonText.textContent = originalText;
       })
       .catch(error => {
         console.error('Error:', error);
