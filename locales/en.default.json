@@ -17,6 +17,28 @@
     },
     "breadcrumbs": {
       "home": "Home"
+    },
+    "cart": {
+      "title": "Shopping Cart",
+      "item_count": "{{ count }} items in your cart",
+      "label_product": "Product",
+      "label_price": "Price",
+      "label_quantity": "Quantity",
+      "label_total": "Total",
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "order_summary": "Order Summary",
+      "shipping_note": "Shipping and taxes calculated at checkout.",
+      "checkout": "Proceed to Checkout",
+      "update": "Update Cart",
+      "continue_shopping": "Continue Shopping",
+      "remove": "Remove",
+      "empty_title": "Your cart is empty",
+      "empty_message": "Looks like you haven't added anything to your cart yet. Browse our products and find something you'll love.",
+      "quantity_label": "Quantity for {{ product }}",
+      "increase": "Increase quantity for {{ product }}",
+      "decrease": "Decrease quantity for {{ product }}",
+      "discounts": "Discounts"
     }
   },
   "sections": {

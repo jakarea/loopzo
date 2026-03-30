@@ -218,6 +218,28 @@
     },
     "breadcrumbs": {
       "home": "Thuis"
+    },
+    "cart": {
+      "title": "Winkelwagen",
+      "item_count": "{{ count }} artikelen in uw winkelwagen",
+      "label_product": "Product",
+      "label_price": "Prijs",
+      "label_quantity": "Aantal",
+      "label_total": "Totaal",
+      "subtotal": "Subtotaal",
+      "discount": "Korting",
+      "order_summary": "Bestellingsoverzicht",
+      "shipping_note": "Verzendkosten en belastingen worden berekend bij het afrekenen.",
+      "checkout": "Afrekenen",
+      "update": "Winkelwagen bijwerken",
+      "continue_shopping": "Verder winkelen",
+      "remove": "Verwijderen",
+      "empty_title": "Uw winkelwagen is leeg",
+      "empty_message": "Het lijkt erop dat u nog niets aan uw winkelwagen heeft toegevoegd. Bekijk onze producten en vind iets dat u bevalt.",
+      "quantity_label": "Aantal voor {{ product }}",
+      "increase": "Verhoog aantal voor {{ product }}",
+      "decrease": "Verlaag aantal voor {{ product }}",
+      "discounts": "Kortingen"
     }
   },
   "products": {
