@@ -12,4 +12,22 @@
 
 {%- if page_description -%}
   <meta name="description" content="{{ page_description | escape }}">
+{%- else -%}
+  {%- comment -%} Fallback meta descriptions for pages without one set in admin {%- endcomment -%}
+  {%- if template == 'page' -%}
+    {%- case page.handle -%}
+      {%- when 'over-ons' -%}
+        <meta name="description" content="Maak kennis met Loopzo. Loopfietsen voor volwassenen, ontwikkeld in Nederland. 10 jaar framegarantie, persoonlijk contact en service na aankoop.">
+      {%- when 'contact' -%}
+        <meta name="description" content="Neem contact op met Loopzo. Bel 0182 239 021, mail info@loopzo.nl of bezoek onze showroom in Moordrecht. Reactie binnen 1 werkdag.">
+      {%- when 'dealers' -%}
+        <meta name="description" content="Word dealer van Loopzo. Ontdek onze samenwerkingsmogelijkheden voor fysieke winkels en zorginstellingen.">
+      {%- when 'garantie' -%}
+        <meta name="description" content="Loopzo garantie: 10 jaar framegarantie na registratie en 2 jaar op alle onderdelen. Registreer uw fiets voor uitgebreide dekking.">
+      {%- else -%}
+        <meta name="description" content="{{ shop.name }} — {{ page_title | escape }}">
+    {%- endcase -%}
+  {%- elsif template == 'collection' -%}
+    <meta name="description" content="Bekijk het assortiment {{ collection.title | escape }} bij {{ shop.name }}. Loopfietsen en accessoires voor volwassenen.">
+  {%- endif -%}
 {%- endif -%}

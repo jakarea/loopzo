@@ -211,6 +211,29 @@ window.toggleFAQ = toggleFAQ;
 window.filterFAQ = filterFAQ;
 </script>
 
+{%- comment -%} SEO: FAQPage JSON-LD for rich snippets {%- endcomment -%}
+{%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+{%- if faq_blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in faq_blocks -%}
+    {
+      "@type": "Question",
+      "name": "{{ block.settings.question | escape }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ block.settings.answer | strip_html | strip_newlines | escape }}"
+      }
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "FAQ Section",

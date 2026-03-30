@@ -201,6 +201,116 @@
       <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
     {%- endunless -%}
 
+    {%- comment -%} SEO: LocalBusiness + Organization JSON-LD (global, non-product pages) {%- endcomment -%}
+    {%- unless template == 'product' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "{{ shop.url }}/#organization",
+      "name": "Loopzo",
+      "url": "{{ shop.url }}",
+      "logo": "{{ 'loopzo_dark_logo.png' | asset_url }}",
+      "image": "{{ 'loopzo_dark_logo.png' | asset_url }}",
+      "description": "{{ shop.description | default: 'Loopzo - Loopfietsen voor volwassenen. Ontworpen in Nederland voor veilig, comfortabel en actief gebruik.' | escape }}",
+      "telephone": "+31-182-239-021",
+      "email": "info@loopzo.nl",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Zuidbaan 548H",
+        "addressLocality": "Moordrecht",
+        "postalCode": "2841MD",
+        "addressCountry": "NL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 52.015416,
+        "longitude": 4.657943
+      },
+      "vatID": "NL004158990B08",
+      "taxID": "85858552",
+      "priceRange": "$$",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "description": "Op afspraak",
+        "comment": "Bezoek op afspraak. Buiten openingstijden mogelijk na telefonische afspraak."
+      },
+      "sameAs": [
+        {%- if settings.social_facebook_link != blank -%}"{{ settings.social_facebook_link }}"{%- endif -%}
+        {%- if settings.social_instagram_link != blank -%}{%- if settings.social_facebook_link != blank -%},{% endif %}"{{ settings.social_instagram_link }}"{%- endif -%}
+        {%- if settings.social_youtube_link != blank -%}{%- if settings.social_facebook_link != blank or settings.social_instagram_link != blank -%},{% endif %}"{{ settings.social_youtube_link }}"{%- endif -%}
+        {%- if settings.social_tiktok_link != blank -%}{%- if settings.social_facebook_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank -%},{% endif %}"{{ settings.social_tiktok_link }}"{%- endif -%}
+        {%- if settings.social_twitter_link != blank -%}{%- if settings.social_facebook_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_tiktok_link != blank -%},{% endif %}"{{ settings.social_twitter_link }}"{%- endif -%}
+      ]
+    }
+    </script>
+    {%- endunless -%}
+
+    {%- comment -%} SEO: BreadcrumbList JSON-LD (global, dynamic) {%- endcomment -%}
+    {%- unless template == 'index' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "{{ 'general.breadcrumbs.home' | t }}",
+          "item": "{{ shop.url }}"
+        }{%- if template == 'product' -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ 'products.product.products' | t }}",
+          "item": "{{ shop.url }}/collections/all"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ product.title | escape }}",
+          "item": "{{ shop.url }}{{ product.url }}"
+        }
+        {%- elsif template == 'collection' -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ collection.title | escape }}",
+          "item": "{{ shop.url }}{{ collection.url }}"
+        }
+        {%- elsif template == 'page' -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ page.title | escape }}",
+          "item": "{{ shop.url }}{{ page.url }}"
+        }
+        {%- elsif template == 'blog' -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ blog.title | escape }}",
+          "item": "{{ shop.url }}{{ blog.url }}"
+        }
+        {%- elsif template == 'article' -%},
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{ blog.title | escape }}",
+          "item": "{{ shop.url }}{{ blog.url }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ article.title | escape }}",
+          "item": "{{ shop.url }}{{ article.url }}"
+        }
+        {%- endif -%}
+      ]
+    }
+    </script>
+    {%- endunless -%}
+
     <!-- 📊 Web Vitals Monitoring & Performance -->
     <script>
       // Design Mode Detection

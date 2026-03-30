@@ -110,7 +110,7 @@
   function renderRelatedProducts(products) {
     var html = '<div style="margin-top:0.5rem;background:#f8fafc;border-radius:0.75rem;padding:1rem;">' +
       '<p style="font-size:0.8125rem;font-weight:700;color:#0f172a;margin:0 0 0.875rem;">' + (t.you_might_also_like || 'Complete your ride') + '</p>' +
-      '<div style="display:flex;gap:0.75rem;">';
+      '<div style="display:flex;gap:0.75rem;align-items:stretch;">';
 
     for (var i = 0; i < products.length; i++) {
       var p = products[i];
@@ -121,7 +121,7 @@
       var variantId = p.variant_id || '';
       var onSale = comparePrice > p.price;
 
-      html += '<div style="flex:1;min-width:0;text-align:center;">';
+      html += '<div style="flex:1;min-width:0;text-align:center;display:flex;flex-direction:column;">';
       // Image
       if (imgSrc) {
         html += '<div style="width:6rem;height:6rem;margin:0 auto;overflow:hidden;border-radius:0.625rem;border:1px solid #e2e8f0;background:#fff;"><img src="' + escapeHtml(imgSrc) + '" alt="' + title + '" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>';
@@ -139,12 +139,14 @@
         html += '<span style="font-size:0.8rem;font-weight:700;color:#0f172a;">' + price + '</span>';
       }
       html += '</div>';
-      // Button
+      // Button (pushed to bottom)
+      html += '<div style="margin-top:auto;">';
       if (variantId && p.available) {
         html += '<button type="button" class="drawer-related-add" data-variant-id="' + variantId + '" style="width:100%;font-size:0.7rem;font-weight:700;color:#fff;background:#16a34a;border:none;border-radius:0.5rem;padding:0.5rem 0;cursor:pointer;letter-spacing:0.02em;">' + (t.add || 'Voeg toe') + '</button>';
       } else {
         html += '<span style="font-size:0.7rem;color:#94a3b8;font-weight:500;">' + (t.sold_out || 'Uitverkocht') + '</span>';
       }
+      html += '</div>';
       html += '</div>';
     }
 

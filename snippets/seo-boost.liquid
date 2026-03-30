@@ -87,3 +87,10 @@ Enhanced SEO snippet for Loopzo theme
     <link rel="alternate" hreflang="{{ locale.iso_code }}" href="{{ canonical_url | replace: request.locale.iso_code, locale.iso_code }}">
   {%- endif -%}
 {%- endfor -%}
+
+{%- comment -%}og:image fallback for pages without a specific image{%- endcomment -%}
+{%- if template == 'page' -%}
+  <meta property="og:image" content="{{ 'loopzo_dark_logo.png' | asset_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+{%- endif -%}

@@ -63,7 +63,9 @@
           {%- if product.featured_media -%}
             {%- for media in product.media -%}
               <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: {% if forloop.first %}1{% else %}0{% endif %};">
-                {% render 'product-media', media: media, class: 'w-full h-full object-contain' %}
+                {%- assign img_loading = 'lazy' -%}
+                {%- if forloop.first -%}{%- assign img_loading = 'eager' -%}{%- endif -%}
+                {% render 'product-media', media: media, class: 'w-full h-full object-contain', loading_attr: img_loading %}
               </div>
             {%- endfor -%}
           {%- else -%}
@@ -455,6 +457,44 @@
 <script type="application/ld+json">
   {{ product | structured_data }}
 </script>
+
+{%- comment -%} SEO: AggregateRating + Review JSON-LD for rich snippets {%- endcomment -%}
+{%- if review_count > 0 and average_rating > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "{{ shop.url }}{{ product.url }}#product",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ average_rating }}",
+    "reviewCount": "{{ review_count }}",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {%- for review in reviews_list limit: 5 -%}
+    {
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": "{{ review.name | escape }}"
+      },
+      "datePublished": "{{ review.date | date: '%Y-%m-%d' }}",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "{{ review.rating | plus: 0 }}",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "name": "{{ review.title | default: product.title | escape }}",
+      "reviewBody": "{{ review.content | strip_html | strip_newlines | escape }}"
+    }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
 
 <script>
 let currentSlide = 1;

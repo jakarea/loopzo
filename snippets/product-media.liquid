@@ -4,10 +4,14 @@
   Accepts:
   - media: {Object} Product Media object
   - class: {String} CSS classes (optional)
+  - loading_attr: {String} "eager" or "lazy" (optional, default: "lazy")
 
   Usage:
   {% render 'product-media', media: media, class: 'w-full h-full object-contain' %}
+  {% render 'product-media', media: media, class: 'w-full h-full object-contain', loading_attr: 'eager' %}
 {% endcomment %}
+
+{%- assign loading_val = loading_attr | default: 'lazy' -%}
 
 {%- if media.media_type == 'image' -%}
   <img
@@ -23,7 +27,8 @@
     sizes="(min-width: 1024px) 50vw, 100vw"
     src="{{ media.preview_image | image_url: width: 1100 }}"
     alt="{{ media.alt | default: media.preview_image.alt | escape }}"
-    loading="lazy"
+    loading="{{ loading_val }}"
+    {%- if loading_val == 'eager' -%} fetchpriority="high"{%- endif -%}
     width="{{ media.preview_image.width }}"
     height="{{ media.preview_image.height }}"
     class="{{ class }}"
