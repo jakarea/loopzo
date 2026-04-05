@@ -14,7 +14,7 @@
                         height="100%"
                         style="border:0; min-height: 500px;"
                         allowfullscreen=""
-                        loading="lazy"
+                        
                         referrerpolicy="no-referrer-when-downgrade"
                         title="{{ section.settings.map_title }}">
                     </iframe>
@@ -32,12 +32,18 @@
 
                     <!-- Image -->
                     {% if section.settings.showroom_image != blank %}
-                    <div class="mb-6 rounded-2xl overflow-hidden shadow-lg">
-                        <img src="{{ section.settings.showroom_image | img_url: 'master' }}"
-                             alt="{{ section.settings.showroom_image_alt }}"
-                             class="w-full h-auto object-cover"
-                             loading="lazy">
+                    <div class="mb-6 rounded-2xl overflow-hidden shadow-lg" style="background: transparent;">
+                      {% if section.settings.showroom_image != blank %}
+                        {{ section.settings.showroom_image | image_url: width: 1200 | image_tag: 
+                          class: 'w-full h-auto object-cover',
+                          loading: 'lazy',
+                          decoding: 'async',
+                          style: 'background-color: transparent !important; display: block;',
+                          alt: section.settings.showroom_image_alt | default: 'Showroom Image'
+                        }}
+                      {% endif %}
                     </div>
+
                     {% else %}
                     <div class="mb-6 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-slate-100 to-slate-200">
                         <div class="w-full aspect-[4/3] flex items-center justify-center">

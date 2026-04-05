@@ -35,43 +35,22 @@
     },
     "loopzo-footer": {
       "type": "loopzo-footer",
-      "blocks": {
-        "nav_column_j7VEJx": {
-          "type": "nav_column",
-          "settings": {
-            "heading": "Support",
-            "menu": "main-menu"
-          }
-        },
-        "nav_column_4AMAwf": {
-          "type": "nav_column",
-          "settings": {
-            "heading": "Support",
-            "menu": "info-menu"
-          }
-        }
-      },
-      "block_order": [
-        "nav_column_j7VEJx",
-        "nav_column_4AMAwf"
-      ],
       "settings": {
         "footer_logo": "shopify://shop_images/loopzo_light_square_logo.png",
         "logo_alt_text": "Loopzo Logo",
         "about_text_heading": "Over ons",
         "about_text": "<p>Loopzo biedt hoogwaardige loopfietsen voor volwassenen en senioren. Onze fietsen zijn ontworpen voor extra stabiliteit, comfort en bewegingsvrijheid.</p><p>Met aandacht voor detail en Nederlandse vakmanschap garanderen wij kwaliteit en betrouwbaarheid.</p>",
+        "menu_1_heading": "Pagina's",
+        "menu_1": "menu-1",
+        "menu_2_heading": "Klantenservice",
+        "menu_2": "menu-2",
+        "menu_3_heading": "Bedrijf",
+        "menu_3": "menu-3",
         "show_rating": true,
         "rating_value": 5,
         "rating_text": "Gebaseerd op 25+ reviews",
         "reviews_link": "",
-        "reviews_text": "Bekijk reviews",
-        "show_social": true,
-        "follow_us_text": "Volg ons:",
-        "facebook_link": "https://fb.com",
-        "instagram_link": "https://instagram.com",
-        "twitter_link": "https://x.com",
-        "linkedin_link": "https://linkedin.com",
-        "youtube_link": "https://youtube.com"
+        "reviews_text": "Bekijk reviews"
       }
     }
   },

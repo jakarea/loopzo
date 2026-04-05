@@ -1,4 +1,18 @@
-<section class="history_section bg-slate-50" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="history_section bg-slate-50 section-{{ section.id }}-padding">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- H1: Main Heading -->
@@ -24,16 +38,25 @@
             <!-- Left: Image -->
             <div class="order-2 lg:order-1">
                 {% if section.settings.history_image != blank %}
+                
+
                 <figure>
-                    <div class="rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="{{ section.settings.history_image | img_url: '600x450' }}"
-                            alt="{{ section.settings.history_image.alt | default: 'Loopzo manufacturing facility - Handcrafted adaptive bicycles production' }}"
-                            class="w-full h-auto object-cover aspect-[4/3]"
-                            loading="lazy"
-                            width="600"
-                            height="450">
-                    </div>
-                </figure>
+                  <div class="rounded-3xl overflow-hidden shadow-2xl" style="background: transparent;">
+                      {% if section.settings.history_image != blank %}
+                          {%- assign image = section.settings.history_image -%}
+                          {{ image | image_url: width: 800 | image_tag: 
+                              class: 'w-full h-auto object-cover aspect-[4/3]',
+                              loading: 'lazy',
+                              decoding: 'async',
+                              style: 'background-color: transparent !important; display: block;',
+                              alt: section.settings.history_image.alt | default: 'Loopzo manufacturing facility - Handcrafted adaptive bicycles production'
+                          }}
+                      {% else %}
+                          {{ 'image' | placeholder_svg_tag: 'w-full h-auto aspect-[4/3] bg-slate-100' }}
+                      {% endif %}
+                  </div>
+              </figure>
+
                 {% endif %}
             </div>
 
@@ -61,18 +84,24 @@
                     </div>
                     {% endif %}
 
+
                     {% if section.settings.history_link_text != blank and section.settings.history_link_url != blank %}
-                    <a id="btnsubmitstory" href="{{ section.settings.history_link_url }}" class="inline-flex items-center text-slate-900 font-semibold text-base hover:text-slate-700 transition-colors group">
-                        {{ section.settings.history_link_text }}
-                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  
+                    <a href="{{ section.settings.history_link_url | default: '#' }}"
+                        class="group inline-flex items-center gap-2 bg-slate-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 ease-in-out hover:bg-slate-800 text-sm sm:text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 mt-10">
+                        <span>{{ section.settings.history_link_text }}</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                     </a>
-                    {% endif %}
+               {% endif %}
+                    
                 </div>
             </article>
         </div>
 
+        
         <!-- CTA -->
         {% if section.settings.show_cta %}
         <div class="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-slate-200">

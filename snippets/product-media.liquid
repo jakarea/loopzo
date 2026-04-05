@@ -64,7 +64,7 @@
   <img
     src="{{ media.preview_image | image_url: width: 1100 }}"
     alt="{{ media.alt | default: media.preview_image.alt | escape }}"
-    loading="lazy"
+    
     class="{{ class }}"
   >
 {%- endif -%}

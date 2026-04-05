@@ -41,22 +41,37 @@
                     <div class="aspect-square relative">
                         {% if product.images.size > 0 %}
                             {% for image in product.images limit: 4 %}
-                            <!-- Slide {{ forloop.index }} -->
-                            <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out"
-                                data-slide="{{ forloop.index }}" {% if forloop.first %}style="opacity: 1;"{% else %}style="opacity: 0;"{% endif %}>
-                                <img src="{{ image | image_url: width: 800 }}"
-                                    alt="{{ image.alt | default: product.title }}"
-                                    class="w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-105"
-                                    loading="lazy"
-                                    width="800"
-                                    height="800">
-                            </div>
+                                <!-- Slide {{ forloop.index }} -->
+                                <div class="slider-image absolute inset-0 transition-opacity duration-700 ease-in-out"
+                                    data-slide="{{ forloop.index }}" 
+                                    style="opacity: {% if forloop.first %}1{% else %}0{% endif %}; background: transparent;">
+                                    
+                                    {%- liquid
+                                    # প্রথম ইমেজের জন্য eager (দ্রুত), পরের গুলোর জন্য lazy লোডিং
+                                    assign loading_type = 'lazy'
+                                    assign fetch_priority = 'auto'
+                                    if forloop.first
+                                        assign loading_type = 'eager'
+                                        assign fetch_priority = 'high'
+                                    endif
+                                    -%}
+
+                                    {{ image | image_url: width: 800 | image_tag: 
+                                        class: 'w-full h-full object-cover cursor-zoom-in transition-transform duration-300 group-hover:scale-105',
+                                        loading: loading_type,
+                                        fetchpriority: fetch_priority,
+                                        decoding: 'async',
+                                        style: 'background-color: transparent !important;',
+                                        alt: image.alt | default: product.title
+                                    }}
+                                </div>
                             {% endfor %}
                         {% else %}
                             <div class="slider-image absolute inset-0">
-                                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-transparent' }}
                             </div>
                         {% endif %}
+
 
                         <!-- Zoom Icon -->
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -89,15 +104,23 @@
 
                 <!-- Thumbnail Images -->
                 {% if product.images.size > 1 %}
-                <div class="grid grid-cols-4 gap-2 sm:gap-3">
-                    {% for image in product.images limit: 4 %}
-                    <button onclick="showSlide({{ forloop.index }})"
-                        class="h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent{% endif %} hover:border-slate-600 transition">
-                        <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title }}"
-                            class="w-full h-full object-cover">
-                    </button>
-                    {% endfor %}
-                </div>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-3">
+                        {% for image in product.images limit: 4 %}
+                            <button onclick="showSlide({{ forloop.index }})"
+                                class="h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent{% endif %} hover:border-slate-600 transition"
+                                style="background: transparent;">
+                                
+                                {{ image | image_url: width: 200 | image_tag: 
+                                    class: 'w-full h-full object-cover',
+                                    loading: 'lazy',
+                                    decoding: 'async',
+                                    style: 'background-color: transparent !important; display: block;',
+                                    alt: image.alt | default: product.title | append: ' thumbnail'
+                                }}
+                            </button>
+                        {% endfor %}
+                    </div>
+
                 {% endif %}
 
                 <!-- Trust Badges -->
@@ -247,19 +270,30 @@
                     <div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg p-4 border border-slate-200">
                         <div class="flex items-start gap-3">
                             <!-- Profile Image -->
-                            <div class="relative flex-shrink-0">
-                                {% if section.settings.advisor_image %}
-                                <img src="{{ section.settings.advisor_image | image_url: width: 100 }}"
-                                     alt="{{ section.settings.advisor_name }}"
-                                     class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white">
+                            <div class="relative flex-shrink-0" style="background: transparent;">
+                                {% if section.settings.advisor_image != blank %}
+                                    {%- assign image = section.settings.advisor_image -%}
+                                    {{ image | image_url: width: 128 | image_tag: 
+                                        class: 'w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white',
+                                        loading: 'lazy',
+                                        decoding: 'async',
+                                        style: 'background-color: transparent !important; display: block;',
+                                        alt: section.settings.advisor_name | default: 'Advisor Profile'
+                                    }}
                                 {% else %}
-                                <img src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Photos.png"
-                                     alt="{{ section.settings.advisor_name }}"
-                                     class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white">
+                                    <img src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Photos.png"
+                                        alt="{{ section.settings.advisor_name | default: 'User Avatar' }}"
+                                        width="64"
+                                        height="64"
+                                        loading="lazy"
+                                        class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
+                                        style="background: transparent;">
                                 {% endif %}
+                                
                                 <!-- Online Status -->
                                 <div class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
                             </div>
+
 
                             <!-- Advisor Info -->
                             <div class="flex-1">
@@ -458,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "text",
       "id": "whatsapp_link",
       "label": "WhatsApp link",
-      "default": "https://wa.me/31315257370"
+      "default": "https://wa.me/31857444354?text=Hi%2C%20Ik%20ben%20ge%C3%AFnteresseerd%20in%20een%20Loopzo%20loopfiets%20voor%20volwassenen."
     },
     {
       "type": "text",

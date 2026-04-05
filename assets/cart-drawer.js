@@ -124,7 +124,7 @@
       html += '<div style="flex:1;min-width:0;text-align:center;display:flex;flex-direction:column;">';
       // Image
       if (imgSrc) {
-        html += '<div style="width:6rem;height:6rem;margin:0 auto;overflow:hidden;border-radius:0.625rem;border:1px solid #e2e8f0;background:#fff;"><img src="' + escapeHtml(imgSrc) + '" alt="' + title + '" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy"></div>';
+        html += '<div style="width:6rem;height:6rem;margin:0 auto;overflow:hidden;border-radius:0.625rem;border:1px solid #e2e8f0;background:#fff;"><img src="' + escapeHtml(imgSrc) + '" alt="' + title + '" style="width:100%;height:100%;object-fit:cover;display:block;" ></div>';
       } else {
         html += '<div style="width:6rem;height:6rem;margin:0 auto;background:#e2e8f0;border-radius:0.625rem;display:flex;align-items:center;justify-content:center;"><svg style="width:1.75rem;height:1.75rem;color:#cbd5e1;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272"/></svg></div>';
       }
@@ -160,7 +160,7 @@
     try {
       var imgUrl = getItemImage(item);
       var img = imgUrl
-        ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(item.title || item.product_title) + '" style="width:100%;height:100%;object-fit:cover;" loading="lazy" width="200" height="200">'
+        ? '<img src="' + escapeHtml(imgUrl) + '" alt="' + escapeHtml(item.title || item.product_title) + '" style="width:100%;height:100%;object-fit:cover;"  width="200" height="200">'
         : '<div style="width:100%;height:100%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;"><svg style="width:2rem;height:2rem;color:#cbd5e1;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272"/></svg></div>';
 
       var title = escapeHtml(item.product_title || item.title || '');

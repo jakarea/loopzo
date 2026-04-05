@@ -1,4 +1,18 @@
-<section class="thuja_ebike_section" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="thuja_ebike_section section-{{ section.id }}-padding">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="rounded-2xl overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-2">
@@ -36,24 +50,28 @@
                 </div>
 
                 <!-- Right: Image -->
-                <div class="relative h-72 sm:h-80 lg:h-auto">
-                    {% if section.settings.product_image != blank %}
-                    <img src="{{ section.settings.product_image | img_url: '800x600' }}"
+                <div class="relative h-72 sm:h-80 lg:h-96 overflow-hidden" style="background: transparent;">
+                  {% if section.settings.product_image != blank %}
+                      {%- assign image = section.settings.product_image -%}
+                      {{ image | image_url: width: 1000 | image_tag: 
+                          class: 'w-full h-full object-cover',
+                          loading: 'lazy',
+                          decoding: 'async',
+                          style: 'background-color: transparent !important; object-position: center;',
+                          alt: section.settings.image_alt_text | default: section.settings.section_title
+                      }}
+                  {% else %}
+                      {%- comment -%} Asset ইমেজের ক্ষেত্রেও width/height এবং loading="lazy" দিতে হবে {%- endcomment -%}
+                      <img src="{{ 'loopzo_logistic.png' | asset_url }}"
                           alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
-                          class="w-full h-full object-cover"
-                          loading="lazy"
                           width="800"
-                          height="600">
-                    {% else %}
-                    <img src="{{ 'loopzo_logistic.png' | asset_url }}"
-                          alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
-                          class="w-full h-full object-cover"
+                          height="600"
                           loading="lazy"
-                          width="800"
-                          height="600">
-                    {% endif %}
-                </div>
-
+                          decoding="async"
+                          class="w-full h-full object-cover"
+                          style="background: transparent !important;">
+                  {% endif %}
+              </div>
             </div>
         </div>
     </div>
@@ -130,7 +148,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 48
+      "default": 64
     },
     {
       "type": "range",

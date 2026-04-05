@@ -1,245 +1,200 @@
-{% comment %}
-  Loopzo Collection / All Products Section
-  - Used by `collection` and `list-collections` templates
-  - Follows Loopzo Tailwind design and hierarchy
-  - Shows all products in a responsive grid with pricing, stock and CTA
-{% endcomment %}
-
-
-
-{% comment %}
-  collection header
-{% endcomment %}
-
+{% comment %} Collection Header {% endcomment %}
 <div class="collect_header">
-
-<div class="max-w-7xl mx-auto px-4"> 
-  <div class="grid">
-    <div class="grid-cols-1"> 
-<div class="desktop-display">
-    <h1> {{ collection.title }}</h1>
-    <p>
-      {{ collection.metafields.custom.header_title_descriptions }}
-      </p>
-
-  </div>
-
-</div>
+  <div class="max-w-7xl mx-auto px-4 relative hero-height">
+    <div class="grid grid-cols-1">
+      <div class="desktop-display">
+        <h1>{{ collection.title }}</h1>
+        <p>{{ collection.metafields.custom.header_title_descriptions }}</p>
+      </div>
+    </div>
+    <div class="absolute right-0 bottom-0 z-40 h-full w-full flex justify-end hero-image-wrapper">
+      <img src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/Man_image.webp?v=1775055181" class="object-contain " alt="Loopzo collection" >
+    </div>
   </div>
 </div>
 
-</div>
-
-
-{%- if template contains 'list-collections' -%}
-  {%- assign current_collection = collections['all'] -%}
-{%- else -%}
-  {%- assign current_collection = collection -%}
-{%- endif -%}
 
 
 
-<section class="bg-white py-10 sm:py-14 md:py-16" id="collection-products">
+
+{% if template contains 'list-collections' %}
+  {% assign current_collection = collections['all'] %}
+{% else %}
+  {% assign current_collection = collection %}
+{% endif %}
+
+<section class="bg-white pt-8 sm:pt-16 md:pt-20 pb-10 sm:pb-14 md:pb-16" id="collection-products">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    {%- comment -%} Breadcrumb {%- endcomment -%}
-    <nav class="flex items-center gap-2 text-sm mb-6 sm:mb-8" aria-label="Breadcrumb">
+    {% comment %} Breadcrumb {% endcomment %}
+    <nav class="flex items-center gap-2 text-lg mb-6 sm:mb-8" aria-label="Breadcrumb">
       <a href="{{ routes.root_url }}" class="text-slate-600 hover:text-slate-900 transition">
         {{ 'general.breadcrumbs.home' | t }}
       </a>
+
       <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
+
       <a href="{{ routes.all_products_collection_url }}" class="text-slate-600 hover:text-slate-900 transition">
         {{ 'products.product.products' | t }}
       </a>
-      {%- if current_collection -%}
+
+      {% if current_collection %}
         <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
+
         <span class="text-slate-900 font-medium">
           {{ current_collection.title }}
         </span>
-      {%- endif -%}
+      {% endif %}
     </nav>
 
-    {%- if current_collection -%}
-      {%- comment -%} Header / Hero {%- endcomment -%}
-      <div class="mb-8 sm:mb-10 md:mb-12">
-       {% comment %}
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
-          {{ current_collection.title }}
-        </h1>
-       {% endcomment %}
+    {% if current_collection %}
 
-        {%- if current_collection.description != blank -%}
-          <div class="mt-3 sm:mt-4 text-sm sm:text-base text-slate-700 max-w-3xl prose prose-slate">
+      {% comment %} Description {% endcomment %}
+      <div class="mb-8 sm:mb-10 md:mb-12">
+        {% if current_collection.description != blank %}
+          <div class="mt-3lg sm:text-base text-slate-700 max-w-3xl prose prose-slate">
             {{ current_collection.description }}
           </div>
-        {%- elsif template contains 'list-collections' -%}
-          <p class="mt-3 sm:mt-4 text-sm sm:text-base text-slate-700 max-w-3xl">
-            Ontdek al onze Loopzo producten in één overzicht. Kies het model dat het beste bij uw dagelijkse gebruik en mobiliteit past.
+        {% elsif template contains 'list-collections' %}
+          <p class="mt-3 text-sm sm:text-base text-slate-700 max-w-3xl">
+            Ontdek al onze Loopzo producten in één overzicht.
           </p>
-        {%- endif -%}
+        {% endif %}
       </div>
 
-      {%- paginate current_collection.products by 12 -%}
-        {%- if current_collection.products_count > 0 -%}
+      {% paginate current_collection.products by 12 %}
+        {% if current_collection.products_count > 0 %}
+
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {%- for product in current_collection.products -%}
-              <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-200" style="display:flex;flex-direction:column;">
-                <a href="{{ product.url }}" style="display:block;position:relative;background:#f8fafc;">
-                  <div style="aspect-ratio:1/1;width:100%;overflow:hidden;">
-                    {%- if product.featured_media -%}
-                      <div style="width:100%;height:100%;">
-                        {% render 'product-media', media: product.featured_media, class: 'w-full h-full' %}
-                      </div>
-                    {%- else -%}
-                      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f1f5f9;">
+
+            {% for product in current_collection.products %}
+              <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 hover:border-slate-300 hover:shadow-lg transition flex flex-col">
+
+                <a href="{{ product.url }}" class="block relative bg-slate-50">
+                  <div class="aspect-square w-full overflow-hidden">
+
+                    {% if product.featured_media %}
+                      {% render 'product-media', media: product.featured_media, class: 'w-full h-full' %}
+                    {% else %}
+                      <div class="flex items-center justify-center w-full h-full bg-slate-100">
                         {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 text-slate-300' }}
                       </div>
-                    {%- endif -%}
+                    {% endif %}
+
                   </div>
 
-                  {%- assign compare_at_price = product.selected_or_first_available_variant.compare_at_price -%}
-                  {%- assign price = product.selected_or_first_available_variant.price -%}
+                  {% assign compare = product.selected_or_first_available_variant.compare_at_price %}
+                  {% assign price = product.selected_or_first_available_variant.price %}
 
-                  {%- if compare_at_price > price -%}
-                    <div class="absolute top-3 left-3 z-10 bg-red-500 text-white px-2.5 py-1 rounded-full text-xs font-semibold shadow">
+                  {% if compare > price %}
+                    <div class="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 text-xs rounded-full">
                       {{ 'products.product.sale_badge' | t }}
                     </div>
-                  {%- endif -%}
+                  {% endif %}
 
-                  {%- if product.available == false -%}
-                    <div class="absolute top-3 right-3 z-10 bg-slate-800/85 text-white px-2.5 py-1 rounded-full text-xs font-semibold shadow">
+                  {% unless product.available %}
+                    <div class="absolute top-3 right-3 bg-slate-800/85 text-white px-2 py-1 text-xs rounded-full">
                       {{ 'products.product.sold_out' | t }}
                     </div>
-                  {%- endif -%}
+                  {% endunless %}
+
                 </a>
 
-                <div style="display:flex;flex-direction:column;flex:1;padding:1rem 1.25rem;">
-                  <h2 style="font-size:1.125rem;font-weight:600;color:#0f172a;line-height:1.4;margin-bottom:0.5rem;min-height:3.5rem;">
-                    <a href="{{ product.url }}" style="color:inherit;text-decoration:none;">
+                <div class="p-4 flex flex-col flex-1">
+
+                  <h2 class="text-lg font-semibold text-slate-900 mb-2 min-h-[56px] leading-snug">
+                    <a href="{{ product.url }}" class="hover:underline">
                       {{ product.title | escape }}
                     </a>
                   </h2>
 
-                  <div style="margin-bottom:0.75rem;min-height:2rem;">
+                  <div class="mb-3">
                     {% render 'price',
                       product: product,
                       use_variant: true,
                       show_badges: true,
-                      price_class: 'text-2xl font-bold text-slate-900'
+                      price_class: 'text-xl font-bold text-slate-900'
                     %}
                   </div>
 
-                  <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;font-size:0.75rem;color:#475569;">
-                    {%- if product.available -%}
-                      <span style="display:inline-flex;align-items:center;gap:0.25rem;">
-                        <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#10b981;"></span>
-                        <span>{{ 'products.product.stock.in_stock' | t }}</span>
+                  <div class="text-xs mb-4 flex items-center gap-2 text-slate-600">
+                    {% if product.available %}
+                      <span class="flex items-center gap-1">
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                        {{ 'products.product.stock.in_stock' | t }}
                       </span>
-                    {%- else -%}
-                      <span style="display:inline-flex;align-items:center;gap:0.25rem;">
-                        <span style="width:0.5rem;height:0.5rem;border-radius:50%;background:#ef4444;"></span>
-                        <span>{{ 'products.product.stock.out_of_stock' | t }}</span>
+                    {% else %}
+                      <span class="flex items-center gap-1">
+                        <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                        {{ 'products.product.stock.out_of_stock' | t }}
                       </span>
-                    {%- endif -%}
+                    {% endif %}
                   </div>
 
-                  <div style="margin-top:auto;">
-                    <a
-                      href="{{ product.url }}"
-                      style="display:flex;width:100%;align-items:center;justify-content:center;gap:0.5rem;border-radius:0.5rem;border:2px solid #334155;background:#334155;color:#fff;font-weight:600;padding:0.625rem 1rem;font-size:0.9375rem;text-decoration:none;transition:background 0.15s;"
-                    >
-                      <span>{{ 'products.product.view_details' | t }}</span>
-                      <svg style="width:1rem;height:1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                      </svg>
-                    </a>
-                  </div>
+                  <a href="{{ product.url }}"
+                     class="mt-auto text-center bg-slate-800 text-white py-2 px-4 rounded-lg font-medium hover:bg-slate-700 transition">
+                    {{ 'products.product.view_details' | t }}
+                  </a>
+
                 </div>
+
               </article>
-            {%- endfor -%}
+            {% endfor %}
+
           </div>
 
-          {%- if paginate.pages > 1 -%}
-            <nav class="mt-10 flex items-center justify-between text-sm text-slate-700" role="navigation" aria-label="Paginatie">
-              <div>
-                {%- if paginate.previous -%}
-                  <a href="{{ paginate.previous.url }}" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                    <span>Vorige</span>
-                  </a>
-                {%- endif -%}
-              </div>
+          {% if paginate.pages > 1 %}
+            <div class="mt-10 flex justify-between items-center text-sm">
 
-              <div class="flex items-center gap-1">
-                <span class="px-3 py-1 rounded-full bg-slate-900 text-white font-medium">
-                  {{ paginate.current_page }}
-                </span>
-                <span class="text-slate-500">
-                  / {{ paginate.pages }}
-                </span>
-              </div>
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="px-3 py-2 border rounded hover:bg-slate-50">
+                  ← Previous
+                </a>
+              {% endif %}
 
-              <div class="text-right">
-                {%- if paginate.next -%}
-                  <a href="{{ paginate.next.url }}" class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition">
-                    <span>Volgende</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                {%- endif -%}
-              </div>
-            </nav>
-          {%- endif -%}
-        {%- else -%}
-          <div class="bg-slate-50 border border-dashed border-slate-300 rounded-2xl px-6 py-10 sm:px-8 text-center">
-            <h2 class="text-xl font-semibold text-slate-900 mb-2">
-              Geen producten gevonden
-            </h2>
-            <p class="text-sm text-slate-600 max-w-xl mx-auto">
-              Er zijn momenteel geen producten beschikbaar in deze collectie. Probeer een andere categorie of neem contact met ons op voor persoonlijk advies.
-            </p>
+              <span class="font-medium">
+                {{ paginate.current_page }} / {{ paginate.pages }}
+              </span>
+
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="px-3 py-2 border rounded hover:bg-slate-50">
+                  Next →
+                </a>
+              {% endif %}
+
+            </div>
+          {% endif %}
+
+        {% else %}
+          <div class="text-center py-10">
+            <h2 class="text-lg font-semibold">No products found</h2>
           </div>
-        {%- endif -%}
-      {%- endpaginate -%}
-    {%- else -%}
-      <div class="bg-slate-50 border border-dashed border-slate-300 rounded-2xl px-6 py-10 sm:px-8 text-center">
-        <h2 class="text-xl font-semibold text-slate-900 mb-2">
-          Collectie niet gevonden
-        </h2>
-        <p class="text-sm text-slate-600 max-w-xl mx-auto">
-          We konden deze collectie niet laden. Ga terug naar de <a href="{{ routes.all_products_collection_url }}" class="text-slate-900 underline font-medium">overzichtspagina met alle producten</a>.
-        </p>
+        {% endif %}
+      {% endpaginate %}
+
+    {% else %}
+      <div class="text-center py-10">
+        <h2 class="text-lg font-semibold">Collection not found</h2>
       </div>
-    {%- endif -%}
+    {% endif %}
 
   </div>
 </section>
 
-
+{% comment %} Footer {% endcomment %}
 <div class="collect_footer">
-
-<div class="max-w-7xl mx-auto px-4"> 
-  <div class="grid">
-    <div class="grid-cols-1"> 
-<div class="desktop-display">
-    <h1 style="color:#000">{{ collection.metafields.custom.footer_title }}</h1>
-    <p>
-      {{ collection.metafields.custom.footer_title_descriptions }}
-      </p>
-
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1">
+      <div class="footer-seo-text">
+        <h2 class="text-lg font-semibold text-slate-900 mb-2 min-h-[56px] leading-snug mt-6">{{ collection.metafields.custom.footer_title }}</h2>
+        <p>{{ collection.metafields.custom.footer_title_descriptions }}</p>
+      </div>
+    </div>
   </div>
-
-</div>
-  </div>
-</div>
-
 </div>
 
 {% schema %}

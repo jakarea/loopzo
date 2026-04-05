@@ -402,7 +402,21 @@
     }
 </style>
 
-<section class="dealer-point-section bg-slate-50" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="dealer-point-section bg-slate-50 section-{{ section.id }}-padding">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
@@ -421,7 +435,7 @@
                             width="100%" 
                             height="400" 
                             style="width: 100%; height: 400px; object-fit: contain; background: #f8fafc;"
-                            loading="lazy">
+                            >
                     </div>
                 
 
@@ -601,7 +615,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 80
+      "default": 64
     },
     {
       "type": "range",

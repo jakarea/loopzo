@@ -94,18 +94,22 @@
 
             <!-- Right: Logo -->
             <div class="flex items-center justify-center lg:justify-end">
-                {% if section.settings.logo_image != blank %}
-                <img src="{{ section.settings.logo_image | img_url: 'master' }}"
-                     alt="{{ section.settings.logo_alt_text }}"
-                     class="w-full max-w-md h-auto"
-                     loading="lazy">
-                {% else %}
-                <div class="w-full max-w-md h-64 bg-slate-100 rounded-lg flex items-center justify-center">
-                    <span class="text-slate-400">Logo Placeholder</span>
-                </div>
-                {% endif %}
+              {% if section.settings.logo_image != blank %}
+                  {%- assign image = section.settings.logo_image -%}
+                  {{ image | image_url: width: 800 | image_tag: 
+                      class: 'w-full max-w-md h-auto object-contain',
+                      loading: 'eager', 
+                      fetchpriority: 'high',
+                      preload: true,
+                      style: 'background: transparent !important;',
+                      alt: section.settings.logo_alt_text | default: shop.name
+                  }}
+              {% else %}
+                  <div class="w-full max-w-md h-64 bg-slate-100 rounded-lg flex items-center justify-center">
+                      <span class="text-slate-400">Logo Placeholder</span>
+                  </div>
+              {% endif %}
             </div>
-
         </div>
     </div>
 </section>

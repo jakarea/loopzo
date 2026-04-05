@@ -23,7 +23,7 @@
 {%- endstyle -%}
 
 <!-- Featured Product Section -->
-<section class="featured_product_section bg-white pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-20 section-{{ section.id }}-padding">
+<section class="featured_product_section bg-white section-{{ section.id }}-padding">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Section Header -->
@@ -54,7 +54,9 @@
           {%- if product.featured_media -%}
             {%- for media in product.media -%}
               <div class="slider-image-featured absolute inset-0 transition-opacity duration-700 ease-in-out" data-slide="{{ forloop.index }}" style="opacity: {% if forloop.first %}1{% else %}0{% endif %};">
-                {% render 'product-media', media: media, class: 'w-full h-full object-contain' %}
+                {%- assign img_loading_featured = 'lazy' -%}
+                {%- if forloop.first -%}{%- assign img_loading_featured = 'eager' -%}{%- endif -%}
+                {% render 'product-media', media: media, class: 'w-full h-full object-contain', loading_attr: img_loading_featured %}
               </div>
             {%- endfor -%}
           {%- else -%}
@@ -80,12 +82,22 @@
 
         <!-- Thumbnail Images -->
         {%- if product.media.size > 1 -%}
-          <div class="flex gap-2 sm:gap-3">
-            {%- for media in product.media -%}
-              <button onclick="showSlideFeatured({{ forloop.index }})" class="{% if product.media.size <= 4 %}w-1/4{% else %}flex-1 min-w-0{% endif %} h-16 sm:h-20 rounded-lg overflow-hidden border-2 {% if forloop.first %}border-slate-600{% else %}border-transparent hover:border-slate-600{% endif %} transition" data-thumbnail-featured="{{ forloop.index }}">
-                {% render 'product-media', media: media, class: 'w-full h-full object-cover' %}
+          <div style="position:relative;">
+            {%- if product.media.size > 6 -%}
+              <button onclick="scrollThumbsFeatured(-1)" style="position:absolute;left:-8px;top:50%;transform:translateY(-50%);z-index:5;width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.1);" aria-label="Previous thumbnails">
+                <svg style="width:14px;height:14px;" fill="none" stroke="#475569" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
               </button>
-            {%- endfor -%}
+              <button onclick="scrollThumbsFeatured(1)" style="position:absolute;right:-8px;top:50%;transform:translateY(-50%);z-index:5;width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.1);" aria-label="Next thumbnails">
+                <svg style="width:14px;height:14px;" fill="none" stroke="#475569" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            {%- endif -%}
+            <div id="thumb-slider-featured" style="display:flex;gap:0.5rem;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:0 4px;">
+              {%- for media in product.media -%}
+                <button onclick="showSlideFeatured({{ forloop.index }})" style="flex:0 0 auto;width:calc((100% - 2.5rem) / 6);height:4rem;border-radius:0.5rem;overflow:hidden;border:2px solid {% if forloop.first %}#475569{% else %}transparent{% endif %};cursor:pointer;transition:border-color 0.2s;" data-thumbnail-featured="{{ forloop.index }}">
+                  {% render 'product-media', media: media, class: 'w-full h-full object-cover' %}
+                </button>
+              {%- endfor -%}
+            </div>
           </div>
         {%- endif -%}
 
@@ -251,7 +263,7 @@
           {%- endif -%}
         </div>
         {%- endif -%}
-
+ 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-3 mt-8">
           <form method="post" action="/cart/add" id="featured-product-form-{{ section.id }}" class="flex-1">
@@ -276,6 +288,9 @@
           </a>
         </div>
 
+        <!-- Expert Advisor -->
+        {% render 'advisor-card' %} 
+        <!-- Expert Advisor -->
         <!-- Expert Advisor Section -->
         {%- if section.settings.show_advisor -%}
         <div class="mt-6 pt-6 border-t border-gray-200">
@@ -290,7 +305,7 @@
                     src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-user-avatar.png"
                     alt="{{ section.settings.advisor_name | escape }}"
                     class="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white"
-                    loading="lazy"
+                    
                     width="64"
                     height="64"
                   >
@@ -385,21 +400,33 @@ function showSlideFeatured(n) {
 
   thumbnails.forEach((thumb, index) => {
     if ((index + 1) === currentSlideFeatured) {
-      thumb.classList.remove('border-transparent');
-      thumb.classList.add('border-slate-600');
+      thumb.style.borderColor = '#475569';
+      thumb.classList.add('active-thumb');
     } else {
-      thumb.classList.remove('border-slate-600');
-      thumb.classList.add('border-transparent');
+      thumb.style.borderColor = 'transparent';
+      thumb.classList.remove('active-thumb');
     }
   });
+
+  // Scroll active thumbnail into view
+  var activeThumb = document.querySelector('[data-thumbnail-featured="' + currentSlideFeatured + '"]');
+  if (activeThumb) {
+    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+}
+
+function scrollThumbsFeatured(direction) {
+  var slider = document.getElementById('thumb-slider-featured');
+  if (slider) {
+    slider.scrollBy({ left: direction * 200, behavior: 'smooth' });
+  }
 }
 
 function changeSlideFeatured(n) {
   showSlideFeatured(currentSlideFeatured + n);
 }
 
-// Buy
- functionality - Add to cart and redirect to checkout
+// Add to cart and redirect to checkout
 document.addEventListener('DOMContentLoaded', function() {
   const productForm = document.getElementById('featured-product-form-{{ section.id }}');
   const addingText = {{ 'products.product.adding_to_cart' | t | json }};
@@ -571,7 +598,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 4,
       "unit": "px",
       "label": "t:sections.main-product.settings.padding_top.label",
-      "default": 36
+      "default": 48
     },
     {
       "type": "range",
@@ -581,7 +608,70 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 4,
       "unit": "px",
       "label": "t:sections.main-product.settings.padding_bottom.label",
-      "default": 36
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Expert Advisor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_advisor",
+      "label": "Show expert advisor",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "advisor_image",
+      "label": "Advisor image"
+    },
+    {
+      "type": "text",
+      "id": "advisor_name",
+      "label": "Advisor name",
+      "default": "Jan Koppers"
+    },
+    {
+      "type": "text",
+      "id": "advisor_title",
+      "label": "Advisor title",
+      "default": "Senior Mobility Advisor"
+    },
+    {
+      "type": "text",
+      "id": "advisor_rating",
+      "label": "Advisor rating",
+      "default": "4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "advisor_customers",
+      "label": "Number of customers",
+      "default": "500+"
+    },
+    {
+      "type": "textarea",
+      "id": "advisor_quote",
+      "label": "Advisor quote",
+      "default": "I'm here to help you find the perfect bike for your needs!"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_link",
+      "label": "WhatsApp link",
+      "default": "https://wa.me/31857444354?text=Hi%2C%20Ik%20ben%20ge%C3%AFnteresseerd%20in%20een%20Loopzo%20loopfiets%20voor%20volwassenen."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_button_text",
+      "label": "WhatsApp button text",
+      "default": "Chat with Jan on WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "response_time_text",
+      "label": "Response time text",
+      "default": "Average response time: <strong>2 minutes</strong>"
     }
   ],
   "presets": [

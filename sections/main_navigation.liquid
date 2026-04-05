@@ -6,9 +6,9 @@
             {%- comment -%} <div class="flex-shrink-0">
                 <a href="/" class="flex items-center">
                     {%- if section.settings.logo != blank -%}
-                        <img class="h-10 w-auto" src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" loading="lazy">
+                        <img class="h-10 w-auto" src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" >
                     {%- else -%}
-                        <img class="h-10 w-auto" src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" alt="{{ shop.name | default: 'Loopzo Logo' }}" loading="lazy">
+                        <img class="h-10 w-auto" src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo_light_logo.png" alt="{{ shop.name | default: 'Loopzo Logo' }}" >
                     {%- endif -%}
                 </a>
             </div>{%- endcomment -%}

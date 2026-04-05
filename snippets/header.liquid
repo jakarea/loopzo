@@ -1,14 +1,18 @@
-<div class="flex-shrink-0">
-    <a href="/" class="flex items-center">
+<div class="flex-shrink-0" style="background: transparent;">
+    <a href="{{ routes.root_url }}" class="flex items-center">
         <img
-            class="h-10 w-auto"
+            class="h-10 w-auto object-contain"
             src="{{ 'loopzo_light_logo.png' | asset_url }}"
-            alt="Loopzo Logo"
-            width="200"
+            alt="{{ shop.name }} Logo"
+            width="200" 
             height="80"
-            loading="eager">
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            style="background-color: transparent !important; display: block; border: none;">
     </a>
 </div>
+
 
 <div class="hidden md:flex md:items-center md:space-x-8">
     <a href="/" class="text-white font-bold text-sm hover:text-slate-200 transition">Home</a>
