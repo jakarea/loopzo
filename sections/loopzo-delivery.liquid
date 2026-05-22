@@ -1,0 +1,244 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="delivery_section section-{{ section.id }}-padding">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Heading - Centered -->
+        {% if section.settings.section_title != blank %}
+        <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                {{ section.settings.section_title }}
+            </h2>
+        </div>
+        {% endif %}
+
+        <div class="rounded-3xl overflow-hidden shadow-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+
+                <!-- Left: Image -->
+                <div class="relative min-h-[250px] sm:min-h-[300px] md:min-h-[350px] lg:min-h-[400px] overflow-hidden group" style="background: transparent;">
+                  {% if section.settings.delivery_image != blank %}
+                      {%- assign image = section.settings.delivery_image -%}
+                      {{ image | image_url: width: 1200 | image_tag:
+                          class: 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105',
+                          loading: 'lazy',
+                          decoding: 'async',
+                          style: 'background-color: transparent !important; object-position: center;',
+                          alt: section.settings.image_alt_text | default: section.settings.section_title
+                      }}
+                  {% else %}
+                      <img src="https://cdn.shopify.com/s/files/1/0983/3476/9483/files/loopzo-bike-delivery.jpg?v=1779451038"
+                          alt="{{ section.settings.image_alt_text | default: section.settings.section_title }}"
+                          width="1200"
+                          height="900"
+                          loading="lazy"
+                          decoding="async"
+                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          style="background: transparent !important;">
+                  {% endif %}
+                </div>
+
+                <!-- Right: Content -->
+                <div class="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 p-6 sm:p-8 md:p-10 lg:p-12 xl:p-16 flex flex-col justify-center relative overflow-hidden">
+                    <!-- Decorative pattern -->
+                    <div class="absolute top-0 right-0 w-96 h-96 bg-amber-400/8 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-orange-400/8 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-300/5 rounded-full blur-3xl"></div>
+
+                    <div class="relative z-10">
+                    {% if section.settings.badge_text != blank %}
+                    <div class="mb-6">
+                        <span class="text-amber-700 text-xs font-bold tracking-widest uppercase inline-block bg-white px-4 py-1.5 rounded-full shadow-sm border border-amber-200">
+                            {{ section.settings.badge_text }}
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    {% if section.settings.section_description != blank %}
+                    <div class="text-slate-700 text-base sm:text-lg leading-relaxed mb-8 font-normal">
+                        {{ section.settings.section_description }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Benefits List -->
+                    {% if section.settings.benefit_1 != blank or section.settings.benefit_2 != blank or section.settings.benefit_3 != blank %}
+                    <div class="space-y-4 mb-10">
+                        {% if section.settings.benefit_1 != blank %}
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-slate-800 text-base font-medium">{{ section.settings.benefit_1 }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% if section.settings.benefit_2 != blank %}
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-slate-800 text-base font-medium">{{ section.settings.benefit_2 }}</span>
+                        </div>
+                        {% endif %}
+
+                        {% if section.settings.benefit_3 != blank %}
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-slate-800 text-base font-medium">{{ section.settings.benefit_3 }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    {% if section.settings.button_text != blank %}
+                    <div class="pt-2 sm:pt-4">
+                        <a href="{{ section.settings.button_url | default: '#' }}" class="inline-flex items-center gap-2 sm:gap-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base px-5 sm:px-6 md:px-7 py-3 sm:py-3.5 rounded-xl transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl hover:-translate-y-1 group focus:outline-none focus:ring-4 focus:ring-slate-900/50">
+                            <span>{{ section.settings.button_text }}</span>
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    {% endif %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Delivery Section",
+  "tag": "section",
+  "class": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Delivery Section Settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "Promote your delivery service with an image (left) and content panel (right). Features include badge, title, description, benefit checklist, and CTA button."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Extra Service"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "100% Rijklaar Bezorgd voor €59"
+    },
+    {
+      "type": "richtext",
+      "id": "section_description",
+      "label": "Section Description",
+      "default": "<p>Volledig afgemonteerd thuisbezorgd én persoonlijk afgesteld op locatie voor slechts €59.</p>"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Geen montage nodig"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Direct klaar voor gebruik"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Persoonlijk afgesteld bij aflevering"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Meer weten over rijklaar bezorgen"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "delivery_image",
+      "label": "Delivery Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt_text",
+      "label": "Image Alt Text",
+      "default": "Loopzo rijklaar bezorgservice - volledig gemonteerd en afgesteld thuisbezorgd"
+    },
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Delivery Section",
+      "category": "Loopzo"
+    }
+  ]
+}
+{% endschema %}

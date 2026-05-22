@@ -181,6 +181,22 @@
         "padding_bottom": 80
       }
     },
+    "loopzo_delivery": {
+      "type": "loopzo-delivery",
+      "settings": {
+        "badge_text": "Extra Service",
+        "section_title": "100% Rijklaar Bezorgd voor €59",
+        "section_description": "<p>Volledig afgemonteerd thuisbezorgd én persoonlijk afgesteld op locatie voor slechts €59.</p>",
+        "benefit_1": "Geen montage nodig",
+        "benefit_2": "Direct klaar voor gebruik",
+        "benefit_3": "Persoonlijk afgesteld bij aflevering",
+        "button_text": "Meer weten over rijklaar bezorgen",
+        "button_url": "",
+        "image_alt_text": "Loopzo rijklaar bezorgservice - volledig gemonteerd en afgesteld thuisbezorgd",
+        "padding_top": 48,
+        "padding_bottom": 80
+      }
+    },
     "loopzo_faq": {
       "type": "loopzo-faq",
       "blocks": {
@@ -334,6 +350,7 @@
     "loopzo_delear_point",
     "loopzo_blog",
     "loopzo_thuja_ebike",
+    "loopzo_delivery",
     "loopzo_faq",
     "loopzo_cta",
     "loopzo_vanraam_history_JVAyAi"
