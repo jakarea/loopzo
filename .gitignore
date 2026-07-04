@@ -119,3 +119,9 @@ temp/
 *.backup
 *.old
 *~.nib
+
+# ============================================
+# LOCAL STORE DATA (Sync from Shopify)
+# ============================================
+local-data/
+.shopify-access-token

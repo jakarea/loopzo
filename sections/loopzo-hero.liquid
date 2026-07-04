@@ -16,7 +16,7 @@
   <section class="hero relative bg-gray-100" aria-label="{{ 'sections.loopzo_hero.aria_label' | t }}">
 
     {%- if section.settings.image != blank -%}
-    <div class="h-[50vh] sm:h-[55vh] md:h-[65vh] lg:h-[70vh] overflow-hidden bg-gray-200">
+    <div class="h-[45vh] sm:h-[60vh] md:h-[60vh] lg:h-[70vh] overflow-hidden bg-gray-200">
       <img
         src="{{ section.settings.image | image_url: width: 1920, height: 1080 }}"
         alt="{{ section.settings.image.alt | escape }}"
@@ -26,7 +26,7 @@
         height="1080">
     </div>
     {%- else -%}
-    <div class="h-[50vh] sm:h-[55vh] md:h-[65vh] lg:h-[70vh] overflow-hidden bg-gray-200">
+    <div class="h-[45vh] sm:h-[60vh] md:h-[60vh] lg:h-[70vh] overflow-hidden bg-gray-200">
       <img
         src="https://placehold.co/1900x600"
         alt="Default hero background"
