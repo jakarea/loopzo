@@ -1,0 +1,161 @@
+{
+  "sections": {
+    "main-product": {
+      "name": "Productinformatie",
+      "blocks": {
+        "text": {
+          "name": "Tekst",
+          "settings": {
+            "text": {
+              "label": "Tekst",
+              "default": "Tekstblok"
+            },
+            "text_style": {
+              "label": "Stijl",
+              "options__1": {
+                "label": "Lichaam"
+              },
+              "options__2": {
+                "label": "Ondertiteling"
+              },
+              "options__3": {
+                "label": "Hoofdletters"
+              }
+            }
+          }
+        },
+        "title": {
+          "name": "Titel"
+        },
+        "price": {
+          "name": "Prijs"
+        },
+        "quantity_selector": {
+          "name": "Hoeveelheidsselector"
+        },
+        "variant_picker": {
+          "name": "Variantkiezer",
+          "settings": {
+            "picker_type": {
+              "label": "Stijl",
+              "options__1": {
+                "label": "Uitklapmenu"
+              },
+              "options__2": {
+                "label": "Knoppen"
+              }
+            }
+          }
+        },
+        "buy_buttons": {
+          "name": "Koopknoppen",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Dynamische afrekenknoppen",
+              "info": "Klanten zien hun voorkeursbetaaloptie. [Meer informatie](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+            }
+          }
+        },
+        "description": {
+          "name": "Beschrijving"
+        },
+        "share": {
+          "name": "Delen",
+          "settings": {
+            "share_label": {
+              "label": "Deellabel"
+            }
+          }
+        },
+        "delivery_item": {
+          "name": "Bezorgingsartikel",
+          "settings": {
+            "icon_type": {
+              "label": "Pictogram",
+              "options__1": {
+                "label": "Vrachtwagen (Bezorging)"
+              },
+              "options__2": {
+                "label": "Gereedschap (Installatie)"
+              },
+              "options__3": {
+                "label": "Schild (Garantie)"
+              }
+            },
+            "title": {
+              "label": "Titel"
+            },
+            "description": {
+              "label": "Beschrijving"
+            },
+            "link_text": {
+              "label": "Linktekst (optioneel)",
+              "info": "Laat leeg om de link te verbergen"
+            },
+            "link_url": {
+              "label": "Link-URL (optioneel)"
+            }
+          }
+        }
+      },
+      "settings": {
+        "enable_sticky_info": {
+          "label": "Permanente informatie inschakelen"
+        },
+        "header__stock_status": "Voorraadbeschikbaarheid",
+        "show_stock_status": {
+          "label": "Voorraadbeschikbaarheid weergeven"
+        },
+        "show_inventory_quantity": {
+          "label": "Voorraadhoeveelheid weergeven indien laag",
+          "info": "Geeft bericht 'Slechts X beschikbaar' weer wanneer voorraad onder drempel ligt"
+        },
+        "low_stock_threshold": {
+          "label": "Drempel voor lage voorraad",
+          "info": "Wanneer 'Slechts X beschikbaar' bericht moet worden weergegeven"
+        },
+        "in_stock_text": {
+          "label": "Beschikbaretekst"
+        },
+        "out_of_stock_text": {
+          "label": "Niet beschikbare tekst"
+        },
+        "header__product_features": "Productfuncties",
+        "show_features": {
+          "label": "Belangrijkste functies weergeven"
+        },
+        "feature_1": {
+          "label": "Functie 1"
+        },
+        "feature_2": {
+          "label": "Functie 2"
+        },
+        "feature_3": {
+          "label": "Functie 3"
+        },
+        "feature_4": {
+          "label": "Functie 4"
+        },
+        "header__delivery_tab": "Bezorgingstab-inhoud",
+        "delivery_heading": {
+          "label": "Bezorgingstab-kop",
+          "info": "Voeg bezorgingsartikelen toe met behulp van de blokken 'Bezorgingsartikel' hieronder"
+        },
+        "header__padding": "Sectievulling",
+        "padding_top": {
+          "label": "Bovenste vulling"
+        },
+        "padding_bottom": {
+          "label": "Bodemvulling"
+        }
+      }
+    },
+    "all": {
+      "padding": {
+        "section_padding_heading": "Vulling",
+        "padding_top": "Bovenkant",
+        "padding_bottom": "Onderkant"
+      }
+    }
+  }
+}
