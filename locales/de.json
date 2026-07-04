@@ -264,6 +264,13 @@
       "buy_now": "Jetzt kaufen",
       "view_details": "Details anzeigen",
       "happy_customers": "zufriedene Kunden",
+      "advisor": {
+        "title": "Kundenservice / Berater",
+        "happy_customers": "<strong>{{ count }}</strong> zufriedene Kunden",
+        "quote": "“Fragen? Ich bin für Sie da und denke mit Ihnen mit.”",
+        "whatsapp_button_text": "Chatten Sie mit Tom auf WhatsApp",
+        "response_time": "Durchschnittliche Antwortzeit: <strong>2 Minuten</strong>"
+      },
       "adding_to_cart": "Wird hinzugefügt...",
       "add_to_cart_error": "Das Hinzufügen dieses Produkts zum Einkaufswagen ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
       "breadcrumb": "Breadcrumb-Navigation",

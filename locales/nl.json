@@ -262,6 +262,13 @@
       "buy_now": "Nu kopen",
       "view_details": "Bekijk details",
       "happy_customers": "tevreden klanten",
+      "advisor": {
+        "title": "Klantenservice / Adviseur",
+        "happy_customers": "<strong>{{ count }}</strong> tevreden klanten",
+        "quote": "“Vragen? Ik sta voor je klaar en denk met je mee.”",
+        "whatsapp_button_text": "Chat met Tom op WhatsApp",
+        "response_time": "Gemiddelde reactietijd: <strong>2 minuten</strong>"
+      },
       "adding_to_cart": "Bezig met toevoegen...",
       "add_to_cart_error": "Het toevoegen van dit product aan de winkelwagen is mislukt. Probeer het opnieuw.",
       "breadcrumb": "Broodkruimelnavigatie",
