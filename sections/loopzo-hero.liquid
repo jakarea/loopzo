@@ -38,10 +38,14 @@
     {%- endif -%}
 
     {%- if section.settings.brand_name != blank or section.settings.heading != blank or section.settings.subtext != blank or section.settings.button_1_text != blank or section.settings.button_2_text != blank -%}
+    {%- assign is_german = false -%}
+    {%- if request.locale.iso_code == 'de' or request.host contains 'loopzo.de' -%}
+      {%- assign is_german = true -%}
+    {%- endif -%}
     <div class="md:absolute md:inset-0 md:flex md:items-center">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 
-        <div id="herobox" class="relative bg-slate-800 text-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-10 max-w-lg mx-auto md:mx-0 md:ml-auto
+        <div id="herobox" class="relative bg-slate-800 text-white rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-10 max-w-xl mx-auto md:mx-0 md:ml-auto{% if is_german %} de-herobox{% endif %}
         -mt-16 sm:-mt-20 md:-mt-24 lg:mt-0 shadow-2xl backdrop-blur-sm" style="background-color: rgba(30, 41, 59, {{ section.settings.box_opacity | divided_by: 100.0 }});">
 
           {%- if section.settings.brand_name != blank -%}

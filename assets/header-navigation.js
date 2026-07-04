@@ -55,6 +55,18 @@ function toggleMobileMenu(menuId) {
 // Language Switcher Functions
 function getCurrentLanguage() {
     const hostname = window.location.hostname;
+    const pathname = window.location.pathname;
+
+    // Local preview: check pathname or search params
+    const isLocal = hostname.includes('localhost') || hostname.includes('127.0.0.1');
+    if (isLocal) {
+        if (pathname.startsWith('/de/') || pathname === '/de' || window.location.search.includes('lang=de')) {
+            return 'de';
+        }
+        return 'nl';
+    }
+
+    // Production: check hostname domain
     if (hostname.includes('loopzo.de')) {
         return 'de';
     }
@@ -116,20 +128,45 @@ function updateLanguageUI() {
 }
 
 function switchLanguage(lang) {
-    const langConfig = {
-        'nl': 'loopzo.nl',
-        'de': 'loopzo.de'
-    };
-
-    const targetDomain = langConfig[lang];
-    const currentPathname = window.location.pathname;
-    const currentSearch = window.location.search;
+    const hostname = window.location.hostname;
+    let pathname = window.location.pathname;
+    const search = window.location.search;
     const protocol = window.location.protocol;
 
-    // Build target URL
-    const targetUrl = `${protocol}//${targetDomain}${currentPathname}${currentSearch}`;
+    const isLocal = hostname.includes('localhost') || hostname.includes('127.0.0.1');
 
-    // Navigate to the target domain
+    // Clean current path from existing German language prefix
+    if (pathname.startsWith('/de/')) {
+        pathname = pathname.substring(3); // Keep path after /de
+    } else if (pathname === '/de') {
+        pathname = '/';
+    }
+
+    let targetDomain = '';
+    let targetPath = pathname;
+
+    if (isLocal) {
+        // Local switching using path prefixes
+        targetDomain = hostname;
+        if (lang === 'de') {
+            targetPath = '/de' + (pathname === '/' ? '' : pathname);
+        } else {
+            targetPath = pathname;
+        }
+    } else {
+        // Production switching using separate domains (no /de in URL)
+        if (lang === 'de') {
+            targetDomain = 'loopzo.de';
+        } else {
+            targetDomain = 'loopzo.nl';
+        }
+        targetPath = pathname;
+    }
+
+    // Build target URL
+    const targetUrl = `${protocol}//${targetDomain}${targetPath}${search}`;
+
+    console.log('Language Switch:', lang, '-> Redirecting to:', targetUrl);
     window.location.href = targetUrl;
 }
 
