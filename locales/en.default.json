@@ -1,15 +1,10 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin language editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "accessibility": {
-    "skip_to_text": "Skip to content"
+    "skip_to_text": "Skip to content",
+    "refresh_page": "Refresh page",
+    "link_messages": {
+      "new_window": "Opens in a new window"
+    }
   },
   "general": {
     "404": {
@@ -17,6 +12,9 @@
     },
     "breadcrumbs": {
       "home": "Home"
+    },
+    "share": {
+      "success_message": "Shared!"
     },
     "cart": {
       "title": "Shopping Cart",
@@ -47,10 +45,9 @@
       "add": "Add to cart",
       "adding": "Adding...",
       "sold_out": "Sold out",
-      "free_shipping": "Free shipping",
-      "secure_payment": "Secure payment",
-      "day_returns": "30-day returns",
-      "save": "Save"
+      "save": "Save",
+      "cart_error": "An error occurred with your cart. Please try again.",
+      "cart_quantity_error_html": "You cannot add more than {{ quantity }} of this item to your cart."
     }
   },
   "sections": {
@@ -140,6 +137,10 @@
     },
     "loopzo_features": {
       "aria_label": "Features section"
+    },
+    "slideshow": {
+      "pause_slideshow": "Pause slideshow",
+      "play_slideshow": "Play slideshow"
     },
     "loopzo_cta": {
       "title": "Ready to experience freedom on wheels?",
@@ -302,6 +303,11 @@
         "no_description": "No description available.",
         "specifications_heading": "Technical Specifications",
         "no_specifications": "No specifications added for this product yet."
+      },
+      "unavailable": "This product is unavailable",
+      "value_unavailable": "This option is unavailable",
+      "media": {
+        "image_available": "Image {{ number }} is now visible in gallery view"
       }
     }
   },
