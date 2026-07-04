@@ -1,0 +1,334 @@
+{
+  "sections": {
+    "main-product": {
+      "blocks": {
+        "share": {
+          "name": "Teilen",
+          "settings": {
+            "text": {
+              "default": "Teilen",
+              "label": "Teilen-Beschriftung"
+            }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "text_style": {
+              "label": "Textstil",
+              "options__1": {
+                "label": "Text"
+              },
+              "options__2": {
+                "label": "Untertitel"
+              },
+              "options__3": {
+                "label": "Großbuchstaben"
+              }
+            }
+          }
+        },
+        "title": {
+          "name": "Titel"
+        },
+        "price": {
+          "name": "Preis"
+        },
+        "quantity_selector": {
+          "name": "Mengenauswahl"
+        },
+        "variant_picker": {
+          "name": "Variantenauswahl",
+          "settings": {
+            "picker_type": {
+              "options__1": {
+                "label": "Dropdown-Menü"
+              },
+              "options__2": {
+                "label": "Schaltflächen"
+              }
+            }
+          }
+        },
+        "buy_buttons": {
+          "name": "Kaufschaltflächen",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Dynamische Checkout-Schaltflächen anzeigen",
+              "info": "Kunden sehen ihre bevorzugte Zahlungsmethode, wie PayPal oder Apple Pay."
+            }
+          }
+        },
+        "description": {
+          "name": "Beschreibung"
+        }
+      },
+      "settings": {
+        "enable_sticky_info": {
+          "label": "Angeheftete Informationen aktivieren"
+        }
+      }
+    },
+    "all": {
+      "padding": {
+        "section_padding_heading": "Abschnittabstand",
+        "padding_top": "Abstand oben",
+        "padding_bottom": "Abstand unten"
+      }
+    },
+    "loopzo_hero": {
+      "aria_label": "Hero-Abschnitt",
+      "brand_name_aria_label": "Markenname"
+    },
+    "loopzo_features": {
+      "aria_label": "Funktionsabschnitt"
+    },
+    "slideshow": {
+      "pause_slideshow": "Diashow pausieren",
+      "play_slideshow": "Diashow abspielen"
+    },
+    "loopzo_cta": {
+      "title": "Bereit, Freiheit auf Rädern zu erleben?",
+      "description": "Planen Sie eine kostenlose Beratung und Probefahrt. Unsere Experten helfen Ihnen, das perfekte, speziell angepasste Fahrrad zu finden.",
+      "schedule_test_ride": "Probefahrt vereinbaren",
+      "chat_whatsapp": "Auf WhatsApp chatten",
+      "customer_service": {
+        "title": "Kundenservice",
+        "description": "Unser Expertenteam hilft Ihnen gerne, die perfekte speziell angepasste Fahrradlösung zu finden."
+      },
+      "showroom": {
+        "title": "Ausstellungsraum besuchen",
+        "description": "Erleben Sie unsere Fahrräder vor Ort. Probefahrten sind nach Vereinbarung möglich."
+      },
+      "customization": {
+        "title": "Anpassungen",
+        "description": "Maßgeschneiderte Anpassungen für perfekte Passform und optimalen Komfort."
+      },
+      "support": {
+        "title": "Lebenslange Unterstützung",
+        "description": "Wir stehen hinter jedem Fahrrad mit umfassender Unterstützung und Wartung."
+      }
+    },
+    "loopzo_product_showcase": {
+      "title": "Unsere speziell angepassten Fahrräder",
+      "subtitle": "Entwickelt für Unabhängigkeit, gestaltet für Freiheit",
+      "view_all": "Alle Produkte anzeigen"
+    },
+    "loopzo_history": {
+      "title": "Unsere Geschichte",
+      "subtitle": "Von Leidenschaft zur Innovation",
+      "read_more": "Mehr lesen"
+    },
+    "loopzo_thuja_ebike": {
+      "title": "Thuja E-Bike",
+      "subtitle": "Revolutionäres speziell angepasstes Elektrofahrrad",
+      "description": "Erleben Sie die perfekte Kombination aus Innovation und Zugänglichkeit mit unserem Top-Modell Thuja E-Bike.",
+      "learn_more": "Mehr erfahren",
+      "configure": "Konfigurieren Sie Ihres"
+    },
+    "loopzo_product_info": {
+      "title": "Warum Loopzo wählen?",
+      "subtitle": "Innovation trifft auf Zugänglichkeit",
+      "quality": {
+        "title": "Premium-Qualität",
+        "description": "Aus den besten Materialien und Komponenten für dauerhafte Haltbarkeit gefertigt"
+      },
+      "customization": {
+        "title": "Vollständige Anpassung",
+        "description": "Individuell auf Ihre spezifischen Anforderungen und Vorlieben zugeschnitten"
+      },
+      "support": {
+        "title": "Fachkundige Unterstützung",
+        "description": "Ein engagiertes Team, das Sie bei jedem Schritt unterstützt"
+      },
+      "warranty": {
+        "title": "10 Jahre Garantie",
+        "description": "Sicherheit durch unser umfassendes Garantieprogramm"
+      }
+    },
+    "loopzo_founder_talk": {
+      "title": "Eine Botschaft von unserem Gründer",
+      "subtitle": "Freiheit schaffen, ein Fahrrad auf einmal",
+      "watch_video": "Video ansehen"
+    },
+    "loopzo_blog": {
+      "title": "Aktuelle Geschichten",
+      "subtitle": "Tipps, Geschichten und Einblicke aus der Loopzo-Gemeinschaft",
+      "read_more": "Mehr lesen",
+      "view_all": "Alle Artikel anzeigen"
+    },
+    "loopzo_faq": {
+      "title": "Häufig gestellte Fragen",
+      "subtitle": "Alles, was Sie über unsere speziell angepassten Fahrräder wissen müssen",
+      "expand": "Frage erweitern",
+      "collapse": "Frage reduzieren"
+    },
+    "loopzo_footer": {
+      "navigation": "Navigation",
+      "products": "Produkte",
+      "company": "Unternehmen",
+      "support": "Unterstützung",
+      "contact": "Kontakt",
+      "follow_us": "Folgen Sie uns",
+      "rating_text": "Unsere Kunden bewerten uns mit 4,3 von 5 Sternen",
+      "view_reviews": "Google-Bewertungen anzeigen",
+      "nav": {
+        "tricycles": "Dreiräder",
+        "tandems": "Nebeneinander-Tandem",
+        "low_step": "Tiefsteiger",
+        "bike_selector": "Fahrradwähler",
+        "purchasing_process": "Kaufprozess",
+        "dealers": "Händler",
+        "test_ride": "Probefahrt",
+        "configure": "Konfigurieren Sie Ihr Fahrrad",
+        "warranty": "Garantie",
+        "maintenance": "Wartung",
+        "spare_parts": "Ersatzteile",
+        "faq": "Häufig gestellte Fragen",
+        "about_us": "Über uns",
+        "history": "Geschichte",
+        "innovation": "Innovation",
+        "news": "Nachrichten"
+      },
+      "newsletter": {
+        "title": "Bleiben Sie in der Schleife",
+        "description": "Erhalten Sie die neuesten Nachrichten, Produkte und exklusive Angebote in Ihrem Posteingang.",
+        "placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+        "subscribe": "Abonnieren",
+        "success": "Vielen Dank für Ihr Abonnement!",
+        "error": "Bitte geben Sie eine gültige E-Mail-Adresse ein."
+      },
+      "copyright": "© {{ year }} Loopzo. Alle Rechte vorbehalten.",
+      "privacy_policy": "Datenschutzrichtlinie",
+      "terms_of_service": "Nutzungsbedingungen"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Direkt zum Inhalt springen",
+    "refresh_page": "Seite aktualisieren",
+    "link_messages": {
+      "new_window": "Wird in einem neuen Fenster geöffnet"
+    }
+  },
+  "general": {
+    "404": {
+      "title": "Seite nicht gefunden"
+    },
+    "breadcrumbs": {
+      "home": "Startseite"
+    },
+    "share": {
+      "success_message": "Geteilt!"
+    },
+    "cart": {
+      "title": "Einkaufswagen",
+      "item_count": "{{ count }} Artikel in Ihrem Einkaufswagen",
+      "label_product": "Produkt",
+      "label_price": "Preis",
+      "label_quantity": "Menge",
+      "label_total": "Gesamt",
+      "subtotal": "Zwischensumme",
+      "free_shipping": "Versand kostenlos",
+      "secure_payment": "Sichere Zahlung",
+      "day_returns": "30 Tage Rückgabe",
+      "discount": "Rabatt",
+      "order_summary": "Bestellübersicht",
+      "shipping_note": "Versand- und Steuern werden beim Checkout berechnet.",
+      "checkout": "Zur Kasse",
+      "update": "Einkaufswagen aktualisieren",
+      "continue_shopping": "Weiter einkaufen",
+      "view_cart": "Einkaufswagen anzeigen",
+      "remove": "Entfernen",
+      "empty_title": "Ihr Einkaufswagen ist leer",
+      "empty_message": "Es sieht so aus, als ob Sie noch nichts zu Ihrem Einkaufswagen hinzugefügt haben. Durchsuchen Sie unsere Produkte und finden Sie etwas, das Ihnen gefällt.",
+      "quantity_label": "Menge für {{ product }}",
+      "increase": "Erhöhen Sie die Menge für {{ product }}",
+      "decrease": "Verringern Sie die Menge für {{ product }}",
+      "discounts": "Rabatte",
+      "you_might_also_like": "Vervollständigen Sie Ihre Fahrt",
+      "add": "In den Wagen",
+      "adding": "Wird hinzugefügt...",
+      "sold_out": "Ausverkauft",
+      "save": "Sparen",
+      "cart_error": "Es ist ein Fehler mit Ihrem Einkaufswagen aufgetreten. Bitte versuchen Sie es erneut.",
+      "cart_quantity_error_html": "Sie können nicht mehr als {{ quantity }} dieses Artikels zu Ihrem Einkaufswagen hinzufügen."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "In den Wagen",
+      "sold_out": "Ausverkauft",
+      "buy_now": "Jetzt kaufen",
+      "view_details": "Details anzeigen",
+      "happy_customers": "zufriedene Kunden",
+      "adding_to_cart": "Wird hinzugefügt...",
+      "add_to_cart_error": "Das Hinzufügen dieses Produkts zum Einkaufswagen ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "breadcrumb": "Breadcrumb-Navigation",
+      "products": "Speziell angepasste Fahrräder",
+      "sale_badge": "Sparen {{ percentage }}%",
+      "reviews_count": {
+        "one": "({{ count }} Bewertung)",
+        "other": "({{ count }} Bewertungen)"
+      },
+      "previous_image": "Vorheriges Bild",
+      "next_image": "Nächstes Bild",
+      "quantity": {
+        "label": "Menge",
+        "increase": "Erhöhen Sie die Menge für {{ product }}",
+        "decrease": "Verringern Sie die Menge für {{ product }}"
+      },
+      "price": {
+        "regular_price": "Normalpreis",
+        "sale_price": "Verkaufspreis",
+        "from_price_html": "Ab {{ price }}"
+      },
+      "stock": {
+        "in_stock": "Auf Lager - Versandbereit",
+        "out_of_stock": "Nicht auf Lager",
+        "low_stock": "Nur noch {{ quantity }} verfügbar"
+      },
+      "trust_badges": {
+        "warranty": "10 Jahre Garantie",
+        "free_shipping": "Versand kostenlos",
+        "returns": "30 Tage Rückgabe"
+      },
+      "tabs": {
+        "description": "Beschreibung",
+        "specifications": "Spezifikationen",
+        "reviews": "Bewertungen ({{ count }})",
+        "no_description": "Keine Beschreibung verfügbar.",
+        "specifications_heading": "Technische Spezifikationen",
+        "no_specifications": "Für dieses Produkt wurden noch keine Spezifikationen hinzugefügt."
+      },
+      "unavailable": "Dieses Produkt ist nicht verfügbar",
+      "value_unavailable": "Diese Option ist nicht verfügbar",
+      "media": {
+        "image_available": "Bild {{ number }} ist jetzt in der Galerieansicht sichtbar"
+      }
+    }
+  },
+  "blogs": {
+    "article": {
+      "comments": "{{ count }} Kommentare",
+      "comment_form_title": "Hinterlassen Sie einen Kommentar",
+      "name": "Name",
+      "email": "E-Mail",
+      "message": "Nachricht",
+      "post": "Kommentar posten",
+      "moderated": "Bitte beachten Sie, dass Kommentare vor der Veröffentlichung genehmigt werden müssen.",
+      "success": "Ihr Kommentar wurde erfolgreich gepostet! Vielen Dank!",
+      "success_moderated": "Ihr Kommentar wurde erfolgreich gepostet. Wir werden ihn bald veröffentlichen, da unser Blog moderiert wird.",
+      "back_to_blog": "Zurück zu {{ title }}"
+    }
+  },
+  "templates": {
+    "contact": {
+      "form": {
+        "error_heading": "Bitte korrigieren Sie Folgendes:"
+      }
+    }
+  }
+}

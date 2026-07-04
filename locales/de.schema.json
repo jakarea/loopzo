@@ -1,0 +1,161 @@
+{
+  "sections": {
+    "main-product": {
+      "name": "Produktinformationen",
+      "blocks": {
+        "text": {
+          "name": "Text",
+          "settings": {
+            "text": {
+              "label": "Text",
+              "default": "Textblock"
+            },
+            "text_style": {
+              "label": "Stil",
+              "options__1": {
+                "label": "Text"
+              },
+              "options__2": {
+                "label": "Untertitel"
+              },
+              "options__3": {
+                "label": "Großbuchstaben"
+              }
+            }
+          }
+        },
+        "title": {
+          "name": "Titel"
+        },
+        "price": {
+          "name": "Preis"
+        },
+        "quantity_selector": {
+          "name": "Mengenauswahl"
+        },
+        "variant_picker": {
+          "name": "Variantenauswahl",
+          "settings": {
+            "picker_type": {
+              "label": "Stil",
+              "options__1": {
+                "label": "Dropdown-Menü"
+              },
+              "options__2": {
+                "label": "Schaltflächen"
+              }
+            }
+          }
+        },
+        "buy_buttons": {
+          "name": "Kaufschaltflächen",
+          "settings": {
+            "show_dynamic_checkout": {
+              "label": "Dynamische Checkout-Schaltflächen",
+              "info": "Kunden sehen ihre bevorzugte Zahlungsoption. [Mehr erfahren](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+            }
+          }
+        },
+        "description": {
+          "name": "Beschreibung"
+        },
+        "share": {
+          "name": "Teilen",
+          "settings": {
+            "share_label": {
+              "label": "Teilen-Beschriftung"
+            }
+          }
+        },
+        "delivery_item": {
+          "name": "Lieferartikel",
+          "settings": {
+            "icon_type": {
+              "label": "Symbol",
+              "options__1": {
+                "label": "Laster (Lieferung)"
+              },
+              "options__2": {
+                "label": "Werkzeuge (Installation)"
+              },
+              "options__3": {
+                "label": "Schild (Garantie)"
+              }
+            },
+            "title": {
+              "label": "Titel"
+            },
+            "description": {
+              "label": "Beschreibung"
+            },
+            "link_text": {
+              "label": "Link-Text (optional)",
+              "info": "Leer lassen, um den Link zu verbergen"
+            },
+            "link_url": {
+              "label": "Link-URL (optional)"
+            }
+          }
+        }
+      },
+      "settings": {
+        "enable_sticky_info": {
+          "label": "Angeheftete Informationen aktivieren"
+        },
+        "header__stock_status": "Lagerbestand",
+        "show_stock_status": {
+          "label": "Lagerstatus anzeigen"
+        },
+        "show_inventory_quantity": {
+          "label": "Bestandsmenge anzeigen, wenn niedrig",
+          "info": "Zeigt die Meldung 'Nur X verfügbar' an, wenn der Bestand unter dem Schwellenwert liegt"
+        },
+        "low_stock_threshold": {
+          "label": "Niedrige Bestandsschwelle",
+          "info": "Wann die Meldung 'Nur X verfügbar' angezeigt werden soll"
+        },
+        "in_stock_text": {
+          "label": "Text für verfügbar"
+        },
+        "out_of_stock_text": {
+          "label": "Text für nicht verfügbar"
+        },
+        "header__product_features": "Produktfunktionen",
+        "show_features": {
+          "label": "Wichtige Funktionen anzeigen"
+        },
+        "feature_1": {
+          "label": "Funktion 1"
+        },
+        "feature_2": {
+          "label": "Funktion 2"
+        },
+        "feature_3": {
+          "label": "Funktion 3"
+        },
+        "feature_4": {
+          "label": "Funktion 4"
+        },
+        "header__delivery_tab": "Lieferreitertabinhalt",
+        "delivery_heading": {
+          "label": "Lieferreitertabelüberschrift",
+          "info": "Fügen Sie Lieferartikel mit den folgenden 'Lieferartikel'-Blöcken hinzu"
+        },
+        "header__padding": "Abschnittabstand",
+        "padding_top": {
+          "label": "Abstand oben"
+        },
+        "padding_bottom": {
+          "label": "Abstand unten"
+        }
+      }
+    },
+    "all": {
+      "padding": {
+        "section_padding_heading": "Abstand",
+        "padding_top": "Oben",
+        "padding_bottom": "Unten"
+      }
+    }
+  }
+}
