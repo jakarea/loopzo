@@ -158,21 +158,58 @@
                             <a href="/blogs/news" class="text-white font-bold text-sm hover:text-slate-200 transition">News</a>
                         </div>
 
-                        <!-- Language Switcher (Desktop - Pill Shape) -->
-                        <div class="hidden md:flex md:items-center" style="position: relative; z-index: 40;">
-                            <div class="bg-slate-700 rounded-full p-1 flex items-center gap-1">
-                                <a href="javascript:switchLanguage('nl')" class="px-3 py-1.5 rounded-full text-sm font-bold transition duration-300 flex items-center gap-1.5" id="lang-nl-pill">
-                                    <span style="font-size: 16px;">🇳🇱</span>
-                                    <span>Dutch</span>
-                                </a>
-                                <a href="javascript:switchLanguage('de')" class="px-3 py-1.5 rounded-full text-sm font-bold transition duration-300 flex items-center gap-1.5" id="lang-de-pill">
-                                    <span style="font-size: 16px;">🇩🇪</span>
-                                    <span>Deutsch</span>
-                                </a>
+                        <!-- Language Switcher Dropdown (Desktop) -->
+                        <div id="language-switcher-container" class="relative inline-block text-left hidden md:block" style="z-index: 40;">
+                            <button id="lang-dropdown-btn" onclick="toggleLanguageDropdown()" type="button" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold text-white hover:bg-slate-700 transition duration-300 focus:outline-none" aria-expanded="false" aria-haspopup="true">
+                                <span id="active-lang-flag">🇳🇱</span>
+                                <span id="active-lang-name">Dutch</span>
+                                <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-2 w-36 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                                <div class="py-1" role="none">
+                                    <a href="javascript:switchLanguage('nl')" class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-slate-100 hover:text-slate-900 transition font-medium" role="menuitem" id="dropdown-lang-nl">
+                                        <span style="font-size: 16px;">🇳🇱</span>
+                                        <span>Dutch</span>
+                                    </a>
+                                    <a href="javascript:switchLanguage('de')" class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-slate-100 hover:text-slate-900 transition font-medium" role="menuitem" id="dropdown-lang-de">
+                                        <span style="font-size: 16px;">🇩🇪</span>
+                                        <span>Deutsch</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- Mobile: Language Switcher + Menu Toggle -->
                         <div class="md:hidden flex items-center gap-3">
+                            <!-- Mobile Language Switcher Dropdown -->
+                            <div id="mobile-language-switcher-container" class="relative inline-block text-left" style="z-index: 40;">
+                                <button id="mobile-lang-dropdown-btn" onclick="toggleMobileLanguageDropdown()" type="button" class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-sm font-bold text-white hover:bg-slate-700 transition duration-300 focus:outline-none" aria-expanded="false" aria-haspopup="true">
+                                    <span id="mobile-active-lang-flag">🇳🇱</span>
+                                    <span class="text-xs uppercase font-extrabold tracking-wider" id="mobile-active-lang-code">NL</span>
+                                    <svg class="w-3 h-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown Menu -->
+                                <div id="mobile-lang-dropdown-menu" class="hidden absolute right-0 mt-2 w-28 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                                    <div class="py-1" role="none">
+                                        <a href="javascript:switchLanguage('nl')" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-slate-100 hover:text-slate-900 transition font-medium" role="menuitem" id="mobile-dropdown-lang-nl">
+                                            <span style="font-size: 14px;">🇳🇱</span>
+                                            <span>NL</span>
+                                        </a>
+                                        <a href="javascript:switchLanguage('de')" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-slate-100 hover:text-slate-900 transition font-medium" role="menuitem" id="mobile-dropdown-lang-de">
+                                            <span style="font-size: 14px;">🇩🇪</span>
+                                            <span>DE</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button id="mobile-menu-button" onclick="toggleMenu()" type="button"
                                 class="text-white hover:text-slate-300 focus:outline-none" aria-controls="mobile-menu"
                                 aria-expanded="false">
@@ -207,22 +244,7 @@
                         <a href="#features" class="text-white block px-4 py-3 rounded-md text-base font-medium min-h-[48px] flex items-center">Customer experiences</a>
                         <a href="/blogs/news" class="text-white block px-4 py-3 rounded-md text-base font-medium min-h-[48px] flex items-center">News</a>
 
-                        <!-- Mobile Language Switcher -->
-                        <div class="border-t border-slate-600 pt-3 mt-3">
-                            <div class="px-2">
-                                <p class="text-gray-400 text-xs font-semibold mb-2 px-2">LANGUAGE</p>
-                                <div class="flex gap-2">
-                                    <a href="javascript:switchLanguage('nl')" class="flex-1 block px-4 py-2.5 rounded-lg text-center text-sm text-white bg-slate-700 hover:bg-slate-600 transition min-h-[44px] flex items-center justify-center gap-2" id="mobile-lang-nl">
-                                        <span style="font-size: 18px;">🇳🇱</span>
-                                        <span>Dutch</span>
-                                    </a>
-                                    <a href="javascript:switchLanguage('de')" class="flex-1 block px-4 py-2.5 rounded-lg text-center text-sm text-gray-300 hover:text-white hover:bg-slate-700 transition min-h-[44px] flex items-center justify-center gap-2" id="mobile-lang-de">
-                                        <span style="font-size: 18px;">🇩🇪</span>
-                                        <span>Deutsch</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 </nav>
@@ -267,19 +289,24 @@ function updateLanguageUI() {
 
     const config = langConfig[currentLang];
 
-    // Update desktop UI
-    const flagElement = document.getElementById('current-lang-flag');
-    const nameElement = document.getElementById('current-lang-name');
-    if (flagElement) flagElement.textContent = config.flag;
-    if (nameElement) nameElement.textContent = config.name;
+    // Update active dropdown button display (desktop)
+    const activeFlagEl = document.getElementById('active-lang-flag');
+    const activeNameEl = document.getElementById('active-lang-name');
+    if (activeFlagEl) activeFlagEl.textContent = config.flag;
+    if (activeNameEl) activeNameEl.textContent = config.name;
 
-    // Update dropdown button states
-    document.querySelectorAll('[id^="lang-"]').forEach(el => {
-        el.classList.remove('bg-slate-700');
-        if (el.id === `lang-${currentLang}`) {
-            el.classList.add('bg-slate-700');
-        }
-    });
+    // Highlight active item in the dropdown
+    const activeDropdownItem = document.getElementById(`dropdown-lang-${currentLang}`);
+    const inactiveDropdownItem = document.getElementById(`dropdown-lang-${currentLang === 'nl' ? 'de' : 'nl'}`);
+
+    if (activeDropdownItem) {
+        activeDropdownItem.classList.add('bg-slate-100', 'font-semibold', 'text-slate-900');
+        activeDropdownItem.classList.remove('text-gray-700');
+    }
+    if (inactiveDropdownItem) {
+        inactiveDropdownItem.classList.remove('bg-slate-100', 'font-semibold', 'text-slate-900');
+        inactiveDropdownItem.classList.add('text-gray-700');
+    }
 
     // Update mobile button states
     document.querySelectorAll('[id^="mobile-lang-"]').forEach(el => {
@@ -293,6 +320,35 @@ function updateLanguageUI() {
         }
     });
 }
+
+function toggleLanguageDropdown() {
+    const menu = document.getElementById('lang-dropdown-menu');
+    const button = document.getElementById('lang-dropdown-btn');
+    if (!menu || !button) return;
+
+    const isHidden = menu.classList.contains('hidden');
+    if (isHidden) {
+        menu.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+    } else {
+        menu.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Close dropdown on click outside
+document.addEventListener('click', function(event) {
+    const container = document.getElementById('language-switcher-container');
+    const menu = document.getElementById('lang-dropdown-menu');
+    const button = document.getElementById('lang-dropdown-btn');
+
+    if (container && !container.contains(event.target)) {
+        if (menu && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+            if (button) button.setAttribute('aria-expanded', 'false');
+        }
+    }
+});
 
 function switchLanguage(lang) {
     const langConfig = {

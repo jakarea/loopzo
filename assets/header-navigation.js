@@ -75,29 +75,32 @@ function getCurrentLanguage() {
 
 function updateLanguageUI() {
     const currentLang = getCurrentLanguage();
+    const langConfig = {
+        'nl': { flag: '🇳🇱', name: 'Dutch' },
+        'de': { flag: '🇩🇪', name: 'Deutsch' }
+    };
 
-    // Update pill buttons (desktop)
-    const nlPillBtn = document.getElementById('lang-nl-pill');
-    const dePillBtn = document.getElementById('lang-de-pill');
-
-    if (nlPillBtn) {
-        if (currentLang === 'nl') {
-            nlPillBtn.classList.add('bg-white', 'text-slate-800');
-            nlPillBtn.classList.remove('text-white', 'hover:bg-slate-600');
-        } else {
-            nlPillBtn.classList.remove('bg-white', 'text-slate-800');
-            nlPillBtn.classList.add('text-white', 'hover:bg-slate-600');
-        }
+    // Update active dropdown button display (desktop)
+    const activeFlagEl = document.getElementById('active-lang-flag');
+    const activeNameEl = document.getElementById('active-lang-name');
+    if (activeFlagEl && langConfig[currentLang]) {
+        activeFlagEl.textContent = langConfig[currentLang].flag;
+    }
+    if (activeNameEl && langConfig[currentLang]) {
+        activeNameEl.textContent = langConfig[currentLang].name;
     }
 
-    if (dePillBtn) {
-        if (currentLang === 'de') {
-            dePillBtn.classList.add('bg-white', 'text-slate-800');
-            dePillBtn.classList.remove('text-white', 'hover:bg-slate-600');
-        } else {
-            dePillBtn.classList.remove('bg-white', 'text-slate-800');
-            dePillBtn.classList.add('text-white', 'hover:bg-slate-600');
-        }
+    // Highlight active item in the dropdown
+    const activeDropdownItem = document.getElementById(`dropdown-lang-${currentLang}`);
+    const inactiveDropdownItem = document.getElementById(`dropdown-lang-${currentLang === 'nl' ? 'de' : 'nl'}`);
+
+    if (activeDropdownItem) {
+        activeDropdownItem.classList.add('bg-slate-100', 'font-semibold', 'text-slate-900');
+        activeDropdownItem.classList.remove('text-gray-700');
+    }
+    if (inactiveDropdownItem) {
+        inactiveDropdownItem.classList.remove('bg-slate-100', 'font-semibold', 'text-slate-900');
+        inactiveDropdownItem.classList.add('text-gray-700');
     }
 
     // Update mobile button states
@@ -124,6 +127,29 @@ function updateLanguageUI() {
             mobilDeBtn.classList.remove('text-gray-300', 'hover:text-white', 'hover:bg-slate-700');
             mobilDeBtn.classList.add('text-white');
         }
+    }
+
+    // Update active dropdown button display (mobile header)
+    const mobileActiveFlagEl = document.getElementById('mobile-active-lang-flag');
+    const mobileActiveCodeEl = document.getElementById('mobile-active-lang-code');
+    if (mobileActiveFlagEl && langConfig[currentLang]) {
+        mobileActiveFlagEl.textContent = langConfig[currentLang].flag;
+    }
+    if (mobileActiveCodeEl) {
+        mobileActiveCodeEl.textContent = currentLang.toUpperCase();
+    }
+
+    // Highlight active item in the mobile dropdown
+    const activeMobileDropdownItem = document.getElementById(`mobile-dropdown-lang-${currentLang}`);
+    const inactiveMobileDropdownItem = document.getElementById(`mobile-dropdown-lang-${currentLang === 'nl' ? 'de' : 'nl'}`);
+
+    if (activeMobileDropdownItem) {
+        activeMobileDropdownItem.classList.add('bg-slate-100', 'font-semibold', 'text-slate-900');
+        activeMobileDropdownItem.classList.remove('text-gray-700');
+    }
+    if (inactiveMobileDropdownItem) {
+        inactiveMobileDropdownItem.classList.remove('bg-slate-100', 'font-semibold', 'text-slate-900');
+        inactiveMobileDropdownItem.classList.add('text-gray-700');
     }
 }
 
@@ -170,6 +196,61 @@ function switchLanguage(lang) {
     window.location.href = targetUrl;
 }
 
+function toggleLanguageDropdown() {
+    const menu = document.getElementById('lang-dropdown-menu');
+    const button = document.getElementById('lang-dropdown-btn');
+    if (!menu || !button) return;
+
+    const isHidden = menu.classList.contains('hidden');
+    if (isHidden) {
+        menu.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+    } else {
+        menu.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+    }
+}
+
+function toggleMobileLanguageDropdown() {
+    const menu = document.getElementById('mobile-lang-dropdown-menu');
+    const button = document.getElementById('mobile-lang-dropdown-btn');
+    if (!menu || !button) return;
+
+    const isHidden = menu.classList.contains('hidden');
+    if (isHidden) {
+        menu.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+    } else {
+        menu.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Close dropdown on click outside
+document.addEventListener('click', function(event) {
+    const container = document.getElementById('language-switcher-container');
+    const menu = document.getElementById('lang-dropdown-menu');
+    const button = document.getElementById('lang-dropdown-btn');
+
+    if (container && !container.contains(event.target)) {
+        if (menu && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+            if (button) button.setAttribute('aria-expanded', 'false');
+        }
+    }
+
+    const mobileContainer = document.getElementById('mobile-language-switcher-container');
+    const mobileMenu = document.getElementById('mobile-lang-dropdown-menu');
+    const mobileButton = document.getElementById('mobile-lang-dropdown-btn');
+
+    if (mobileContainer && !mobileContainer.contains(event.target)) {
+        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            if (mobileButton) mobileButton.setAttribute('aria-expanded', 'false');
+        }
+    }
+});
+
 // Initialize language UI on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateLanguageUI();
@@ -188,3 +269,5 @@ window.toggleMobileMenu = toggleMobileMenu;
 window.getCurrentLanguage = getCurrentLanguage;
 window.updateLanguageUI = updateLanguageUI;
 window.switchLanguage = switchLanguage;
+window.toggleLanguageDropdown = toggleLanguageDropdown;
+window.toggleMobileLanguageDropdown = toggleMobileLanguageDropdown;
