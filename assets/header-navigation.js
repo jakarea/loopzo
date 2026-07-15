@@ -76,15 +76,15 @@ function getCurrentLanguage() {
 function updateLanguageUI() {
     const currentLang = getCurrentLanguage();
     const langConfig = {
-        'nl': { flag: '🇳🇱', name: 'Dutch' },
-        'de': { flag: '🇩🇪', name: 'Deutsch' }
+        'nl': { flag: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" class="w-4 h-3 rounded-sm flex-shrink-0 shadow-sm" style="min-width: 16px;"><rect width="3" height="2" fill="#21468B"/><rect width="3" height="1.333" fill="#FFF"/><rect width="3" height="0.667" fill="#AE1C28"/></svg>', name: 'Dutch' },
+        'de': { flag: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" class="w-4 h-3 rounded-sm flex-shrink-0 shadow-sm" style="min-width: 16px;"><rect width="3" height="2" fill="#FFCE00"/><rect width="3" height="1.333" fill="#D00"/><rect width="3" height="0.667" fill="#000"/></svg>', name: 'Deutsch' }
     };
 
     // Update active dropdown button display (desktop)
     const activeFlagEl = document.getElementById('active-lang-flag');
     const activeNameEl = document.getElementById('active-lang-name');
     if (activeFlagEl && langConfig[currentLang]) {
-        activeFlagEl.textContent = langConfig[currentLang].flag;
+        activeFlagEl.innerHTML = langConfig[currentLang].flag;
     }
     if (activeNameEl && langConfig[currentLang]) {
         activeNameEl.textContent = langConfig[currentLang].name;
@@ -133,7 +133,7 @@ function updateLanguageUI() {
     const mobileActiveFlagEl = document.getElementById('mobile-active-lang-flag');
     const mobileActiveCodeEl = document.getElementById('mobile-active-lang-code');
     if (mobileActiveFlagEl && langConfig[currentLang]) {
-        mobileActiveFlagEl.textContent = langConfig[currentLang].flag;
+        mobileActiveFlagEl.innerHTML = langConfig[currentLang].flag;
     }
     if (mobileActiveCodeEl) {
         mobileActiveCodeEl.textContent = currentLang.toUpperCase();
